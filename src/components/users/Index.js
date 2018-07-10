@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class UsersIndex extends React.Component {
 
@@ -22,8 +23,16 @@ class UsersIndex extends React.Component {
         <div className="columns is-multiline">
           {this.state.users.map(user =>
             <div key={user._id} className="column">
-              <img src={user.image} alt={user.firstName} />
-              <h1 className="title is-5">{user.firstName} {user.lastName}</h1>
+              <Link to={`/users/${user._id}`}>
+                <div className="card">
+                  <div className="card-image">
+                    <img src={user.image} alt={user.firstName} />
+                  </div>
+                  <div className="card-content">
+                    <h1 className="title is-5">{user.firstName} {user.lastName}</h1>
+                  </div>
+                </div>
+              </Link>
             </div>
           )}
         </div>
