@@ -7,16 +7,11 @@ class AuthRegister extends React.Component {
 
   handleChange = ({ target: { name, value }}) => {
     this.setState({ [name]: value });
-    console.log(this.state);
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    axios({
-      url: '/api/register',
-      method: 'POST',
-      data: this.state
-    })
+    axios.post('/api/register', this.state)
       .then(() => {
         this.props.history.push('/login');
       });
