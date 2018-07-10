@@ -1,12 +1,13 @@
 import React from 'react';
 
 import GoogleMap from '../common/GoogleMap';
+import GoogleAutocomplete from '../common/GoogleAutocomplete';
 
 const Home = () => {
   return (
     <main>
       <h1>Find recommendations</h1>
-      <input className="input" placeholder="Enter a city..."/>
+      <GoogleAutocomplete placeholder="Search a Country or City..."/>
       <GoogleMap />
     </main>
   );
