@@ -5,7 +5,7 @@ const  { dbURI } = require('../config/environment');
 
 const City = require('../models/city');
 
-mongoose.connect(dbURI, (err, db) => {
+mongoose.connect(dbURI, { useNewUrlParser: true }, (err, db) => {
   db.dropDatabase()
     .then(() => City.create([{
       name: 'Barcelona',
