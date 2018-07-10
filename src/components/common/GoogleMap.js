@@ -9,6 +9,17 @@ class GoogleMap extends React.Component {
       center: {lat: 48.5260, lng: 14.2551},
       zoom: 4
     });
+
+    for (let i = 0; i < this.props.cities.length; i++) {
+      this.marker = new google.maps.Marker({
+        map: this.map,
+        position: this.props.cities[i].location
+      });
+      this.marker.addListener('click', function() {
+        this.props.history.push('/users');
+      });
+    }
+
   }
 
   componentWillUnmount() {

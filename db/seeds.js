@@ -43,6 +43,7 @@ mongoose.connect(dbURI, { useNewUrlParser: true }, (err, db) => {
       return City.create([{
         name: 'Barcelona',
         country: 'Spain',
+        location: { lat: 41.3851, lng: 2.1734 },
         language: 'Spanish',
         recommendations: [{
           name: 'Bobby\'s Free',
@@ -63,6 +64,7 @@ mongoose.connect(dbURI, { useNewUrlParser: true }, (err, db) => {
         name: 'Prague',
         country: 'Czech Republic',
         language: 'Czech',
+        location: { lat: 50.0755, lng: 14.4378 },
         recommendations: [{
           name: 'Old Town Square',
           address: 'Stare Mesto, 110 00',
@@ -81,6 +83,7 @@ mongoose.connect(dbURI, { useNewUrlParser: true }, (err, db) => {
       }, {
         name: 'Paris',
         country: 'France',
+        location: { lat: 48.8566, lng: 2.3522 },
         language: 'French',
         recommendations: [{
           name: 'Le Syndicat',

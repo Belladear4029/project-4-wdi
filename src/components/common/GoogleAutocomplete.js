@@ -10,9 +10,15 @@ class GoogleAutocomplete extends React.Component {
     });
   }
 
+  // handleChange = () => {
+  //   console.log(this.map.getPlace().formatted_address);
+  // }
+
   render() {
     return (
-      <input className="input google-autocomplete" placeholder={this.props.placeholder} ref={element => this.input = element}/>
+      <div>
+        <input className="input google-autocomplete" placeholder={this.props.placeholder} ref={element => this.input = element}/>
+      </div>
     );
   }
 }

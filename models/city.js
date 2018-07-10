@@ -13,6 +13,7 @@ const recommendationSchema = new mongoose.Schema({
 const citySchema = new mongoose.Schema({
   name: String,
   country: String,
+  location: { lat: Number, lng: Number },
   language: String,
   recommendations: [recommendationSchema]
 });

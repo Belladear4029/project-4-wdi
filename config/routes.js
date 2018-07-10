@@ -3,6 +3,7 @@ const cities = require('../controllers/cities');
 const auth = require('../controllers/auth');
 const users = require('../controllers/users');
 
+router.get('/cities', cities.index);
 router.get('/cities/:id', cities.show);
 
 router.get('/users', users.index);
