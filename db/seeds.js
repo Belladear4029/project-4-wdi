@@ -50,14 +50,14 @@ mongoose.connect(dbURI, { useNewUrlParser: true }, (err, db) => {
           address: 'Calle Pau Claris 85, 08010',
           content: 'Really nice place',
           rating: 4.5,
-          location: { lat: 41.3851, lng: 2.1734 },
+          location: { lat: 41.389856, lng: 2.170753 },
           creator: users[0]
         }, {
           name: 'Museum of Modernism',
           address: '48 Balmes Street, 08007',
           content: 'Fascinating museum',
           rating: 4.2,
-          location: { lat: 43.3851, lng: 1.9575 },
+          location: { lat: 41.388947, lng: 2.163636 },
           creator: users[1]
         }]
       }, {
@@ -70,14 +70,14 @@ mongoose.connect(dbURI, { useNewUrlParser: true }, (err, db) => {
           address: 'Stare Mesto, 110 00',
           content: 'The most significant square of historical Prague, it was founded in the 12th century and has been witness to many historical events',
           rating: 4,
-          location: { lat: 50.0755, lng: 14.4378 },
+          location: { lat: 50.089438, lng: 14.419407 },
           creator: users[2]
         }, {
           name: 'Portfolio Restaurant',
           address: 'Havlíčkova 1030/1, 110 00 Nové Město',
           content: 'This place is so yummy and really nice cocktails!',
           rating: 4.5,
-          location: { lat: 50.0755, lng: 14.4378 },
+          location: { lat: 50.087516, lng: 14.432376 },
           creator: users[0]
         }]
       }, {
@@ -90,7 +90,7 @@ mongoose.connect(dbURI, { useNewUrlParser: true }, (err, db) => {
           address: '51 Rue du Faubourg Saint-Denis, 75010',
           content: 'This bar is really cool, couldn\'t recommend it more!',
           rating: 4.7,
-          location: { lat: 48.8566, lng: 2.3522 },
+          location: { lat: 48.871833, lng: 2.353629 },
           creator: users[3]
         }]
       }]);
