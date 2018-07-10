@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+import GoogleMap2 from '../common/GoogleMap2';
+
 class CitiesShow extends React.Component {
 
   constructor() {
@@ -29,20 +31,21 @@ class CitiesShow extends React.Component {
           <hr />
         </div>
         <div className="column is-half-desktop">
-          <h1 className="title is-2">Map</h1>
+          <h1 className="title is-3">Map</h1>
+          <GoogleMap2 location={this.state.city.location} />
         </div>
         <div className="column is-half-desktop">
-          <h1 className="title is-2">Recommendations</h1>
+          <h1 className="title is-3">Recommendations</h1>
           <hr />
           {this.state.city.recommendations.map(recommendation =>
             <div key={recommendation._id}>
               <div className="card">
                 <div className="card-header">
-                  <h1 className="card-header-title is-3">{recommendation.name}</h1>
+                  <p className="card-header-title is-3">{recommendation.name}</p>
                   <h1 className="card-header-icon title is-6">Rating: {recommendation.rating}</h1>
                 </div>
                 <div className="card-content">
-                  <h1 className="subtitle is-6">{recommendation.address}</h1>
+                  <h1 className="title is-6">{recommendation.address}</h1>
                   <h1 className="title is-6">{recommendation.content}</h1>
                   <h1 className="title is-6">Recommended by <Link to={`/users/${recommendation.creator._id}`} >{recommendation.creator.firstName} {recommendation.creator.lastName}</Link></h1>
                 </div>

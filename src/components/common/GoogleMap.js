@@ -23,6 +23,8 @@ class GoogleMap extends React.Component {
   }
 
   componentWillUnmount() {
+    this.marker.setMap(null);
+    this.marker = null;
     this.map = null;
   }
 
