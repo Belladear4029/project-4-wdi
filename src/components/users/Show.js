@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class UsersShow extends React.Component {
 
@@ -22,6 +23,7 @@ class UsersShow extends React.Component {
         <div className="column is-half-desktop">
           <img src={this.state.user.image} />
           <h1 className="title is-2">{this.state.user.firstName} {this.state.user.lastName}</h1>
+          <Link to={`/users/${this.state.user._id}/edit`}>Edit Profile</Link>
         </div>
         <div className="column is-half-desktop">
           <p className="title is-5">{this.state.user.followers} followers</p>
