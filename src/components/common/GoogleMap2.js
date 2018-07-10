@@ -7,9 +7,15 @@ class GoogleMap2 extends React.Component {
   componentDidMount() {
     this.map = new google.maps.Map(this.mapCanvas, {
       center: this.props.location,
-      zoom: 8
+      zoom: 11
     });
 
+    for (let i = 0; i < this.props.markers.length; i++) {
+      this.marker = new google.maps.Marker({
+        map: this.map,
+        position: this.props.markers[i].location
+      });
+    }
   }
 
   componentWillUnmount() {

@@ -32,7 +32,7 @@ class CitiesShow extends React.Component {
         </div>
         <div className="column is-half-desktop">
           <h1 className="title is-3">Map</h1>
-          <GoogleMap2 location={this.state.city.location} />
+          {this.state.city && <GoogleMap2 location={this.state.city.location} markers={this.state.city.recommendations}/>}
         </div>
         <div className="column is-half-desktop">
           <h1 className="title is-3">Recommendations</h1>
@@ -47,7 +47,7 @@ class CitiesShow extends React.Component {
                 <div className="card-content">
                   <h1 className="title is-6">{recommendation.address}</h1>
                   <h1 className="title is-6">{recommendation.content}</h1>
-                  <h1 className="title is-6">Recommended by <Link to={`/users/${recommendation.creator._id}`} >{recommendation.creator.firstName} {recommendation.creator.lastName}</Link></h1>
+                  <h1 className="title is-6">Recommended by <Link to={`/users/${recommendation.creator._id}`}>{recommendation.creator.firstName} {recommendation.creator.lastName}</Link></h1>
                 </div>
               </div>
             </div>
