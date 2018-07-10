@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Home from './components/pages/Home';
+import Navbar from './components/common/Navbar';
 import CitiesShow from './components/cities/Show';
 
 import 'bulma';
@@ -12,6 +13,7 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <main>
+          <Navbar />
           <Route exact path="/" component={Home} />
           <section className="section">
             <div className="container">
