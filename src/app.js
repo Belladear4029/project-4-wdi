@@ -11,6 +11,7 @@ import UsersIndex from './components/users/Index';
 import UsersShow from './components/users/Show';
 
 import 'bulma';
+import './scss/style.scss';
 
 class App extends React.Component {
   render() {
