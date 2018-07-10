@@ -13,6 +13,12 @@ const userSchema = new mongoose.Schema({
   id: false
 });
 
+userSchema.virtual('recommendations', {
+  localField: '_id',
+  foreignField: 'creator',
+  ref: 'City.recommendations'
+});
+
 userSchema.set('toJSON', {
   virtuals: true,
   transform(doc, json) {

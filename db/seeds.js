@@ -88,7 +88,7 @@ mongoose.connect(dbURI, { useNewUrlParser: true }, (err, db) => {
         recommendations: [{
           name: 'Le Syndicat',
           address: '51 Rue du Faubourg Saint-Denis, 75010',
-          content: 'This bar is really cool, couldn\'nt recommend it more!',
+          content: 'This bar is really cool, couldn\'t recommend it more!',
           rating: 4.7,
           location: { lat: 48.8566, lng: 2.3522 },
           creator: users[3]

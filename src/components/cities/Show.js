@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class CitiesShow extends React.Component {
 
@@ -43,7 +44,7 @@ class CitiesShow extends React.Component {
                 <div className="card-content">
                   <h1 className="subtitle is-6">{recommendation.address}</h1>
                   <h1 className="title is-6">{recommendation.content}</h1>
-                  <h1 className="title is-6">Recommended by {recommendation.creator.firstName} {recommendation.creator.lastName}</h1>
+                  <h1 className="title is-6">Recommended by <Link to={`/users/${recommendation.creator._id}`} >{recommendation.creator.firstName} {recommendation.creator.lastName}</Link></h1>
                 </div>
               </div>
             </div>
