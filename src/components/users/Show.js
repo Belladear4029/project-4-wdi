@@ -5,18 +5,18 @@ class UsersShow extends React.Component {
 
   constructor() {
     super();
-    this.state = {
-      user: {}
-    };
+    this.state = {};
   }
 
   componentDidMount() {
     axios.get(`/api/users/${this.props.match.params.id}`)
       .then(res => this.setState({ user: res.data }))
-      .then(() => console.log(this.state.user));
+      .catch(err => this.setState({ error: err.message }));
   }
 
   render() {
+    if(this.state.error) return <h2 className="title is-2">{this.state.error}</h2>;
+    if(!this.state.user) return <h2 className="title is-2">Loading...</h2>;
     return (
       <div className="columns is-multiline">
         <div className="column is-half-desktop">
