@@ -9,7 +9,7 @@ class Navbar extends React.Component {
     return (
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
-          <Link className="navbar-item" to="/">
+          <Link className="navbar-item" to="/recommendations">
             <h1>iRecommend</h1>
           </Link>
 
