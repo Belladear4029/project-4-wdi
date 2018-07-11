@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
-import GoogleAutocomplete from '../common/GoogleAutocomplete';
+// import GoogleAutocomplete from '../common/GoogleAutocomplete';
+import Autocomplete from 'react-google-autocomplete';
 import Auth from '../../lib/Auth';
 
 class RecommendationsNew extends React.Component {
@@ -25,12 +26,20 @@ class RecommendationsNew extends React.Component {
       });
   }
 
+  handleSelection = (place) => {
+    console.log(place);
+    this.setState({
+      name: place.name,
+      address: place.formatted_address
+    });
+  }
+
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="field">
           <label className="place">Place</label>
-          <GoogleAutocomplete onPlaceSelected={place => console.log(place)} placeholder="Search for your recommended place"/>
+          <Autocomplete types={['establishment']} className="input" onPlaceSelected={this.handleSelection} placeholder="Search for your recommended place" />
         </div>
         <div className="field">
           <label className="content">Content</label>
