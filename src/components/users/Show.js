@@ -2,17 +2,23 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+import Auth from '../../lib/Auth';
+
 class UsersShow extends React.Component {
 
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      edit: ''
+    };
   }
 
   componentDidMount() {
     axios.get(`/api/users/${this.props.match.params.id}`)
       .then(res => this.setState({ user: res.data }))
-      .then(() => console.log(this.state))
+      .then(() => {
+        if(this.state.user._id === Auth.getPayload().sub) this.setState({ edit: 'Edit Profile' });
+      })
       .catch(err => this.setState({ error: err.message }));
   }
 
@@ -24,7 +30,7 @@ class UsersShow extends React.Component {
         <div className="column is-half-desktop">
           <img src={this.state.user.image} />
           <h1 className="title is-2">{this.state.user.firstName} {this.state.user.lastName}</h1>
-          <Link to={`/users/${this.state.user._id}/edit`}>Edit Profile</Link>
+          <Link to={`/users/${this.state.user._id}/edit`}>{this.state.edit}</Link>
         </div>
         <div className="column is-half-desktop">
           <p className="title is-5">{this.state.user.followers} followers</p>
