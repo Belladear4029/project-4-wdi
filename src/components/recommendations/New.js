@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 
-// import GoogleAutocomplete from '../common/GoogleAutocomplete';
 import Autocomplete from 'react-google-autocomplete';
 import Auth from '../../lib/Auth';
 
@@ -31,15 +30,23 @@ class RecommendationsNew extends React.Component {
       });
   }
 
-  handleSelection = (place) => {
+  handlePlaceSelection = (place) => {
     console.log(place);
-    this.state.cities.forEach(city => {
-      if(place.city === city.name) this.setState({ city: city });
-    });
     this.setState({
       name: place.name,
       address: place.formatted_address,
       location: place.geometry.location
+    });
+  }
+
+  handleCitySelection = (city) => {
+    console.log(city);
+    this.setState({
+      city: {
+        name: city.name,
+        country: city.address_components[city.address_components.length-1].long_name,
+        location: city.geometry.location
+      }
     });
   }
 
@@ -48,7 +55,11 @@ class RecommendationsNew extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <div className="field">
           <label className="place">Place</label>
-          <Autocomplete types={['establishment']} className="input" onPlaceSelected={this.handleSelection} placeholder="Search for your recommended place" />
+          <Autocomplete types={['establishment']} className="input" onPlaceSelected={this.handlePlaceSelection} placeholder="Search for your recommended place" />
+        </div>
+        <div className="field">
+          <label className="city">City</label>
+          <Autocomplete className="input" onPlaceSelected={this.handleCitySelection} placeholder="Search a city" />
         </div>
         <div className="field">
           <label className="content">Content</label>

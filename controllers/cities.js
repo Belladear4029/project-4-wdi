@@ -10,9 +10,12 @@ function indexRoute(req, res, next){
 function showRoute(req, res, next){
   City
     .findById(req.params.id)
-    .populate('recommendations')
-    .populate('recommendations.creator')
-    .populate('recommendations.city')
+    .populate({
+      path: 'recommendations',
+      populate: {
+        path: 'creator city'
+      }
+    })
     .then(city => res.json(city))
     .catch(next);
 }

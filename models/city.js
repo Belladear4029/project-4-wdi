@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-
-const Recommendation = require('./recommendation');
+require('./recommendation');
 
 const citySchema = new mongoose.Schema({
   name: String,

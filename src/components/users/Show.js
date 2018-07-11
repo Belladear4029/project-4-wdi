@@ -50,7 +50,7 @@ class UsersShow extends React.Component {
             <div key={recommendation._id}>
               <div className="card">
                 <div className="card-header">
-                  <p className="card-header-title is-3">{recommendation.city} - {recommendation.name}</p>
+                  <p className="card-header-title is-3">{recommendation.city.name} - {recommendation.name}</p>
                   <h1 className="card-header-icon title is-6">Rating: {recommendation.rating}</h1>
                 </div>
                 <div className="card-content">

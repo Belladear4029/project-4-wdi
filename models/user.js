@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-
-const Recommendation = require('./recommendation');
+require('./recommendation');
 
 const userSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
