@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
+import Auth from '../../lib/Auth';
+
 class AuthLogin extends React.Component {
 
   state = {}
@@ -12,7 +14,10 @@ class AuthLogin extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     axios.post('/api/login', this.state)
-      .then(() => this.props.history.push('/'));
+      .then(res => {
+        Auth.setToken(res.data.token);
+        this.props.history.push('/');
+      });
   }
 
   render() {

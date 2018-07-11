@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import Auth from '../../lib/Auth';
+
 class Navbar extends React.Component {
 
   state = {
@@ -30,9 +32,9 @@ class Navbar extends React.Component {
           <div className="navbar-end">
             <Link to="/users" className="navbar-item">Recommenders</Link>
             <Link to="/" className="navbar-item">Map</Link>
-            <Link to="/login" className="navbar-item">Login</Link>
-            <Link to="/register" className="navbar-item">Register</Link>
-            <Link to="/logout" className="navbar-item">Logout</Link>
+            {!Auth.isAuthenticated() && <Link to="/login" className="navbar-item">Login</Link>}
+            {!Auth.isAuthenticated() && <Link to="/register" className="navbar-item">Register</Link>}
+            {Auth.isAuthenticated() && <Link to="/logout" className="navbar-item">Logout</Link>}
           </div>
         </div>
       </nav>
