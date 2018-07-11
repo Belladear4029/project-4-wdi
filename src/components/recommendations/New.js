@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import Autocomplete from 'react-google-autocomplete';
+import GoogleAutocomplete from '../common/GoogleAutocomplete';
 
 class RecommendationsNew extends React.Component {
 
@@ -23,7 +23,7 @@ class RecommendationsNew extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <div className="field">
           <label className="place">Place</label>
-          <Autocomplete className="input" placeholder="Search for your recommended place"/>
+          <GoogleAutocomplete onPlaceSelected={place => console.log(place)} placeholder="Search for your recommended place"/>
         </div>
         <div className="field">
           <label className="content">Content</label>
