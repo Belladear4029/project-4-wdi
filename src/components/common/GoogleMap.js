@@ -10,16 +10,21 @@ class GoogleMap extends React.Component {
       zoom: 4
     });
 
-    for (let i = 0; i < this.props.cities.length; i++) {
-      this.marker = new google.maps.Marker({
-        map: this.map,
-        position: this.props.cities[i].location
-      });
-      this.marker.addListener('click', function() {
-        this.map.setZoom(8);
-      });
-    }
+    const selectCity = this.props.selection;
 
+    this.props.cities.forEach(city => {
+      this.marker = new google.maps.Marker({ map: this.map, position: city.country.location });
+      this.marker.addListener('click', function() {
+
+      });
+    });
+
+    this.props.cities.forEach(city => {
+      this.marker = new google.maps.Marker({ map: this.map, position: city.location });
+      this.marker.addListener('click', function() {
+        selectCity(city);
+      });
+    });
   }
 
   componentWillUnmount() {

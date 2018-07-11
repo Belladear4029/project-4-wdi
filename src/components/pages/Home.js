@@ -15,7 +15,6 @@ class Home extends React.Component {
     this.handleSelection = this.handleSelection.bind(this);
   }
 
-
   componentDidMount() {
     axios.get('/api/cities')
       .then(res => this.setState({ cities: res.data }));
@@ -34,7 +33,7 @@ class Home extends React.Component {
         <h1>Find recommendations</h1>
         <Autocomplete onPlaceSelected={this.handleSelection} className="input" placeholder="Search a city..."/>
         <p>{this.state.message}</p>
-        {this.state.cities && <GoogleMap cities={this.state.cities} />}
+        {this.state.cities && <GoogleMap selection={this.handleSelection} countries={this.state.cities} cities={this.state.cities} />}
       </main>
     );
   }

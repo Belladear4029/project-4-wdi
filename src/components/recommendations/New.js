@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
+
 import GoogleAutocomplete from '../common/GoogleAutocomplete';
+import Auth from '../../lib/Auth';
 
 class RecommendationsNew extends React.Component {
 
@@ -12,7 +14,12 @@ class RecommendationsNew extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('/api/recommendations', this.state)
+    axios({
+      url: '/api/recommendations',
+      method: 'POST',
+      data: this.state,
+      headers: { Authorization: `Bearer ${Auth.getToken()}` }
+    })
       .then(() => {
         this.props.history.push('/users');
       });

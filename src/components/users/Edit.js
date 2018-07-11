@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
+import Auth from '../../lib/Auth';
+
 class UsersEdit extends React.Component {
 
   state = {}
@@ -16,7 +18,7 @@ class UsersEdit extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    axios.put(`/api/users/${this.props.match.params.id}`, this.state)
+    axios.put(`/api/users/${this.props.match.params.id}`, this.state, { Authorization: `Bearer ${Auth.getToken()}` })
       .then(() => {
         this.props.history.push(`/users/${this.props.match.params.id}`);
       });
