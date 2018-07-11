@@ -3,7 +3,13 @@ import { Link } from 'react-router-dom';
 
 class Navbar extends React.Component {
 
-  state = {}
+  state = {
+    navbarOpen: false
+  }
+
+  toggleNavbar = () => {
+    this.setState({ navbarOpen: !this.state.navbarOpen });
+  }
 
   render() {
     return (
@@ -13,14 +19,14 @@ class Navbar extends React.Component {
             <h1>iRecommend</h1>
           </Link>
 
-          <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false">
+          <a role="button" className={`navbar-burger${this.state.navbarOpen ? ' is-active' : ''}`} aria-label="menu" aria-expanded="false" onClick={this.toggleNavbar}>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
           </a>
         </div>
 
-        <div className="navbar-menu">
+        <div className={`navbar-menu${this.state.navbarOpen ? ' is-active' : ''}`}>
           <div className="navbar-end">
             <Link to="/users" className="navbar-item">Recommenders</Link>
             <Link to="/" className="navbar-item">Map</Link>
