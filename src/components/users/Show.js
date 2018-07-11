@@ -12,6 +12,7 @@ class UsersShow extends React.Component {
   componentDidMount() {
     axios.get(`/api/users/${this.props.match.params.id}`)
       .then(res => this.setState({ user: res.data }))
+      .then(() => console.log(this.state))
       .catch(err => this.setState({ error: err.message }));
   }
 
@@ -31,6 +32,21 @@ class UsersShow extends React.Component {
         </div>
         <div className="column is-full-desktop">
           <p className="title is-5">Recommendations</p>
+          {this.state.user.recommendations.map(recommendation =>
+            <div key={recommendation._id}>
+              <div className="card">
+                <div className="card-header">
+                  <p className="card-header-title is-3">{recommendation.city} - {recommendation.name}</p>
+                  <h1 className="card-header-icon title is-6">Rating: {recommendation.rating}</h1>
+                </div>
+                <div className="card-content">
+                  <h1 className="title is-6">{recommendation.address}</h1>
+                  <h1 className="title is-6">{recommendation.content}</h1>
+                  <h1 className="title is-6">Recommended by <Link to={`/users/${recommendation.creator._id}`}>{recommendation.creator.firstName} {recommendation.creator.lastName}</Link></h1>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     );

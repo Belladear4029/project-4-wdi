@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
+const Recommendation = require('./recommendation');
+
 const userSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
@@ -16,7 +18,7 @@ const userSchema = new mongoose.Schema({
 userSchema.virtual('recommendations', {
   localField: '_id',
   foreignField: 'creator',
-  ref: 'City.recommendations'
+  ref: 'Recommendation'
 });
 
 userSchema.set('toJSON', {

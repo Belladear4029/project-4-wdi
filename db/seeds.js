@@ -5,9 +5,12 @@ const  { dbURI } = require('../config/environment');
 
 const City = require('../models/city');
 const User = require('../models/user');
+const Recommendation = require('../models/recommendation');
 
 mongoose.connect(dbURI, { useNewUrlParser: true }, (err, db) => {
   db.dropDatabase();
+
+  let usersData;
 
   User.create([{
     firstName: 'Bella',
@@ -40,62 +43,69 @@ mongoose.connect(dbURI, { useNewUrlParser: true }, (err, db) => {
   }])
     .then(users => {
       console.log(`${users.length} users created`);
+      usersData = users;
       return City.create([{
         name: 'Barcelona',
         country: 'Spain',
         location: { lat: 41.3851, lng: 2.1734 },
-        language: 'Spanish',
-        recommendations: [{
-          name: 'Bobby\'s Free',
-          address: 'Calle Pau Claris 85, 08010',
-          content: 'Really nice place',
-          rating: 4.5,
-          location: { lat: 41.389856, lng: 2.170753 },
-          creator: users[0]
-        }, {
-          name: 'Museum of Modernism',
-          address: '48 Balmes Street, 08007',
-          content: 'Fascinating museum',
-          rating: 4.2,
-          location: { lat: 41.388947, lng: 2.163636 },
-          creator: users[1]
-        }]
+        language: 'Spanish'
       }, {
         name: 'Prague',
         country: 'Czech Republic',
         language: 'Czech',
-        location: { lat: 50.0755, lng: 14.4378 },
-        recommendations: [{
-          name: 'Old Town Square',
-          address: 'Stare Mesto, 110 00',
-          content: 'The most significant square of historical Prague, it was founded in the 12th century and has been witness to many historical events',
-          rating: 4,
-          location: { lat: 50.089438, lng: 14.419407 },
-          creator: users[2]
-        }, {
-          name: 'Portfolio Restaurant',
-          address: 'Havlíčkova 1030/1, 110 00 Nové Město',
-          content: 'This place is so yummy and really nice cocktails!',
-          rating: 4.5,
-          location: { lat: 50.087516, lng: 14.432376 },
-          creator: users[0]
-        }]
+        location: { lat: 50.0755, lng: 14.4378 }
       }, {
         name: 'Paris',
         country: 'France',
         location: { lat: 48.8566, lng: 2.3522 },
-        language: 'French',
-        recommendations: [{
-          name: 'Le Syndicat',
-          address: '51 Rue du Faubourg Saint-Denis, 75010',
-          content: 'This bar is really cool, couldn\'t recommend it more!',
-          rating: 4.7,
-          location: { lat: 48.871833, lng: 2.353629 },
-          creator: users[3]
-        }]
+        language: 'French'
       }]);
     })
-    .then(cities => console.log(`${cities.length} cities created`))
+    .then(cities => {
+      console.log(`${cities.length} cities created`);
+      return Recommendation.create([{
+        name: 'Bobby\'s Free',
+        address: 'Calle Pau Claris 85, 08010',
+        content: 'Really nice place',
+        rating: 4.5,
+        location: { lat: 41.389856, lng: 2.170753 },
+        city: cities[0],
+        creator: usersData[0]._id
+      }, {
+        name: 'Museum of Modernism',
+        address: '48 Balmes Street, 08007',
+        content: 'Fascinating museum',
+        rating: 4.2,
+        location: { lat: 41.388947, lng: 2.163636 },
+        city: cities[0],
+        creator: usersData[1]._id
+      }, {
+        name: 'Old Town Square',
+        address: 'Stare Mesto, 110 00',
+        content: 'The most significant square of historical Prague, it was founded in the 12th century and has been witness to many historical events',
+        rating: 4,
+        location: { lat: 50.089438, lng: 14.419407 },
+        city: cities[1],
+        creator: usersData[2]._id
+      }, {
+        name: 'Portfolio Restaurant',
+        address: 'Havlíčkova 1030/1, 110 00 Nové Město',
+        content: 'This place is so yummy and really nice cocktails!',
+        rating: 4.5,
+        location: { lat: 50.087516, lng: 14.432376 },
+        city: cities[1],
+        creator: usersData[0]._id
+      }, {
+        name: 'Le Syndicat',
+        address: '51 Rue du Faubourg Saint-Denis, 75010',
+        content: 'This bar is really cool, couldn\'t recommend it more!',
+        rating: 4.7,
+        location: { lat: 48.871833, lng: 2.353629 },
+        city: cities[2],
+        creator: usersData[3]._id
+      }]);
+    })
+    .then(recommendations => console.log(`${recommendations.length} recommendations created`))
     .catch(err => console.log(err))
     .finally(() => mongoose.connection.close());
 });

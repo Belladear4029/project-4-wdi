@@ -16,7 +16,7 @@ class GoogleMap extends React.Component {
         position: this.props.cities[i].location
       });
       this.marker.addListener('click', function() {
-        this.props.history.push('/users');
+        this.map.setZoom(8);
       });
     }
 
