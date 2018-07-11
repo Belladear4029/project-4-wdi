@@ -8,7 +8,9 @@ class Home extends React.Component {
 
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      message: ''
+    };
 
     this.handleSelection = this.handleSelection.bind(this);
   }
@@ -23,6 +25,7 @@ class Home extends React.Component {
   handleSelection(place) {
     this.state.cities.forEach(city => {
       if(city.name === place.name) this.props.history.push(`cities/${city._id}`);
+      else(this.setState({ message: 'Sorry, no recommendations for this City currrently!' }));
     });
   }
 
@@ -31,6 +34,7 @@ class Home extends React.Component {
       <main>
         <h1>Find recommendations</h1>
         <Autocomplete onPlaceSelected={this.handleSelection} className="input" placeholder="Search a City..."/>
+        <p>{this.state.message}</p>
         {this.state.cities && <GoogleMap cities={this.state.cities} />}
       </main>
     );
