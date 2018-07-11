@@ -6,7 +6,7 @@ const users = require('../controllers/users');
 const secureRoute = require('../lib/secureRoute');
 
 router.get('/cities', cities.index);
-router.get('/cities/:id', secureRoute, cities.show);
+router.get('/cities/:id', cities.show);
 
 router.post('/recommendations', secureRoute, recommendations.create);
 

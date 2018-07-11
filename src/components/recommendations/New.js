@@ -9,6 +9,11 @@ class RecommendationsNew extends React.Component {
 
   state = {}
 
+  componentDidMount() {
+    axios.get('api/cities')
+      .then(res => this.setState({ cities: res.data}));
+  }
+
   handleChange = ({ target: { name, value }}) => {
     this.setState({ [name]: value });
   }
@@ -28,9 +33,13 @@ class RecommendationsNew extends React.Component {
 
   handleSelection = (place) => {
     console.log(place);
+    this.state.cities.forEach(city => {
+      if(place.city === city.name) this.setState({ city: city });
+    });
     this.setState({
       name: place.name,
-      address: place.formatted_address
+      address: place.formatted_address,
+      location: place.geometry.location
     });
   }
 

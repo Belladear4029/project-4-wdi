@@ -9,7 +9,8 @@ class UsersShow extends React.Component {
   constructor() {
     super();
     this.state = {
-      edit: ''
+      edit: '',
+      follow: 'Follow'
     };
   }
 
@@ -18,8 +19,14 @@ class UsersShow extends React.Component {
       .then(res => this.setState({ user: res.data }))
       .then(() => {
         if(this.state.user._id === Auth.getPayload().sub) this.setState({ edit: 'Edit Profile' });
+        console.log(Auth.getPayload().sub);
+        // if(Auth.getPayload().sub.following[this.state.user._id]) this.setState({ follow: 'Unfollow' });
       })
       .catch(err => this.setState({ error: err.message }));
+  }
+
+  follow() {
+    // currentUser.following.push(this.state.user)
   }
 
   render() {
@@ -31,6 +38,7 @@ class UsersShow extends React.Component {
           <img src={this.state.user.image} />
           <h1 className="title is-2">{this.state.user.firstName} {this.state.user.lastName}</h1>
           <Link to={`/users/${this.state.user._id}/edit`}>{this.state.edit}</Link>
+          <a className="button" onClick={this.follow}>{this.state.follow}</a>
         </div>
         <div className="column is-half-desktop">
           <p className="title is-5">{this.state.user.followers} followers</p>
