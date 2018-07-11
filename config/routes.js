@@ -1,10 +1,13 @@
 const router = require('express').Router();
 const cities = require('../controllers/cities');
+const recommendations = require('../controllers/recommendations');
 const auth = require('../controllers/auth');
 const users = require('../controllers/users');
 
 router.get('/cities', cities.index);
 router.get('/cities/:id', cities.show);
+
+router.post('/recommendations', recommendations.create);
 
 router.get('/users', users.index);
 router.route('/users/:id')
