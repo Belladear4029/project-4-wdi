@@ -15,6 +15,8 @@ router.route('/users/:id')
   .get(users.show)
   .put(users.update);
 
+router.get('/profile', secureRoute, auth.profile);
+
 router.post('/register', auth.register);
 router.post('/login', auth.login);
 

@@ -13,13 +13,6 @@ class GoogleMap extends React.Component {
     const selectCity = this.props.selection;
 
     this.props.cities.forEach(city => {
-      this.marker = new google.maps.Marker({ map: this.map, position: city.country.location });
-      this.marker.addListener('click', function() {
-
-      });
-    });
-
-    this.props.cities.forEach(city => {
       this.marker = new google.maps.Marker({ map: this.map, position: city.location });
       this.marker.addListener('click', function() {
         selectCity(city);

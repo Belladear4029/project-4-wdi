@@ -19,7 +19,7 @@ class UsersShow extends React.Component {
       .then(res => this.setState({ user: res.data }))
       .then(() => {
         if(this.state.user._id === Auth.getPayload().sub) this.setState({ edit: 'Edit Profile' });
-        console.log(Auth.getPayload().sub);
+        console.log(Auth.getPayload());
         // if(Auth.getPayload().sub.following[this.state.user._id]) this.setState({ follow: 'Unfollow' });
       })
       .catch(err => this.setState({ error: err.message }));
@@ -50,13 +50,12 @@ class UsersShow extends React.Component {
             <div key={recommendation._id}>
               <div className="card">
                 <div className="card-header">
-                  <p className="card-header-title is-3">{recommendation.city.name} - {recommendation.name}</p>
+                  <p className="card-header-title is-3"><Link to={`/cities/${recommendation.city._id}`}>{recommendation.city.name}</Link> - {recommendation.name}</p>
                   <h1 className="card-header-icon title is-6">Rating: {recommendation.rating}</h1>
                 </div>
                 <div className="card-content">
                   <h1 className="title is-6">{recommendation.address}</h1>
                   <h1 className="title is-6">{recommendation.content}</h1>
-                  <h1 className="title is-6">Recommended by <Link to={`/users/${recommendation.creator._id}`}>{recommendation.creator.firstName} {recommendation.creator.lastName}</Link></h1>
                 </div>
               </div>
             </div>

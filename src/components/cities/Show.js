@@ -14,7 +14,6 @@ class CitiesShow extends React.Component {
   componentDidMount() {
     axios.get(`/api/cities/${this.props.match.params.id}`)
       .then(res => this.setState({ city: res.data }))
-      .then(() => console.log(this.state))
       .catch(err => this.setState({ error: err.message }));
   }
 
