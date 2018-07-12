@@ -8,10 +8,15 @@ const userSchema = new mongoose.Schema({
   image: { type: String },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  following: [{ type: mongoose.Schema.ObjectId, ref: 'User' }],
-  followers: [{ type: mongoose.Schema.ObjectId, ref: 'User' }]
+  following: [{ type: mongoose.Schema.ObjectId, ref: 'User' }]
 }, {
   id: false
+});
+
+userSchema.virtual('followers', {
+  localField: '_id',
+  foreignField: 'following',
+  ref: 'User'
 });
 
 userSchema.virtual('recommendations', {

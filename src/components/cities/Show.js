@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+import Auth from '../../lib/Auth';
+
 import GoogleMap2 from '../common/GoogleMap2';
 
 class CitiesShow extends React.Component {
@@ -12,16 +14,31 @@ class CitiesShow extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`/api/cities/${this.props.match.params.id}`)
-      .then(res => this.setState({ city: res.data }))
-      .catch(err => this.setState({ error: err.message }));
+    axios({
+      url: '/api/currentUser',
+      method: 'GET',
+      headers: { Authorization: `Bearer ${Auth.getToken()}` }
+    })
+      .then(res => this.setState({ currentUser: res.data }))
+      .then(() => {
+        axios.get(`/api/cities/${this.props.match.params.id}`)
+          .then(res => this.setState({ city: res.data }))
+          .then(() => this.setState({ recommendations: this.state.city.recommendations && this.state.currentUser.following.map(followee => followee.recommendations) }))
+          .then(() => console.log(this.state.currentUser, this.state.recommendations));
 
-    // {if(this.state.cities.recommendation.creator._id.includes(currentUser.following[i]));}
+        // axios.get(`/api/cities/${this.props.match.params.id}`)
+        //   .then(res => this.setState({ city: res.data }))
+        //   .catch(err => this.setState({ error: err.message }));
+
+      });
+
   }
+
 
   render() {
     if(this.state.error) return <h2 className="title is-2">{this.state.error}</h2>;
     if(!this.state.city) return <h2 className="title is-2">Loading...</h2>;
+    if(!this.state.recommendations) return <h2 className="title is-2">Loading...</h2>;
     return (
       <div className="columns is-multiline">
         <div className="column is-half-desktop">

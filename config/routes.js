@@ -15,9 +15,11 @@ router.route('/users/:id')
   .get(users.show)
   .put(users.update);
 
-router.route('/currentUser')
-  .get(secureRoute, auth.currentUser)
-  .put(secureRoute, auth.updateCurrentUser);
+router.put('/users/:id/follow', secureRoute, users.follow);
+
+router.route('/profile')
+  .get(secureRoute, auth.profile);
+// .put(secureRoute, auth.updateCurrentUser);
 
 router.post('/register', auth.register);
 router.post('/login', auth.login);

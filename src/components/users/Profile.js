@@ -18,7 +18,8 @@ class UsersProfile extends React.Component {
       method: 'GET',
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .then(res => this.setState({ currentUser: res.data }));
+      .then(res => this.setState({ currentUser: res.data }))
+      .then(() => console.log(this.state.currentUser));
   }
 
   render() {

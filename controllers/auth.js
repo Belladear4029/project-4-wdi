@@ -28,25 +28,24 @@ function login(req, res, next) {
     .catch(next);
 }
 
-function currentUser(req, res, next) {
+function profile(req, res, next) {
   User
     .populate(req.currentUser, { path: 'recommendations following', populate: { path: 'city users recommendations city creator', populate: { path: 'city creator'} } })
     .then(user => res.json(user))
     .catch(next);
 }
 
-function updateCurrentUser(req, res, next) {
-  User
-    .findById(req.currentUser)
-    .then(user => user.set(req.body))
-    .then(user => user.save())
-    .then(user => res.json(user))
-    .catch(next);
-}
+// function updateCurrentUser(req, res, next) {
+//   User
+//     .findById(req.currentUser)
+//     .then(user => user.set(req.body))
+//     .then(user => user.save())
+//     .then(user => res.json(user))
+//     .catch(next);
+// }
 
 module.exports = {
   register,
   login,
-  currentUser,
-  updateCurrentUser
+  profile
 };

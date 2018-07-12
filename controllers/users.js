@@ -29,8 +29,21 @@ function updateRoute(req, res, next) {
     .catch(next);
 }
 
+function followRoute(req, res, next) {
+  console.log(req.currentUser._id);
+  User
+    .findById(req.currentUser._id)
+    .then(user => {
+      user.following.push(req.params.id);
+      return user.save();
+    })
+    .then(user => res.json(user))
+    .catch(next);
+}
+
 module.exports = {
   index: indexRoute,
   show: showRoute,
-  update: updateRoute
+  update: updateRoute,
+  follow: followRoute
 };

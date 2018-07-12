@@ -17,21 +17,17 @@ class UsersShow extends React.Component {
   }
 
   componentDidMount() {
-
-    axios({
-      url: '/api/currentUser',
-      method: 'GET',
-      headers: { Authorization: `Bearer ${Auth.getToken()}` }
-    })
-      .then(res => this.setState({ currentUser: res.data }))
+    axios.get(`/api/users/${this.props.match.params.id}`)
+      .then(res => {
+        const currentUser = res.data.filter(user => user._id === Auth.getPayload().sub);
+        this.setState({ user: res.data, currentUser });
+      })
       .then(() => {
-        axios.get(`/api/users/${this.props.match.params.id}`)
-          .then(res => this.setState({ user: res.data }))
-          .then(() => {
-            if(this.state.currentUser.following.map(followee => followee._id === this.state.user._id)) this.setState({ follow: true, followButton: 'Unfollow' });
-          })
-          .catch(err => this.setState({ error: err.message }));
-      });
+        {this.state.currentUser.following.map(followee => followee._id === this.state.user._id) && this.setState({ follow: true, followButton: 'Unfollow' });}
+        console.log(this.state.currentUser.following.map(followee => followee._id === this.state.user._id));
+        console.log(this.state.currentUser);
+      })
+      .catch(err => this.setState({ error: err.message }));
   }
 
   followAndUnfollow() {
@@ -45,15 +41,9 @@ class UsersShow extends React.Component {
       this.state.user.followers.splice(this.state.currentUser._id);
     }
     axios({
-      url: '/api/currentUser',
-      method: 'PUT',
-      headers: { Authorization: `Bearer ${Auth.getToken()}` },
-      data: this.state.currentUser
-    });
-    axios({
       url: `/api/users/${this.props.match.params.id}`,
       method: 'PUT',
-      data: this.state.user
+      data: this.state.currentUser
     });
   }
 
