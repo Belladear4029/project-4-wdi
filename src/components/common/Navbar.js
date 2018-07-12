@@ -7,12 +7,13 @@ import Auth from '../../lib/Auth';
 class Navbar extends React.Component {
 
   state = {
-    navbarOpen: false
+    navbarOpen: false,
+    currentUser: {}
   }
 
   componentDidMount() {
     axios({
-      url: 'api/profile',
+      url: '/api/currentUser',
       method: 'GET',
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
@@ -43,7 +44,7 @@ class Navbar extends React.Component {
           <div className="navbar-end">
             <Link to="/users" className="navbar-item">Recommenders</Link>
             <Link to="/" className="navbar-item">Map</Link>
-            {/* {Auth.isAuthenticated() && <Link to={`/users/${this.state.currentUser._id}`} className="navbar-item">My Profile</Link>} */}
+            {Auth.isAuthenticated() && <Link to={`/users/${this.state.currentUser._id}`} className="navbar-item">My Profile</Link>}
             {!Auth.isAuthenticated() && <Link to="/login" className="navbar-item">Login</Link>}
             {!Auth.isAuthenticated() && <Link to="/register" className="navbar-item">Register</Link>}
             {Auth.isAuthenticated() && <Link to="/login" onClick={Auth.logout} className="navbar-item">Logout</Link>}

@@ -28,8 +28,18 @@ function login(req, res, next) {
     .catch(next);
 }
 
-function profile(req, res, next) {
-  User.populate(req.currentUser, { path: 'recommendations' })
+function currentUser(req, res, next) {
+  User
+    .populate(req.currentUser, { path: 'recommendations' })
+    .then(user => res.json(user))
+    .catch(next);
+}
+
+function updateCurrentUser(req, res, next) {
+  User
+    .findById(req.currentUser)
+    .then(user => user.set(req.body))
+    .then(user => user.save())
     .then(user => res.json(user))
     .catch(next);
 }
@@ -37,5 +47,6 @@ function profile(req, res, next) {
 module.exports = {
   register,
   login,
-  profile
+  currentUser,
+  updateCurrentUser
 };

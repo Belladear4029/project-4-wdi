@@ -10,33 +10,37 @@ class UsersShow extends React.Component {
     super();
     this.state = {
       edit: '',
-      follow: 'Follow'
+      follow: false,
+      followButton: 'Follow'
     };
+
+    this.follow = this.follow.bind(this);
   }
 
   componentDidMount() {
 
-
-    axios.get(`/api/users/${this.props.match.params.id}`)
-      .then(res => this.setState({ user: res.data }))
-      .then(() => {
-        if(this.state.user._id === Auth.getPayload().sub) this.setState({ edit: 'Edit Profile' });
-        // console.log(this.state);
-        // if(Auth.getPayload().sub.following[this.state.user._id]) this.setState({ follow: 'Unfollow' });
-      })
-      .catch(err => this.setState({ error: err.message }));
-
     axios({
-      url: '/api/profile',
+      url: '/api/currentUser',
       method: 'GET',
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(res => this.setState({ currentUser: res.data }))
-      .then(() => console.log(this.state));
+      .then(() => console.log(this.state))
+      .then(() => {
+        axios.get(`/api/users/${this.props.match.params.id}`)
+          .then(res => this.setState({ user: res.data }))
+          .then(() => {
+            if(this.state.user._id === this.state.currentUser._id) this.setState({ edit: 'Edit Profile' });
+            if(this.state.currentUser.following.includes(this.state.user)) this.setState({ follow: true });
+          })
+          .then(() => console.log(this.state))
+          .catch(err => this.setState({ error: err.message }));
+      });
   }
 
   follow() {
-    // currentUser.following.push(this.state.user)
+    !this.state.follow ? this.state.currentUser.following.push(this.state.user) : this.state.currentUser.following.splice(this.state.user);
+    this.setState({ follow: !this.state.follow });
   }
 
   render() {
@@ -48,7 +52,7 @@ class UsersShow extends React.Component {
           <img src={this.state.user.image} />
           <h1 className="title is-2">{this.state.user.firstName} {this.state.user.lastName}</h1>
           <Link to={`/users/${this.state.user._id}/edit`}>{this.state.edit}</Link>
-          <a className="button" onClick={this.follow}>{this.state.follow}</a>
+          <a className="button" onClick={this.follow}>{this.state.followButton}</a>
         </div>
         <div className="column is-half-desktop">
           <p className="title is-5">{this.state.user.followers} followers</p>
