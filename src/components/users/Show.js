@@ -16,6 +16,8 @@ class UsersShow extends React.Component {
     this.followButton = this.followButton.bind(this);
   }
 
+  //get /profile
+
   componentDidMount() {
     axios.get(`/api/users/${this.props.match.params.id}`)
       .then(res => this.setState({ user: res.data }))
@@ -60,7 +62,7 @@ class UsersShow extends React.Component {
           <a className="button" onClick={this.followButton}>{this.state.followButton}</a>
         </div>
         <div className="column is-half-desktop">
-          {/* <p className="title is-5">{this.state.user.followers.length} followers</p> */}
+          <p className="title is-5">{this.state.user.followers.length} followers</p>
           <p className="title is-5">{this.state.user.following.length} following</p>
           <p className="title is-5">{this.state.user.recommendations.length} recommendations</p>
         </div>

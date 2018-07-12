@@ -11,7 +11,7 @@ function showRoute(req, res, next) {
   User
     .findById(req.params.id)
     .populate({
-      path: 'recommendations',
+      path: 'recommendations followers',
       populate: {
         path: 'creator city'
       }
@@ -44,7 +44,7 @@ function unfollowRoute(req, res, next) {
   User
     .findById(req.currentUser._id)
     .then(user => {
-      user.following.splice(req.params.id);
+      user.following.splice(user.following.indexOf(req.params.id));
       return user.save();
     })
     .then(user => res.json(user))
