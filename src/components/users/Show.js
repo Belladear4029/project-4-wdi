@@ -9,12 +9,11 @@ class UsersShow extends React.Component {
   constructor() {
     super();
     this.state = {
-      edit: 'Edit Profile',
       follow: false,
-      followButton: ''
+      followButton: 'Follow'
     };
 
-    this.follow = this.follow.bind(this);
+    this.followAndUnfollow = this.followAndUnfollow.bind(this);
   }
 
   componentDidMount() {
@@ -29,7 +28,6 @@ class UsersShow extends React.Component {
         axios.get(`/api/users/${this.props.match.params.id}`)
           .then(res => this.setState({ user: res.data }))
           .then(() => {
-            if(this.state.user._id !== this.state.currentUser._id) this.setState({ edit: '', followButton: 'Follow' });
             if(this.state.currentUser.following.includes(this.state.user._id)) this.setState({ follow: true, followButton: 'Unfollow' });
           })
           .then(() => console.log(this.state))
@@ -37,7 +35,7 @@ class UsersShow extends React.Component {
       });
   }
 
-  follow() {
+  followAndUnfollow() {
     if(!this.state.follow) {
       this.setState({ followButton: 'Unfollow', follow: true });
       this.state.currentUser.following.push(this.state.user._id);
@@ -68,8 +66,7 @@ class UsersShow extends React.Component {
         <div className="column is-half-desktop">
           <img src={this.state.user.image} />
           <h1 className="title is-2">{this.state.user.firstName} {this.state.user.lastName}</h1>
-          <Link to={`/users/${this.state.user._id}/edit`}>{this.state.edit}</Link>
-          <a className="button" onClick={this.follow}>{this.state.followButton}</a>
+          <a className="button" onClick={this.followAndUnfollow}>{this.state.followButton}</a>
         </div>
         <div className="column is-half-desktop">
           <p className="title is-5">{this.state.user.followers} followers</p>

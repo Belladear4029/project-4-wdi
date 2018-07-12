@@ -30,7 +30,7 @@ function login(req, res, next) {
 
 function currentUser(req, res, next) {
   User
-    .populate(req.currentUser, { path: 'recommendations' })
+    .populate(req.currentUser, { path: 'recommendations', populate: { path: 'city' } })
     .then(user => res.json(user))
     .catch(next);
 }
