@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import Auth from '../../lib/Auth';
@@ -7,17 +6,7 @@ import Auth from '../../lib/Auth';
 class Navbar extends React.Component {
 
   state = {
-    navbarOpen: false,
-    currentUser: {}
-  }
-
-  componentDidMount() {
-    axios({
-      url: '/api/currentUser',
-      method: 'GET',
-      headers: { Authorization: `Bearer ${Auth.getToken()}` }
-    })
-      .then(res => this.setState({ currentUser: res.data }));
+    navbarOpen: false
   }
 
   toggleNavbar = () => {
@@ -43,7 +32,7 @@ class Navbar extends React.Component {
           <div className="navbar-end">
             <Link to="/users" className="navbar-item">Recommenders</Link>
             <Link to="/" className="navbar-item">Map</Link>
-            {Auth.isAuthenticated() && <Link to="/profile" className="navbar-item">My Profile</Link>}
+            {Auth.isAuthenticated() && <Link to={`/users/${Auth.getPayload().sub}`} className="navbar-item">My Profile</Link>}
             {!Auth.isAuthenticated() && <Link to="/login" className="navbar-item">Login</Link>}
             {!Auth.isAuthenticated() && <Link to="/register" className="navbar-item">Register</Link>}
             {Auth.isAuthenticated() && <Link to="/login" onClick={Auth.logout} className="navbar-item">Logout</Link>}

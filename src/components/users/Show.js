@@ -18,33 +18,25 @@ class UsersShow extends React.Component {
 
   componentDidMount() {
     axios.get(`/api/users/${this.props.match.params.id}`)
-      .then(res => {
-        const currentUser = res.data.filter(user => user._id === Auth.getPayload().sub);
-        this.setState({ user: res.data, currentUser });
-      })
-      .then(() => {
-        {this.state.currentUser.following.map(followee => followee._id === this.state.user._id) && this.setState({ follow: true, followButton: 'Unfollow' });}
-        console.log(this.state.currentUser.following.map(followee => followee._id === this.state.user._id));
-        console.log(this.state.currentUser);
-      })
+      .then(res => this.setState({ user: res.data }))
       .catch(err => this.setState({ error: err.message }));
   }
 
   followAndUnfollow() {
     if(!this.state.follow) {
       this.setState({ followButton: 'Unfollow', follow: true });
-      this.state.currentUser.following.push(this.state.user._id);
-      this.state.user.followers.push(this.state.currentUser._id);
     } else {
       this.setState({ followButton: 'Follow', follow: false });
-      this.state.currentUser.following.splice(this.state.user._id);
-      this.state.user.followers.splice(this.state.currentUser._id);
     }
     axios({
-      url: `/api/users/${this.props.match.params.id}`,
+      url: `/api/users/${this.props.match.params.id}/follow`,
       method: 'PUT',
-      data: this.state.currentUser
+      headers: { Authorization: `Bearer ${Auth.getToken()}` }
     });
+  }
+
+  isCurrentUser() {
+    this.state.user._id === Auth.getPayload().sub;
   }
 
   render() {
@@ -58,7 +50,7 @@ class UsersShow extends React.Component {
           <a className="button" onClick={this.followAndUnfollow}>{this.state.followButton}</a>
         </div>
         <div className="column is-half-desktop">
-          <p className="title is-5">{this.state.user.followers.length} followers</p>
+          {/* <p className="title is-5">{this.state.user.followers.length} followers</p> */}
           <p className="title is-5">{this.state.user.following.length} following</p>
           <p className="title is-5">{this.state.user.recommendations.length} recommendations</p>
         </div>

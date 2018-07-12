@@ -30,7 +30,6 @@ function updateRoute(req, res, next) {
 }
 
 function followRoute(req, res, next) {
-  console.log(req.currentUser._id);
   User
     .findById(req.currentUser._id)
     .then(user => {
