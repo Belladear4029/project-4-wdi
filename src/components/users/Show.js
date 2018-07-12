@@ -15,14 +15,24 @@ class UsersShow extends React.Component {
   }
 
   componentDidMount() {
+
+
     axios.get(`/api/users/${this.props.match.params.id}`)
       .then(res => this.setState({ user: res.data }))
       .then(() => {
         if(this.state.user._id === Auth.getPayload().sub) this.setState({ edit: 'Edit Profile' });
-        console.log(Auth.getPayload());
+        // console.log(this.state);
         // if(Auth.getPayload().sub.following[this.state.user._id]) this.setState({ follow: 'Unfollow' });
       })
       .catch(err => this.setState({ error: err.message }));
+
+    axios({
+      url: '/api/profile',
+      method: 'GET',
+      headers: { Authorization: `Bearer ${Auth.getToken()}` }
+    })
+      .then(res => this.setState({ currentUser: res.data }))
+      .then(() => console.log(this.state));
   }
 
   follow() {
