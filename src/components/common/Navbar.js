@@ -17,8 +17,7 @@ class Navbar extends React.Component {
       method: 'GET',
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .then(res => this.setState({ currentUser: res.data }))
-      .then(() => console.log(this.state.currentUser));
+      .then(res => this.setState({ currentUser: res.data }));
   }
 
   toggleNavbar = () => {

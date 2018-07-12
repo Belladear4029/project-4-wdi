@@ -9,17 +9,15 @@ class UsersShow extends React.Component {
   constructor() {
     super();
     this.state = {
-      edit: '',
+      edit: 'Edit Profile',
       follow: false,
-      followButton: 'Follow'
+      followButton: ''
     };
 
     this.follow = this.follow.bind(this);
   }
 
   componentDidMount() {
-
-    // if(this.state.follow) this.setState({ follow: 'Unfollow' });
 
     axios({
       url: '/api/currentUser',
@@ -31,7 +29,7 @@ class UsersShow extends React.Component {
         axios.get(`/api/users/${this.props.match.params.id}`)
           .then(res => this.setState({ user: res.data }))
           .then(() => {
-            if(this.state.user._id === this.state.currentUser._id) this.setState({ edit: 'Edit Profile' });
+            if(this.state.user._id !== this.state.currentUser._id) this.setState({ edit: '', followButton: 'Follow' });
             if(this.state.currentUser.following.includes(this.state.user._id)) this.setState({ follow: true, followButton: 'Unfollow' });
           })
           .then(() => console.log(this.state))
@@ -41,17 +39,24 @@ class UsersShow extends React.Component {
 
   follow() {
     if(!this.state.follow) {
-      this.setState({ followButton: 'Unfollow' });
-      this.state.currentUser.following.push(this.state.user);
+      this.setState({ followButton: 'Unfollow', follow: true });
+      this.state.currentUser.following.push(this.state.user._id);
+      this.state.user.followers.push(this.state.currentUser._id);
     } else {
-      this.setState({ followButton: 'Follow' });
-      this.state.currentUser.following.splice(this.state.user);
+      this.setState({ followButton: 'Follow', follow: false });
+      this.state.currentUser.following.splice(this.state.user._id);
+      this.state.user.followers.splice(this.state.currentUser._id);
     }
     axios({
       url: '/api/currentUser',
       method: 'PUT',
       headers: { Authorization: `Bearer ${Auth.getToken()}` },
       data: this.state.currentUser
+    });
+    axios({
+      url: `/api/users/${this.props.match.params.id}`,
+      method: 'PUT',
+      data: this.state.user
     });
   }
 
