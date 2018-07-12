@@ -15,6 +15,8 @@ class CitiesShow extends React.Component {
     axios.get(`/api/cities/${this.props.match.params.id}`)
       .then(res => this.setState({ city: res.data }))
       .catch(err => this.setState({ error: err.message }));
+
+    // {if(this.state.cities.recommendation.creator._id.includes(currentUser.following[i]));}
   }
 
   render() {
