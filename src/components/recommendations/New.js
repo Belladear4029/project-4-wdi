@@ -25,15 +25,6 @@ class RecommendationsNew extends React.Component {
       });
   }
 
-  handlePlaceSelection = (place) => {
-    console.log(place);
-    this.setState({
-      name: place.name,
-      address: place.formatted_address,
-      location: place.geometry.location
-    });
-  }
-
   handleCitySelection = (city) => {
     console.log(city);
     this.setState({
@@ -45,12 +36,21 @@ class RecommendationsNew extends React.Component {
     });
   }
 
+  handlePlaceSelection = (place) => {
+    console.log(place);
+    this.setState({
+      name: place.name,
+      address: place.formatted_address,
+      location: place.geometry.location
+    });
+  }
+
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="field">
           <label className="city">City</label>
-          <Autocomplete className="input" onPlaceSelected={this.handleCitySelection} placeholder="Search a city" />
+          <Autocomplete types={['(cities)']} className="input" onPlaceSelected={this.handleCitySelection} placeholder="Search a city" />
         </div>
         <div className="field">
           <label className="place">Place</label>
