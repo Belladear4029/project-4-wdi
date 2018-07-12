@@ -16,6 +16,7 @@ router.route('/users/:id')
   .put(users.update);
 
 router.put('/users/:id/follow', secureRoute, users.follow);
+router.put('/users/:id/unfollow', secureRoute, users.unfollow);
 
 router.route('/profile')
   .get(secureRoute, auth.profile);

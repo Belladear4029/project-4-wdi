@@ -13,7 +13,7 @@ class UsersShow extends React.Component {
       followButton: 'Follow'
     };
 
-    this.followAndUnfollow = this.followAndUnfollow.bind(this);
+    this.followButton = this.followButton.bind(this);
   }
 
   componentDidMount() {
@@ -22,14 +22,24 @@ class UsersShow extends React.Component {
       .catch(err => this.setState({ error: err.message }));
   }
 
-  followAndUnfollow() {
-    if(!this.state.follow) {
-      this.setState({ followButton: 'Unfollow', follow: true });
-    } else {
-      this.setState({ followButton: 'Follow', follow: false });
-    }
+  followButton() {
+    this.state.follow ? this.unfollow() : this.follow();
+    console.log(this.state.user);
+  }
+
+  follow() {
+    this.setState({ followButton: 'Unfollow', follow: true });
     axios({
       url: `/api/users/${this.props.match.params.id}/follow`,
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${Auth.getToken()}` }
+    });
+  }
+
+  unfollow() {
+    this.setState({ followButton: 'Follow', follow: false });
+    axios({
+      url: `/api/users/${this.props.match.params.id}/unfollow`,
       method: 'PUT',
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     });
@@ -47,7 +57,7 @@ class UsersShow extends React.Component {
         <div className="column is-half-desktop">
           <img src={this.state.user.image} />
           <h1 className="title is-2">{this.state.user.firstName} {this.state.user.lastName}</h1>
-          <a className="button" onClick={this.followAndUnfollow}>{this.state.followButton}</a>
+          <a className="button" onClick={this.followButton}>{this.state.followButton}</a>
         </div>
         <div className="column is-half-desktop">
           {/* <p className="title is-5">{this.state.user.followers.length} followers</p> */}

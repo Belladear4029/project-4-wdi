@@ -40,9 +40,21 @@ function followRoute(req, res, next) {
     .catch(next);
 }
 
+function unfollowRoute(req, res, next) {
+  User
+    .findById(req.currentUser._id)
+    .then(user => {
+      user.following.splice(req.params.id);
+      return user.save();
+    })
+    .then(user => res.json(user))
+    .catch(next);
+}
+
 module.exports = {
   index: indexRoute,
   show: showRoute,
   update: updateRoute,
-  follow: followRoute
+  follow: followRoute,
+  unfollow: unfollowRoute
 };
