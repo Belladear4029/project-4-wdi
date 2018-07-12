@@ -32,8 +32,9 @@ class UsersProfile extends React.Component {
           <Link to={`/users/${this.state.currentUser._id}/edit`}>Edit Profile</Link>
         </div>
         <div className="column is-half-desktop">
-          <p className="title is-5">{this.state.currentUser.followers} followers</p>
-          <p className="title is-5">{this.state.currentUser.following} following</p>
+          <p className="title is-5">{this.state.currentUser.followers.length} followers</p>
+          <p className="title is-5">{this.state.currentUser.following.length} following</p>
+          <p className="title is-5">{this.state.currentUser.recommendations.length} recommendations</p>
         </div>
         <div className="column is-full-desktop">
           <p className="title is-5">Recommendations</p>

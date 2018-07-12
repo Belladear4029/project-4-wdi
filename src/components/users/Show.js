@@ -69,8 +69,9 @@ class UsersShow extends React.Component {
           <a className="button" onClick={this.followAndUnfollow}>{this.state.followButton}</a>
         </div>
         <div className="column is-half-desktop">
-          <p className="title is-5">{this.state.user.followers} followers</p>
-          <p className="title is-5">{this.state.user.following} following</p>
+          <p className="title is-5">{this.state.user.followers.length} followers</p>
+          <p className="title is-5">{this.state.user.following.length} following</p>
+          <p className="title is-5">{this.state.user.recommendations.length} recommendations</p>
         </div>
         <div className="column is-full-desktop">
           <p className="title is-5">Recommendations</p>
