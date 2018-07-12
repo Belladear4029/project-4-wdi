@@ -41,6 +41,12 @@ class UsersShow extends React.Component {
   follow() {
     !this.state.follow ? this.state.currentUser.following.push(this.state.user) : this.state.currentUser.following.splice(this.state.user);
     this.setState({ follow: !this.state.follow });
+    axios({
+      url: '/api/currentUser',
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${Auth.getToken()}` },
+      data: this.state.currentUser
+    });
   }
 
   render() {
