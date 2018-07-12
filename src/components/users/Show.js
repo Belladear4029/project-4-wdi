@@ -19,19 +19,20 @@ class UsersShow extends React.Component {
 
   componentDidMount() {
 
+    // if(this.state.follow) this.setState({ follow: 'Unfollow' });
+
     axios({
       url: '/api/currentUser',
       method: 'GET',
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(res => this.setState({ currentUser: res.data }))
-      .then(() => console.log(this.state))
       .then(() => {
         axios.get(`/api/users/${this.props.match.params.id}`)
           .then(res => this.setState({ user: res.data }))
           .then(() => {
             if(this.state.user._id === this.state.currentUser._id) this.setState({ edit: 'Edit Profile' });
-            if(this.state.currentUser.following.includes(this.state.user)) this.setState({ follow: true });
+            if(this.state.currentUser.following.includes(this.state.user._id)) this.setState({ follow: true, followButton: 'Unfollow' });
           })
           .then(() => console.log(this.state))
           .catch(err => this.setState({ error: err.message }));
@@ -39,8 +40,13 @@ class UsersShow extends React.Component {
   }
 
   follow() {
-    !this.state.follow ? this.state.currentUser.following.push(this.state.user) : this.state.currentUser.following.splice(this.state.user);
-    this.setState({ follow: !this.state.follow });
+    if(!this.state.follow) {
+      this.setState({ followButton: 'Unfollow' });
+      this.state.currentUser.following.push(this.state.user);
+    } else {
+      this.setState({ followButton: 'Follow' });
+      this.state.currentUser.following.splice(this.state.user);
+    }
     axios({
       url: '/api/currentUser',
       method: 'PUT',
