@@ -25,9 +25,17 @@ class CitiesShow extends React.Component {
       .then(() => {
         axios.get(`/api/cities/${this.props.match.params.id}`)
           .then(res => this.setState({ city: res.data }))
-          .then(() => this.setState({ recommendations: this.state.city.recommendations && this.state.currentUser.following.map(followee => followee.recommendations) }))
-          .then(() => console.log(this.state.currentUser, this.state.recommendations));
+          // .then(() => this.setState({ recommendations: this.filteredRecommendations() }))
+          .then(() => console.log(this.state.currentUser, this.state.recommendations, this.filteredRecommendations()));
       });
+  }
+
+  findFollowingIds() {
+    this.state.currentUser.following.find(followee => followee._id);
+  }
+
+  filteredRecommendations() {
+    this.state.city.recommendations.filter(recommendation => recommendation.creator._id === this.state.currentUser.following.find(followee => followee._id));
   }
 
   render() {

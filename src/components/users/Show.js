@@ -27,14 +27,17 @@ class UsersShow extends React.Component {
       .then(res => this.setState({ currentUser: res.data }));
     axios.get(`/api/users/${this.props.match.params.id}`)
       .then(res => this.setState({ user: res.data }))
-      // .then(() => this.checkIfFollowing())
+      .then(() => {
+        if(this.checkIfFollowing()) this.setState({ followButton: 'Unfollow', follow: true });
+      })
       .catch(err => this.setState({ error: err.message }));
   }
 
   checkIfFollowing() {
-    console.log(this.state.currentUser.following.forEach(followee => console.log(Object.values(followee)[1])) === this.state.user_id);
-    console.log(this.state.currentUser);
-    console.log(this.state.user);
+    if(this.state.currentUser.following){
+      const following = this.state.currentUser.following.map(i => i._id);
+      return (following.includes(this.state.user._id));
+    }
   }
 
   followButton() {
