@@ -10,12 +10,14 @@ class CitiesShow extends React.Component {
 
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      recommendations: {}
+    };
   }
 
   componentDidMount() {
     axios({
-      url: '/api/currentUser',
+      url: '/api/profile',
       method: 'GET',
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
@@ -25,15 +27,8 @@ class CitiesShow extends React.Component {
           .then(res => this.setState({ city: res.data }))
           .then(() => this.setState({ recommendations: this.state.city.recommendations && this.state.currentUser.following.map(followee => followee.recommendations) }))
           .then(() => console.log(this.state.currentUser, this.state.recommendations));
-
-        // axios.get(`/api/cities/${this.props.match.params.id}`)
-        //   .then(res => this.setState({ city: res.data }))
-        //   .catch(err => this.setState({ error: err.message }));
-
       });
-
   }
-
 
   render() {
     if(this.state.error) return <h2 className="title is-2">{this.state.error}</h2>;

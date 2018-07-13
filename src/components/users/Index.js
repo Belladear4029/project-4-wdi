@@ -1,13 +1,15 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+// import _ from 'lodash';
 
 class UsersIndex extends React.Component {
 
   constructor() {
     super();
     this.state = {
-      users: []
+      users: [],
+      sort: 'name|asc'
     };
   }
 
@@ -16,12 +18,28 @@ class UsersIndex extends React.Component {
       .then(res => this.setState({ users: res.data }));
   }
 
+  handleSearch = (e) => {
+    this.setState({ search: e.target.value });
+  }
+
+  filteredUsers = () => {
+    const re = new RegExp(this.state.search, 'i');
+    return this.state.users.filter(user => {
+      return re.test(user.name);
+    });
+  }
+
   render() {
     return (
       <main>
         <h1 className="title is-2">Recommenders</h1>
+
+        <div className="filters">
+          <input className="input" placeholder="Search" onChange={this.handleSearch} />
+        </div>
+
         <div className="columns is-multiline">
-          {this.state.users.map(user =>
+          {this.filteredUsers().map(user =>
             <div key={user._id} className="column">
               <Link to={`/users/${user._id}`}>
                 <div className="card">

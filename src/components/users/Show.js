@@ -10,18 +10,31 @@ class UsersShow extends React.Component {
     super();
     this.state = {
       follow: false,
-      followButton: 'Follow'
+      followButton: 'Follow',
+      currentUser: {}
     };
 
     this.followButton = this.followButton.bind(this);
+    this.isCurrentUser = this.isCurrentUser.bind(this);
   }
 
-  //get /profile
-
   componentDidMount() {
+    axios({
+      url: '/api/profile',
+      method: 'GET',
+      headers: { Authorization: `Bearer ${Auth.getToken()}` }
+    })
+      .then(res => this.setState({ currentUser: res.data }));
     axios.get(`/api/users/${this.props.match.params.id}`)
       .then(res => this.setState({ user: res.data }))
+      // .then(() => this.checkIfFollowing())
       .catch(err => this.setState({ error: err.message }));
+  }
+
+  checkIfFollowing() {
+    console.log(this.state.currentUser.following.forEach(followee => console.log(Object.values(followee)[1])) === this.state.user_id);
+    console.log(this.state.currentUser);
+    console.log(this.state.user);
   }
 
   followButton() {
@@ -35,7 +48,8 @@ class UsersShow extends React.Component {
       url: `/api/users/${this.props.match.params.id}/follow`,
       method: 'PUT',
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
-    });
+    })
+      .then(this.props.history.push(`/users/${this.props.match.params.id}`));
   }
 
   unfollow() {
@@ -44,11 +58,13 @@ class UsersShow extends React.Component {
       url: `/api/users/${this.props.match.params.id}/unfollow`,
       method: 'PUT',
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
-    });
+    })
+      .then(this.props.history.push(`/users/${this.props.match.params.id}`));
   }
 
   isCurrentUser() {
-    this.state.user._id === Auth.getPayload().sub;
+    if(this.state.user._id === Auth.getPayload().sub) return true;
+    else return false;
   }
 
   render() {
@@ -59,7 +75,8 @@ class UsersShow extends React.Component {
         <div className="column is-half-desktop">
           <img src={this.state.user.image} />
           <h1 className="title is-2">{this.state.user.firstName} {this.state.user.lastName}</h1>
-          <a className="button" onClick={this.followButton}>{this.state.followButton}</a>
+          {!this.isCurrentUser() && <a className="button" onClick={this.followButton}>{this.state.followButton}</a>}
+          {this.isCurrentUser() && <Link className="button" to={`/users/${this.state.currentUser._id}/edit`}>Edit Profile</Link>}
         </div>
         <div className="column is-half-desktop">
           <p className="title is-5">{this.state.user.followers.length} followers</p>
