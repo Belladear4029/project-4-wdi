@@ -24,7 +24,18 @@ class CitiesShow extends React.Component {
         axios.get(`/api/cities/${this.props.match.params.id}`)
           .then(res => this.setState({ city: res.data }))
           .then(() => this.setState({ recommendations: this.filteredRecommendations() }))
-          .then(() => console.log(this.state.currentUser, this.filteredRecommendations()));
+          .then(() => {
+            axios({
+              url: '/api/forecast',
+              method: 'GET',
+              params: {
+                lat: this.state.city.location.lat,
+                lng: this.state.city.location.lng
+              }
+            })
+              .then(res => this.setState({ forcast: res.data }))
+              .then(() => console.log(this.state));
+          });
       });
   }
 
@@ -40,6 +51,7 @@ class CitiesShow extends React.Component {
       <div className="columns is-multiline">
         <div className="column is-half-desktop">
           <h1 className="title is-2">{this.state.city.name}, {this.state.city.country}</h1>
+          {this.state.forecast && <h1>{this.state.forecast.currently.summary}</h1>}
           <hr />
         </div>
         <div className="column is-half-desktop">

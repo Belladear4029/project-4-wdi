@@ -26,6 +26,7 @@ class RecommendationsNew extends React.Component {
   }
 
   handleCitySelection = (city) => {
+    console.log(city);
     this.setState({
       city: {
         name: city.name,
@@ -36,6 +37,7 @@ class RecommendationsNew extends React.Component {
   }
 
   handlePlaceSelection = (place) => {
+    console.log(place);
     this.setState({
       name: place.name,
       address: place.formatted_address,
