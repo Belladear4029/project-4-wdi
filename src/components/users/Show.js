@@ -122,7 +122,7 @@ class UsersShow extends React.Component {
                   <h1 className="title is-6">{recommendation.address}</h1>
                   <h1 className="title is-6">{recommendation.content}</h1>
                   <a className="title is-6" onClick={this.showOpeningHours}>Click for opening hours</a>
-                  {this.state.showOpeningHours && <p>{recommendation.openingHours}</p>}
+                  {this.state.showOpeningHours && <ul>{recommendation.openingHours}</ul>}
                 </div>
               </div>
             </div>

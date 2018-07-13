@@ -10,6 +10,7 @@ router.get('/cities', cities.index);
 router.get('/cities/:id', cities.show);
 
 router.post('/recommendations', secureRoute, recommendations.create);
+router.delete('/recommendations/:id', secureRoute, recommendations.delete);
 
 router.get('/users', users.index);
 router.route('/users/:id')

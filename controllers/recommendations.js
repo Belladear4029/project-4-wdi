@@ -20,6 +20,15 @@ function createRoute(req, res, next) {
 
 }
 
+function deleteRoute(req, res, next) {
+  Recommendation
+    .findById(req.params.id)
+    .then(recommendation => recommendation.remove())
+    .then(() => res.sendStatus(204))
+    .catch(next);
+}
+
 module.exports = {
-  create: createRoute
+  create: createRoute,
+  delete: deleteRoute
 };
