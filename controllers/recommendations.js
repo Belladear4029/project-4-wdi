@@ -20,6 +20,15 @@ function createRoute(req, res, next) {
 
 }
 
+function updateRoute(req, res, next) {
+  Recommendation
+    .findById(req.params.id)
+    .then(recommendation => recommendation.set(req.body))
+    .then(recommendation => recommendation.save())
+    .then(recommendation => res.json(recommendation))
+    .catch(next);
+}
+
 function deleteRoute(req, res, next) {
   Recommendation
     .findById(req.params.id)
@@ -30,5 +39,6 @@ function deleteRoute(req, res, next) {
 
 module.exports = {
   create: createRoute,
+  update: updateRoute,
   delete: deleteRoute
 };
