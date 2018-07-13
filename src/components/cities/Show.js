@@ -41,6 +41,9 @@ class CitiesShow extends React.Component {
 
   filteredRecommendations() {
     return this.state.currentUser.following.map(followee => followee.recommendations[0]).filter(recommendation => recommendation.city._id === this.state.city._id);
+    // return this.state.currentUser.following.map(followee => followee.recommendations.forEach(array => array.filter(recommendation => recommendation.city._id === this.state.city._id)));
+    //   }
+    // });
   }
 
   render() {

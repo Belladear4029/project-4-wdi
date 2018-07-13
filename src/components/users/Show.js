@@ -12,11 +12,14 @@ class UsersShow extends React.Component {
       follow: false,
       followButton: 'Follow',
       followers: '',
+      showFollowers: '',
+      showFollowing: '',
       currentUser: {}
     };
 
     this.followButton = this.followButton.bind(this);
     this.isCurrentUser = this.isCurrentUser.bind(this);
+    this.showFollowers = this.showFollowers.bind(this);
   }
 
   componentDidMount() {
@@ -75,6 +78,14 @@ class UsersShow extends React.Component {
     else return false;
   }
 
+  showFollowers() {
+    this.setState({ showFollowers: this.state.user.followers.map(follower => follower.firstName + ' ' + follower.lastName) });
+  }
+
+  showFollowing() {
+    this.setState({ showFollowing: this.state.user.following.map(followee => followee.firstName + ' ' + followee.lastName) });
+  }
+
   render() {
     if(this.state.error) return <h2 className="title is-2">{this.state.error}</h2>;
     if(!this.state.user) return <h2 className="title is-2">Loading...</h2>;
@@ -87,8 +98,9 @@ class UsersShow extends React.Component {
           {this.isCurrentUser() && <Link className="button" to={`/users/${this.state.currentUser._id}/edit`}>Edit Profile</Link>}
         </div>
         <div className="column is-half-desktop">
-          <p className="title is-5">{this.state.followers} followers</p>
-          <p className="title is-5">{this.state.user.following.length} following</p>
+          <p className="title is-5" onClick={this.showFollowers}>{this.state.followers} followers</p>
+          <p>{this.state.showFollowers}</p>
+          <p className="title is-5" onClick={this.showFollowing}>{this.state.user.following.length} following</p>
           <p className="title is-5">{this.state.user.recommendations.length} recommendations</p>
         </div>
         <div className="column is-full-desktop">
