@@ -23,7 +23,7 @@ class RecommendationsNew extends React.Component {
       .then(() => {
         const currentUser = Auth.getCurrentUser();
         console.log(currentUser);
-        this.props.history.push(`/users/${currentUser._id}`);
+        this.props.history.push(`/users/${Auth.getPayload().sub}`);
       });
   }
 
