@@ -11,6 +11,7 @@ class UsersShow extends React.Component {
     this.state = {
       follow: false,
       followButton: 'Follow',
+      followers: '',
       currentUser: {}
     };
 
@@ -29,6 +30,7 @@ class UsersShow extends React.Component {
       .then(res => this.setState({ user: res.data }))
       .then(() => {
         if(this.checkIfFollowing()) this.setState({ followButton: 'Unfollow', follow: true });
+        this.followersCount();
       })
       .catch(err => this.setState({ error: err.message }));
   }
@@ -40,9 +42,13 @@ class UsersShow extends React.Component {
     }
   }
 
+  followersCount() {
+    this.setState({ followers: this.state.user.followers.length });
+  }
+
   followButton() {
     this.state.follow ? this.unfollow() : this.follow();
-    console.log(this.state.user);
+    console.log(this.state.user.followers.length);
   }
 
   follow() {
@@ -52,7 +58,7 @@ class UsersShow extends React.Component {
       method: 'PUT',
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .then(this.props.history.push(`/users/${this.props.match.params.id}`));
+      .then(() => this.followersCount());
   }
 
   unfollow() {
@@ -61,8 +67,7 @@ class UsersShow extends React.Component {
       url: `/api/users/${this.props.match.params.id}/unfollow`,
       method: 'PUT',
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
-    })
-      .then(this.props.history.push(`/users/${this.props.match.params.id}`));
+    });
   }
 
   isCurrentUser() {
@@ -82,7 +87,7 @@ class UsersShow extends React.Component {
           {this.isCurrentUser() && <Link className="button" to={`/users/${this.state.currentUser._id}/edit`}>Edit Profile</Link>}
         </div>
         <div className="column is-half-desktop">
-          <p className="title is-5">{this.state.user.followers.length} followers</p>
+          <p className="title is-5">{this.state.followers} followers</p>
           <p className="title is-5">{this.state.user.following.length} following</p>
           <p className="title is-5">{this.state.user.recommendations.length} recommendations</p>
         </div>

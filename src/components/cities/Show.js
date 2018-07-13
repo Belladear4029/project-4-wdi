@@ -10,9 +10,7 @@ class CitiesShow extends React.Component {
 
   constructor() {
     super();
-    this.state = {
-      recommendations: {}
-    };
+    this.state = {};
   }
 
   componentDidMount() {
@@ -25,8 +23,8 @@ class CitiesShow extends React.Component {
       .then(() => {
         axios.get(`/api/cities/${this.props.match.params.id}`)
           .then(res => this.setState({ city: res.data }))
-          // .then(() => this.setState({ recommendations: this.filteredRecommendations() }))
-          .then(() => console.log(this.state.currentUser, this.state.recommendations, this.filteredRecommendations()));
+          .then(() => this.setState({ recommendations: this.filteredRecommendations() }))
+          .then(() => console.log(this.state.currentUser, this.filteredRecommendations()));
       });
   }
 
@@ -35,7 +33,7 @@ class CitiesShow extends React.Component {
   }
 
   filteredRecommendations() {
-    this.state.city.recommendations.filter(recommendation => recommendation.creator._id === this.state.currentUser.following.find(followee => followee._id));
+    return this.state.currentUser.following.map(followee => followee.recommendations[0]).filter(recommendation => recommendation.city._id === this.state.city._id);
   }
 
   render() {
@@ -59,7 +57,7 @@ class CitiesShow extends React.Component {
         <div className="column is-half-desktop">
           <h1 className="title is-3">Recommendations</h1>
           <hr />
-          {this.state.city.recommendations.map(recommendation =>
+          {this.state.recommendations.map(recommendation =>
             <div key={recommendation._id}>
               <div className="card">
                 <div className="card-header">
