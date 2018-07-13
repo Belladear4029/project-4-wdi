@@ -3,6 +3,12 @@ const User = require('../models/user');
 function indexRoute(req, res, next) {
   User
     .find()
+    .populate({
+      path: 'recommendations',
+      populate: {
+        path: 'city'
+      }
+    })
     .then(users => res.json(users))
     .catch(next);
 }

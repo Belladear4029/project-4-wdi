@@ -11,6 +11,7 @@ class UsersIndex extends React.Component {
       users: [],
       sort: 'name|asc'
     };
+
   }
 
   componentDidMount() {
@@ -25,7 +26,7 @@ class UsersIndex extends React.Component {
   filteredUsers = () => {
     const re = new RegExp(this.state.search, 'i');
     return this.state.users.filter(user => {
-      return re.test(user.name);
+      return re.test(user.firstName) || re.test(user.lastName);
     });
   }
 

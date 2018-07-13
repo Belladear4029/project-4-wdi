@@ -28,10 +28,6 @@ class CitiesShow extends React.Component {
       });
   }
 
-  findFollowingIds() {
-    this.state.currentUser.following.find(followee => followee._id);
-  }
-
   filteredRecommendations() {
     return this.state.currentUser.following.map(followee => followee.recommendations[0]).filter(recommendation => recommendation.city._id === this.state.city._id);
   }
@@ -52,11 +48,12 @@ class CitiesShow extends React.Component {
         </div>
         <div className="column is-half-desktop">
           <h1 className="title is-3">Map</h1>
-          {this.state.city && <GoogleMap2 location={this.state.city.location} markers={this.state.city.recommendations}/>}
+          {this.state.city && <GoogleMap2 location={this.state.city.location} markers={this.state.recommendations}/>}
         </div>
         <div className="column is-half-desktop">
           <h1 className="title is-3">Recommendations</h1>
           <hr />
+          {!this.state.recommendations && <p>You currently do not follow anyone who has a recommendation for this city</p>}
           {this.state.recommendations.map(recommendation =>
             <div key={recommendation._id}>
               <div className="card">
