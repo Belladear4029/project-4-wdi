@@ -1,6 +1,15 @@
 const Recommendation = require('../models/recommendation');
 const City = require('../models/city');
 
+function showRoute(req, res, next) {
+  Recommendation
+    .findById(req.params.id)
+    .populate('city')
+    .then(recommendation => res.json(recommendation))
+    .catch(next);
+
+}
+
 function createRoute(req, res, next) {
   req.body.creator = req.currentUser;
 
@@ -38,6 +47,7 @@ function deleteRoute(req, res, next) {
 }
 
 module.exports = {
+  show: showRoute,
   create: createRoute,
   update: updateRoute,
   delete: deleteRoute

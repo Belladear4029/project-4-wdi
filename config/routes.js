@@ -11,6 +11,7 @@ router.get('/cities/:id', cities.show);
 
 router.post('/recommendations', secureRoute, recommendations.create);
 router.route('/recommendations/:id')
+  .get(recommendations.show)
   .put(secureRoute, recommendations.update)
   .delete(secureRoute, recommendations.delete);
 

@@ -21,7 +21,9 @@ class RecommendationsNew extends React.Component {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(() => {
-        this.props.history.push('/users');
+        const currentUser = Auth.getCurrentUser();
+        console.log(currentUser);
+        this.props.history.push(`/users/${currentUser._id}`);
       });
   }
 
@@ -51,6 +53,8 @@ class RecommendationsNew extends React.Component {
   render() {
     return (
       <RecommendationsForm
+        handleChange={this.handleChange}
+        handleSubmit={this.handleSubmit}
         handleCitySelection={this.handleCitySelection}
         handlePlaceSelection={this.handlePlaceSelection}
         data={this.state}

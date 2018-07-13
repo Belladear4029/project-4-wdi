@@ -6,7 +6,7 @@ const RecommendationsForm = ({ handleChange, handleSubmit, handleCitySelection, 
     <form onSubmit={handleSubmit}>
       <div className="field">
         <label className="city">City</label>
-        <Autocomplete types={['(cities)']} className="input" onPlaceSelected={handleCitySelection} placeholder="Search a city" value={data.city || ''} />
+        <Autocomplete types={['(cities)']} className="input" onPlaceSelected={handleCitySelection} placeholder="Search a city" />
       </div>
       <div className="field">
         <label className="place">Place</label>
@@ -20,7 +20,6 @@ const RecommendationsForm = ({ handleChange, handleSubmit, handleCitySelection, 
         <label className="rating">Rating</label>
         <input className="input" name="rating" placeholder="On a scale of 1 to 5" onChange={handleChange} value={data.rating || ''}/>
       </div>
-
       <button className="button">Submit</button>
     </form>
   );

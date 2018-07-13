@@ -13,22 +13,24 @@ class UsersShow extends React.Component {
       showFollowers: false,
       showFollowing: false,
       showOpeningHours: false
-      // currentUser: {}
     };
 
+    this.toggleFollowing = this.toggleFollowing.bind(this);
+    this.toggleShowFollowers = this.toggleShowFollowers.bind(this);
+    this.toggleShowFollowing = this.toggleShowFollowing.bind(this);
     this.isCurrentUser = this.isCurrentUser.bind(this);
-    // this.showFollowers = this.showFollowers.bind(this);
     this.showOpeningHours = this.showOpeningHours.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
     axios.get(`/api/users/${this.props.match.params.id}`)
       .then(res => this.setState({ user: res.data, currentUser: Auth.getCurrentUser() }))
-      .then(console.log(this.state))
       .catch(err => this.setState({ error: err.message }));
   }
 
   checkIfFollowing() {
+    console.log(this.state.currentUser);
     if(this.state.currentUser) {
       const following = this.state.currentUser.following.map(i => i._id);
       return (following.includes(this.state.user._id));
@@ -73,6 +75,15 @@ class UsersShow extends React.Component {
     this.setState({ showOpeningHours: true});
   }
 
+  handleDelete(recommendation) {
+    axios({
+      url: `/api/recommendations/${recommendation._id}`,
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${Auth.getToken()}` }
+    })
+      .then(() => this.props.history.replace(`/api/users/${this.state.currentUser._id}`));
+  }
+
   render() {
     if(this.state.error) return <h2 className="title is-2">{this.state.error}</h2>;
     if(!this.state.user) return <h2 className="title is-2">Loading...</h2>;
@@ -112,13 +123,13 @@ class UsersShow extends React.Component {
                   <h1 className="title is-6">{recommendation.address}</h1>
                   <h1 className="title is-6">{recommendation.content}</h1>
                   <a className="title is-6" onClick={this.showOpeningHours}>Click for opening hours</a>
-                  {this.state.showOpeningHours && recommendation.openingHours && <ul>{recommendation.openingHours.map((hour, i) =>
+                  {recommendation.openingHours && <ul>{recommendation.openingHours.map((hour, i) =>
                     <li key={i}>{hour}</li>
                   )}</ul>}
                 </div>
                 <div className="card-footer">
                   <Link to={`/recommendations/${recommendation._id}/edit`} className="card-footer-item">Edit</Link>
-                  <Link to={`/recommendations/${recommendation._id}/delete`} className="card-footer-item">Delete</Link>
+                  <a onClick={() => this.handleDelete(recommendation)} className="card-footer-item">Delete</a>
                 </div>
               </div>
             </div>
