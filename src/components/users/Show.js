@@ -14,12 +14,14 @@ class UsersShow extends React.Component {
       followers: '',
       showFollowers: '',
       showFollowing: '',
+      showOpeningHours: false,
       currentUser: {}
     };
 
     this.followButton = this.followButton.bind(this);
     this.isCurrentUser = this.isCurrentUser.bind(this);
     this.showFollowers = this.showFollowers.bind(this);
+    this.showOpeningHours = this.showOpeningHours.bind(this);
   }
 
   componentDidMount() {
@@ -86,6 +88,10 @@ class UsersShow extends React.Component {
     this.setState({ showFollowing: this.state.user.following.map(followee => followee.firstName + ' ' + followee.lastName) });
   }
 
+  showOpeningHours() {
+    this.setState({ showOpeningHours: true});
+  }
+
   render() {
     if(this.state.error) return <h2 className="title is-2">{this.state.error}</h2>;
     if(!this.state.user) return <h2 className="title is-2">Loading...</h2>;
@@ -110,11 +116,13 @@ class UsersShow extends React.Component {
               <div className="card">
                 <div className="card-header">
                   <p className="card-header-title is-3"><Link to={`/cities/${recommendation.city._id}`}>{recommendation.city.name}</Link> - {recommendation.name}</p>
-                  <h1 className="card-header-icon title is-6">Rating: {recommendation.rating}</h1>
+                  <h1 className="card-header-icon title is-6">Price Level: {recommendation.priceLevel} Rating: {recommendation.rating}</h1>
                 </div>
                 <div className="card-content">
                   <h1 className="title is-6">{recommendation.address}</h1>
                   <h1 className="title is-6">{recommendation.content}</h1>
+                  <a className="title is-6" onClick={this.showOpeningHours}>Click for opening hours</a>
+                  {this.state.showOpeningHours && <p>{recommendation.openingHours}</p>}
                 </div>
               </div>
             </div>

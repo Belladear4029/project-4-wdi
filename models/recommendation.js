@@ -6,6 +6,9 @@ const recommendationSchema = new mongoose.Schema({
   content: String,
   rating: { type: Number, min: 1, max: 5 },
   location: { lat: Number, lng: Number },
+  openingHours: Object,
+  priceLevel: Number,
+  types: [ String ],
   city: { type: mongoose.Schema.ObjectId, ref: 'City'},
   creator: { type: mongoose.Schema.ObjectId, ref: 'User', required: true }
 });

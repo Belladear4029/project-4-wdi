@@ -41,7 +41,10 @@ class RecommendationsNew extends React.Component {
     this.setState({
       name: place.name,
       address: place.formatted_address,
-      location: place.geometry.location
+      location: place.geometry.location,
+      openingHours: place.opening_hours.weekday_text,
+      priceLevel: place.price_level,
+      types: place.types
     });
   }
 
