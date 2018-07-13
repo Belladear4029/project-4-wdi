@@ -8,6 +8,7 @@ import AuthRegister from './components/auth/Register';
 import AuthLogin from './components/auth/Login';
 import CitiesShow from './components/cities/Show';
 import RecommendationsNew from './components/recommendations/New';
+// import RecommendationsEdit from './components/recommendations/Edit';
 import UsersIndex from './components/users/Index';
 import UsersShow from './components/users/Show';
 import UsersEdit from './components/users/Edit';
@@ -27,6 +28,7 @@ class App extends React.Component {
           <section className="section">
             <div className="container">
               <Switch>
+                {/* <Route path="/recommendations/:id/edit" component={RecommendationsEdit}/> */}
                 <Route path="/recommendations" component={RecommendationsNew}/>
                 <Route path="/cities/:id" component={CitiesShow}/>
                 <Route path="/users/:id/edit" component={UsersEdit}/>

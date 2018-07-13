@@ -12,6 +12,14 @@ class Auth {
     localStorage.setItem('token', token);
   }
 
+  static setCurrentUser(user) {
+    localStorage.setItem('currentUser', JSON.stringify(user));
+  }
+
+  static getCurrentUser() {
+    return JSON.parse(localStorage.getItem('currentUser'));
+  }
+
   static getPayload() {
     const token = localStorage.getItem('token');
     if(!token) return null;

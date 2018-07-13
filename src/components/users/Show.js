@@ -10,82 +10,63 @@ class UsersShow extends React.Component {
     super();
     this.state = {
       follow: false,
-      followButton: 'Follow',
-      followers: '',
-      showFollowers: '',
-      showFollowing: '',
-      showOpeningHours: false,
-      currentUser: {}
+      showFollowers: false,
+      showFollowing: false,
+      showOpeningHours: false
+      // currentUser: {}
     };
 
-    this.followButton = this.followButton.bind(this);
     this.isCurrentUser = this.isCurrentUser.bind(this);
-    this.showFollowers = this.showFollowers.bind(this);
+    // this.showFollowers = this.showFollowers.bind(this);
     this.showOpeningHours = this.showOpeningHours.bind(this);
   }
 
   componentDidMount() {
-    axios({
-      url: '/api/profile',
-      method: 'GET',
-      headers: { Authorization: `Bearer ${Auth.getToken()}` }
-    })
-      .then(res => this.setState({ currentUser: res.data }));
     axios.get(`/api/users/${this.props.match.params.id}`)
-      .then(res => this.setState({ user: res.data }))
-      .then(() => {
-        if(this.checkIfFollowing()) this.setState({ followButton: 'Unfollow', follow: true });
-        this.followersCount();
-      })
+      .then(res => this.setState({ user: res.data, currentUser: Auth.getCurrentUser() }))
+      .then(console.log(this.state))
       .catch(err => this.setState({ error: err.message }));
   }
 
   checkIfFollowing() {
-    if(this.state.currentUser.following){
+    if(this.state.currentUser) {
       const following = this.state.currentUser.following.map(i => i._id);
       return (following.includes(this.state.user._id));
     }
   }
 
-  followersCount() {
-    this.setState({ followers: this.state.user.followers.length });
-  }
-
-  followButton() {
+  toggleFollowing() {
     this.state.follow ? this.unfollow() : this.follow();
-    console.log(this.state.user.followers.length);
   }
 
   follow() {
-    this.setState({ followButton: 'Unfollow', follow: true });
     axios({
       url: `/api/users/${this.props.match.params.id}/follow`,
       method: 'PUT',
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .then(() => this.followersCount());
+      .then(res => this.setState({ user: res.data }));
   }
 
   unfollow() {
-    this.setState({ followButton: 'Follow', follow: false });
     axios({
       url: `/api/users/${this.props.match.params.id}/unfollow`,
       method: 'PUT',
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
-    });
+    })
+      .then(res => this.setState({ user: res.data }));
   }
 
   isCurrentUser() {
-    if(this.state.user._id === Auth.getPayload().sub) return true;
-    else return false;
+    if(this.state.currentUser) return this.state.user._id === this.state.currentUser._id;
   }
 
-  showFollowers() {
-    this.setState({ showFollowers: this.state.user.followers.map(follower => follower.firstName + ' ' + follower.lastName) });
+  toggleShowFollowers() {
+    this.setState({ showFollowers: !this.state.showFollowers });
   }
 
-  showFollowing() {
-    this.setState({ showFollowing: this.state.user.following.map(followee => followee.firstName + ' ' + followee.lastName) });
+  toggleShowFollowing() {
+    this.setState({ showFollowing: !this.state.showFollowing });
   }
 
   showOpeningHours() {
@@ -100,13 +81,22 @@ class UsersShow extends React.Component {
         <div className="column is-half-desktop">
           <img src={this.state.user.image} />
           <h1 className="title is-2">{this.state.user.firstName} {this.state.user.lastName}</h1>
-          {!this.isCurrentUser() && <a className="button" onClick={this.followButton}>{this.state.followButton}</a>}
+          {!this.isCurrentUser() && <a className="button" onClick={this.toggleFollowing}>{this.checkIfFollowing() ? 'Unfollow' : 'Follow'}</a>}
           {this.isCurrentUser() && <Link className="button" to={`/users/${this.state.currentUser._id}/edit`}>Edit Profile</Link>}
         </div>
         <div className="column is-half-desktop">
-          <p className="title is-5" onClick={this.showFollowers}>{this.state.followers} followers</p>
-          <p>{this.state.showFollowers}</p>
-          <p className="title is-5" onClick={this.showFollowing}>{this.state.user.following.length} following</p>
+          <p className="title is-5" onClick={this.toggleShowFollowers}>{this.state.user.followers.length} followers</p>
+          {this.state.showFollowers && <ul>
+            {this.state.user.followers.map(user =>
+              <li key={user._id}>{user.firstName} {user.lastName}</li>
+            )}
+          </ul>}
+          <p className="title is-5" onClick={this.toggleShowFollowing}>{this.state.user.following.length} following</p>
+          {this.state.showFollowing && <ul>
+            {this.state.user.following.map(user =>
+              <li key={user._id}>{user.firstName} {user.lastName}</li>
+            )}
+          </ul>}
           <p className="title is-5">{this.state.user.recommendations.length} recommendations</p>
         </div>
         <div className="column is-full-desktop">
@@ -122,7 +112,13 @@ class UsersShow extends React.Component {
                   <h1 className="title is-6">{recommendation.address}</h1>
                   <h1 className="title is-6">{recommendation.content}</h1>
                   <a className="title is-6" onClick={this.showOpeningHours}>Click for opening hours</a>
-                  {this.state.showOpeningHours && <ul>{recommendation.openingHours}</ul>}
+                  {this.state.showOpeningHours && recommendation.openingHours && <ul>{recommendation.openingHours.map((hour, i) =>
+                    <li key={i}>{hour}</li>
+                  )}</ul>}
+                </div>
+                <div className="card-footer">
+                  <Link to={`/recommendations/${recommendation._id}/edit`} className="card-footer-item">Edit</Link>
+                  <Link to={`/recommendations/${recommendation._id}/delete`} className="card-footer-item">Delete</Link>
                 </div>
               </div>
             </div>
