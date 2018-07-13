@@ -40,10 +40,10 @@ class CitiesShow extends React.Component {
   }
 
   filteredRecommendations() {
-    return this.state.currentUser.following.map(followee => followee.recommendations[0]).filter(recommendation => recommendation.city._id === this.state.city._id);
-    // return this.state.currentUser.following.map(followee => followee.recommendations.forEach(array => array.filter(recommendation => recommendation.city._id === this.state.city._id)));
-    //   }
-    // });
+    const followingIds = this.state.currentUser.following.map(user => user._id);
+    return this.state.city.recommendations.filter(recommendation => {
+      return followingIds.includes(recommendation.creator._id);
+    });
   }
 
   render() {
@@ -61,15 +61,15 @@ class CitiesShow extends React.Component {
           <h1 className="title is-2">Hello</h1>
           <hr />
         </div>
-        <div className="column is-half-desktop">
+        <div className="column is-full-desktop">
           <h1 className="title is-3">Map</h1>
           {this.state.city && <GoogleMap2 location={this.state.city.location} markers={this.state.recommendations}/>}
         </div>
-        <div className="column is-half-desktop">
+        <div className="column is-full-desktop">
           <h1 className="title is-3">Recommendations</h1>
           <hr />
           {!this.state.recommendations && <p>You currently do not follow anyone who has a recommendation for this city</p>}
-          {this.state.recommendations.map(recommendation =>
+          {this.filteredRecommendations().map(recommendation =>
             <div key={recommendation._id}>
               <div className="card">
                 <div className="card-header">

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import Auth from '../../lib/Auth';
+// import RecommendationsCard from '../recommendations/Card';
 
 class UsersShow extends React.Component {
 
@@ -30,10 +31,10 @@ class UsersShow extends React.Component {
   }
 
   checkIfFollowing() {
-    console.log(this.state.currentUser);
+    console.log(this.state.user);
     if(this.state.currentUser) {
       const following = this.state.currentUser.following.map(i => i._id);
-      return (following.includes(this.state.user._id));
+      console.log((following.includes(this.state.user._id)));
     }
   }
 
@@ -135,6 +136,9 @@ class UsersShow extends React.Component {
               </div>
             </div>
           )}
+          {/* <RecommendationsCard
+            data={this.state}
+          /> */}
         </div>
       </div>
     );
