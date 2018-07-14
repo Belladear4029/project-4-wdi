@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import GoogleMap from '../common/GoogleMap';
+import HomeMap from '../common/HomeMap';
 import Autocomplete from 'react-google-autocomplete';
 
 class Home extends React.Component {
@@ -33,7 +33,7 @@ class Home extends React.Component {
         <h1>Find recommendations</h1>
         <Autocomplete types={['(cities)']} onPlaceSelected={this.handleSelection} className="input" placeholder="Search a city..."/>
         <p>{this.state.message}</p>
-        {this.state.cities && <GoogleMap selection={this.handleSelection} countries={this.state.cities} cities={this.state.cities} />}
+        {this.state.cities && <HomeMap selection={this.handleSelection} countries={this.state.cities} cities={this.state.cities} />}
       </main>
     );
   }

@@ -31,11 +31,9 @@ class UsersShow extends React.Component {
   }
 
   checkIfFollowing() {
-    console.log(this.state.user);
-    if(this.state.currentUser) {
-      const following = this.state.currentUser.following.map(i => i._id);
-      console.log((following.includes(this.state.user._id)));
-    }
+    if(!this.state.currentUser) return false;
+    const followers = this.state.user.followers.map(followee => followee._id);
+    return followers.includes(this.state.currentUser._id);
   }
 
   toggleFollowing() {
@@ -48,7 +46,12 @@ class UsersShow extends React.Component {
       method: 'PUT',
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .then(res => this.setState({ user: res.data }));
+      .then(() => {
+        const followers = this.state.user.followers.concat(Auth.getCurrentUser());
+        const following = this.state.currentUser.following.concat(this.state.user);
+        const user = { ...this.state.user, followers, following };
+        this.setState({ user });
+      });
   }
 
   unfollow() {
@@ -57,7 +60,11 @@ class UsersShow extends React.Component {
       method: 'PUT',
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .then(res => this.setState({ user: res.data }));
+      .then(() => {
+        const followers = this.state.user.followers.concat(Auth.getCurrentUser());
+        const user = { ...this.state.user, followers };
+        this.setState({ user });
+      });
   }
 
   isCurrentUser() {
@@ -130,8 +137,8 @@ class UsersShow extends React.Component {
                   )}</ul>}
                 </div>
                 <div className="card-footer">
-                  <Link to={`/recommendations/${recommendation._id}/edit`} className="card-footer-item">Edit</Link>
-                  <a onClick={() => this.handleDelete(recommendation)} className="card-footer-item">Delete</a>
+                  {this.isCurrentUser() && <Link to={`/recommendations/${recommendation._id}/edit`} className="card-footer-item">Edit</Link>}
+                  {this.isCurrentUser() && <a onClick={() => this.handleDelete(recommendation)} className="card-footer-item">Delete</a>}
                 </div>
               </div>
             </div>

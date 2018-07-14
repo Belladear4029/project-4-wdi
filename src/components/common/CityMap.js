@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-class GoogleMap2 extends React.Component {
+class CityMap extends React.Component {
 
   componentDidMount() {
     this.map = new google.maps.Map(this.mapCanvas, {
@@ -243,23 +243,25 @@ class GoogleMap2 extends React.Component {
       ]
     });
 
-    for (let i = 0; i < this.props.markers.length; i++) {
-      this.marker = new google.maps.Marker({
+    this.markers = this.props.markers.map(marker => {
+      return new google.maps.Marker({
         map: this.map,
-        position: this.props.markers[i].location
+        position: marker.location
       });
-    }
+    });
   }
 
   componentWillUnmount() {
+    this.markers.forEach(marker => marker.setMap(null));
+    this.markers = [];
     this.map = null;
   }
 
   render() {
     return (
-      <div className="google-map-2" ref={element => this.mapCanvas = element}/>
+      <div className="city-map" ref={element => this.mapCanvas = element}/>
     );
   }
 }
 
-export default GoogleMap2;
+export default CityMap;

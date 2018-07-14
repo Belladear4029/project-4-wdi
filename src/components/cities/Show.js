@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import Auth from '../../lib/Auth';
 
-import GoogleMap2 from '../common/GoogleMap2';
+import CityMap from '../common/CityMap';
 
 class CitiesShow extends React.Component {
 
@@ -14,32 +14,21 @@ class CitiesShow extends React.Component {
   }
 
   componentDidMount() {
-    axios({
-      url: '/api/profile',
-      method: 'GET',
-      headers: { Authorization: `Bearer ${Auth.getToken()}` }
-    })
-      .then(res => this.setState({ currentUser: res.data }))
+    axios.get(`/api/cities/${this.props.match.params.id}`)
+      .then(res => this.setState({ city: res.data }))
       .then(() => {
-        axios.get(`/api/cities/${this.props.match.params.id}`)
-          .then(res => this.setState({ city: res.data }))
-          .then(() => this.setState({ recommendations: this.filteredRecommendations() }))
-          .then(() => {
-            axios({
-              url: '/api/forecast',
-              method: 'GET',
-              params: {
-                lat: this.state.city.location.lat,
-                lng: this.state.city.location.lng
-              }
-            })
-              .then(res => this.setState({ forcast: res.data }))
-              .then(() => console.log(this.state));
-          });
+        axios({
+          url: '/api/forecast',
+          method: 'GET',
+          params: this.state.city.location
+        })
+          .then(res => this.setState({ forcast: res.data, currentUser: Auth.getCurrentUser() }));
       });
   }
 
   filteredRecommendations() {
+    if(!this.state.currentUser) return [];
+    console.log(this.state);
     const followingIds = this.state.currentUser.following.map(user => user._id);
     return this.state.city.recommendations.filter(recommendation => {
       return followingIds.includes(recommendation.creator._id);
@@ -49,12 +38,11 @@ class CitiesShow extends React.Component {
   render() {
     if(this.state.error) return <h2 className="title is-2">{this.state.error}</h2>;
     if(!this.state.city) return <h2 className="title is-2">Loading...</h2>;
-    if(!this.state.recommendations) return <h2 className="title is-2">Loading...</h2>;
     return (
       <div className="columns is-multiline">
         <div className="column is-half-desktop">
           <h1 className="title is-2">{this.state.city.name}, {this.state.city.country}</h1>
-          {this.state.forecast && <h1>{this.state.forecast.currently.summary}</h1>}
+          {this.state.forecast && <h4>{this.state.forecast.currently.summary}</h4>}
           <hr />
         </div>
         <div className="column is-half-desktop">
@@ -63,12 +51,12 @@ class CitiesShow extends React.Component {
         </div>
         <div className="column is-full-desktop">
           <h1 className="title is-3">Map</h1>
-          {this.state.city && <GoogleMap2 location={this.state.city.location} markers={this.state.recommendations}/>}
+          <CityMap location={this.state.city.location} markers={this.filteredRecommendations()}/>
         </div>
         <div className="column is-full-desktop">
           <h1 className="title is-3">Recommendations</h1>
           <hr />
-          {!this.state.recommendations && <p>You currently do not follow anyone who has a recommendation for this city</p>}
+          {!this.filteredRecommendations().length && <p>You currently do not follow anyone who has a recommendation for this city</p>}
           {this.filteredRecommendations().map(recommendation =>
             <div key={recommendation._id}>
               <div className="card">

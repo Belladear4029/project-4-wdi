@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-class GoogleMap extends React.Component {
+class HomeMap extends React.Component {
 
   componentDidMount() {
     this.map = new google.maps.Map(this.mapCanvas, {
@@ -245,25 +245,25 @@ class GoogleMap extends React.Component {
 
     const selectCity = this.props.selection;
 
-    this.props.cities.forEach(city => {
-      this.marker = new google.maps.Marker({ map: this.map, position: city.location });
-      this.marker.addListener('click', function() {
-        selectCity(city);
-      });
+    this.markers = this.props.cities.map(city => {
+      const marker = new google.maps.Marker({ map: this.map, position: city.location });
+      marker.addListener('click', () => selectCity(city));
+
+      return marker;
     });
   }
 
   componentWillUnmount() {
-    this.marker.setMap(null);
-    this.marker = null;
+    this.markers.forEach(marker => marker.setMap(null));
+    this.markers = [];
     this.map = null;
   }
 
   render() {
     return (
-      <div className="google-map" ref={element => this.mapCanvas = element}/>
+      <div className="home-map" ref={element => this.mapCanvas = element}/>
     );
   }
 }
 
-export default GoogleMap;
+export default HomeMap;
