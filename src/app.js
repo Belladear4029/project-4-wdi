@@ -4,6 +4,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Home from './components/pages/Home';
 import Navbar from './components/common/Navbar';
+import FlashMessages from './components/common/FlashMessages';
+import ProtectedRoute from './components/common/ProtectedRoute';
 import AuthRegister from './components/auth/Register';
 import AuthLogin from './components/auth/Login';
 import CitiesShow from './components/cities/Show';
@@ -24,12 +26,13 @@ class App extends React.Component {
       <BrowserRouter>
         <main>
           <Navbar />
+          <FlashMessages />
           <Route exact path="/" component={Home} />
           <section className="section">
             <div className="container">
               <Switch>
                 <Route path="/recommendations/:id/edit" component={RecommendationsEdit}/>
-                <Route path="/recommendations" component={RecommendationsNew}/>
+                <ProtectedRoute path="/recommendations" component={RecommendationsNew}/>
                 <Route path="/cities/:id" component={CitiesShow}/>
                 <Route path="/users/:id/edit" component={UsersEdit}/>
                 <Route path="/users/:id" component={UsersShow}/>
