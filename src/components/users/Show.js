@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import Auth from '../../lib/Auth';
-// import RecommendationsCard from '../recommendations/Card';
 
 class UsersShow extends React.Component {
 
@@ -145,9 +144,6 @@ class UsersShow extends React.Component {
               </div>
             </div>
           )}
-          {/* <RecommendationsCard
-            data={this.state}
-          /> */}
         </div>
       </div>
     );

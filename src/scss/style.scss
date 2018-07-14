@@ -108,6 +108,9 @@ html {
 .card.recommendation-card {
   margin-bottom: 20px;
   border-radius: 20px;
+  .card-header-icon {
+    margin: 0;
+  }
 }
 
 //recommendation card

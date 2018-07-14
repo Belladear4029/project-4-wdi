@@ -3,14 +3,19 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import Auth from '../../lib/Auth';
-
+// import RecommendationsCard from '../recommendations/Card';
 import CityMap from '../common/CityMap';
 
 class CitiesShow extends React.Component {
 
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      showOpeningHours: false
+    };
+
+    this.isCurrentUser = this.isCurrentUser.bind(this);
+    this.showOpeningHours = this.showOpeningHours.bind(this);
   }
 
   componentDidMount() {
@@ -35,6 +40,14 @@ class CitiesShow extends React.Component {
     });
   }
 
+  isCurrentUser() {
+    if(this.state.currentUser) return this.state.city.recommendations.map(recommendation => recommendation.creator._id === this.state.currentUser._id);
+  }
+
+  showOpeningHours() {
+    this.setState({ showOpeningHours: !this.state.showOpeningHours});
+  }
+
   render() {
     if(this.state.error) return <h2 className="title is-2">{this.state.error}</h2>;
     if(!this.state.city) return <h2 className="title is-2">Loading...</h2>;
@@ -57,17 +70,25 @@ class CitiesShow extends React.Component {
           <h1 className="title is-3">Recommendations</h1>
           <hr />
           {!this.filteredRecommendations().length && <p>You currently do not follow anyone who has a recommendation for this city</p>}
-          {this.filteredRecommendations().map(recommendation =>
+          {this.state.city.recommendations.map(recommendation =>
             <div key={recommendation._id}>
-              <div className="card">
+              <div className="card recommendation-card">
                 <div className="card-header">
                   <p className="card-header-title is-3">{recommendation.name}</p>
+                  {recommendation.priceLevel && <h1 className="card-header-icon title is-6"> Price Level: {recommendation.priceLevel}</h1>}
                   <h1 className="card-header-icon title is-6">Rating: {recommendation.rating}</h1>
                 </div>
                 <div className="card-content">
-                  <h1 className="title is-6">{recommendation.address}</h1>
+                  <h1 className="title is-6">Address: {recommendation.address}</h1>
                   <h1 className="title is-6">{recommendation.content}</h1>
-                  <h1 className="title is-6">Recommended by <Link to={`/users/${recommendation.creator._id}`}>{recommendation.creator.firstName} {recommendation.creator.lastName}</Link></h1>
+                  <a className="title is-6 opening-hours" onClick={this.showOpeningHours}>Click for opening hours</a>
+                  {this.state.showOpeningHours && recommendation.openingHours && <ul>{recommendation.openingHours.map((hour, i) =>
+                    <li key={i}>{hour}</li>
+                  )}</ul>}
+                  {this.state.showOpeningHours && !recommendation.openingHours && <small>No opening hours available</small>}
+                </div>
+                <div className="card-footer">
+                  <h1 className="card-footer-item">Recommended by <Link to={`/users/${recommendation.creator._id}`}> {recommendation.creator.firstName} {recommendation.creator.lastName}</Link></h1>
                 </div>
               </div>
             </div>
