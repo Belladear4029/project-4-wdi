@@ -40,20 +40,20 @@ class CitiesShow extends React.Component {
     if(!this.state.city) return <h2 className="title is-2">Loading...</h2>;
     return (
       <div className="columns is-multiline">
-        <div className="column is-half-desktop">
+        <div className="column is-half">
           <h1 className="title is-2">{this.state.city.name}, {this.state.city.country}</h1>
           {this.state.forecast && <h4>{this.state.forecast.currently.summary}</h4>}
           <hr />
         </div>
-        <div className="column is-half-desktop">
+        <div className="column is-half">
           <h1 className="title is-2">Hello</h1>
           <hr />
         </div>
-        <div className="column is-full-desktop">
+        <div className="column is-full">
           <h1 className="title is-3">Map</h1>
           <CityMap location={this.state.city.location} markers={this.filteredRecommendations()}/>
         </div>
-        <div className="column is-full-desktop">
+        <div className="column is-full">
           <h1 className="title is-3">Recommendations</h1>
           <hr />
           {!this.filteredRecommendations().length && <p>You currently do not follow anyone who has a recommendation for this city</p>}

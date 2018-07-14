@@ -122,7 +122,7 @@ class UsersShow extends React.Component {
           <p className="title is-5 is-centered">Recommendations</p>
           {this.state.user.recommendations.map(recommendation =>
             <div key={recommendation._id}>
-              <div className="card">
+              <div className="card recommendation-card">
                 <div className="card-header">
                   <h1 className="card-header-title is-3 city"><Link to={`/cities/${recommendation.city._id}`}>{recommendation.city.name}</Link></h1>
                   <h1 className="card-header-title is-3">{recommendation.name}</h1>
