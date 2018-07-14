@@ -4,6 +4,10 @@
   font-weight: 370 !important;
 }
 
+html {
+  background-color: #f7feff;
+}
+
 .background-color {
   background-color: #c9dadb;
 }
@@ -45,7 +49,7 @@
   }
   .navbar-item {
     color: #464f51;
-    font-size: 17px;
+    font-size: 20px;
     &:hover {
       color: #464f51;
       background-color: rgba(0, 0, 0, 0);
@@ -84,9 +88,21 @@
   height: 500px;
 }
 
+//user index
+.filters {
+  .input {
+    margin-bottom: 30px;
+  }
+}
+.card.user-card {
+  background-color: rgba(0, 0, 0, 0);
+  border: 0;
+}
+
 //user show page
 .user-image {
   border-radius: 100%;
+  width: 200px;
 }
 
 //recommendation card

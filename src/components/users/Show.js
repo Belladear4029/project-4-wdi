@@ -96,14 +96,14 @@ class UsersShow extends React.Component {
     if(this.state.error) return <h2 className="title is-2">{this.state.error}</h2>;
     if(!this.state.user) return <h2 className="title is-2">Loading...</h2>;
     return (
-      <div className="columns is-multiline background-color">
-        <div className="column is-half-desktop">
+      <div className="columns is-multiline">
+        <div className="column is-half">
           <img className="user-image" src={this.state.user.image} />
           <h1 className="title is-2">{this.state.user.firstName} {this.state.user.lastName}</h1>
           {!this.isCurrentUser() && Auth.isAuthenticated() && <a className="button" onClick={this.toggleFollowing}>{this.checkIfFollowing() ? 'Unfollow' : 'Follow'}</a>}
           {this.isCurrentUser() && <Link className="button" to={`/users/${this.state.currentUser._id}/edit`}>Edit Profile</Link>}
         </div>
-        <div className="column is-half-desktop">
+        <div className="column is-half">
           <p className="title is-5" onClick={this.toggleShowFollowers}>{this.state.user.followers.length} followers</p>
           {this.state.showFollowers && <ul>
             {this.state.user.followers.map(user =>
@@ -118,7 +118,7 @@ class UsersShow extends React.Component {
           </ul>}
           <p className="title is-5">{this.state.user.recommendations.length} recommendations</p>
         </div>
-        <div className="column is-full-desktop">
+        <div className="column is-full">
           <p className="title is-5 is-centered">Recommendations</p>
           {this.state.user.recommendations.map(recommendation =>
             <div key={recommendation._id}>

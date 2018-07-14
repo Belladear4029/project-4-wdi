@@ -41,13 +41,13 @@ class UsersIndex extends React.Component {
 
         <div className="columns is-multiline">
           {this.filteredUsers().map(user =>
-            <div key={user._id} className="column">
+            <div key={user._id} className="column is-one-quarter-desktop is-one-third-tablet is-half-mobile">
               <Link to={`/users/${user._id}`}>
-                <div className="card">
-                  <div className="card-image">
+                <div className="user-card">
+                  <div className="card-image is-centered">
                     <img className="user-image" src={user.image} alt={user.firstName} />
                   </div>
-                  <div className="card-content">
+                  <div className="card-content is-centered">
                     <h1 className="title is-5">{user.firstName} {user.lastName}</h1>
                   </div>
                 </div>
