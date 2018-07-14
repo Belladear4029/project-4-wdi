@@ -80,7 +80,7 @@ class UsersShow extends React.Component {
   }
 
   showOpeningHours() {
-    this.setState({ showOpeningHours: true});
+    this.setState({ showOpeningHours: !this.state.showOpeningHours});
   }
 
   handleDelete(recommendation) {
@@ -96,11 +96,11 @@ class UsersShow extends React.Component {
     if(this.state.error) return <h2 className="title is-2">{this.state.error}</h2>;
     if(!this.state.user) return <h2 className="title is-2">Loading...</h2>;
     return (
-      <div className="columns is-multiline">
+      <div className="columns is-multiline background-color">
         <div className="column is-half-desktop">
-          <img src={this.state.user.image} />
+          <img className="user-image" src={this.state.user.image} />
           <h1 className="title is-2">{this.state.user.firstName} {this.state.user.lastName}</h1>
-          {!this.isCurrentUser() && <a className="button" onClick={this.toggleFollowing}>{this.checkIfFollowing() ? 'Unfollow' : 'Follow'}</a>}
+          {!this.isCurrentUser() && Auth.isAuthenticated() && <a className="button" onClick={this.toggleFollowing}>{this.checkIfFollowing() ? 'Unfollow' : 'Follow'}</a>}
           {this.isCurrentUser() && <Link className="button" to={`/users/${this.state.currentUser._id}/edit`}>Edit Profile</Link>}
         </div>
         <div className="column is-half-desktop">
@@ -119,22 +119,24 @@ class UsersShow extends React.Component {
           <p className="title is-5">{this.state.user.recommendations.length} recommendations</p>
         </div>
         <div className="column is-full-desktop">
-          <p className="title is-5">Recommendations</p>
+          <p className="title is-5 is-centered">Recommendations</p>
           {this.state.user.recommendations.map(recommendation =>
             <div key={recommendation._id}>
               <div className="card">
                 <div className="card-header">
-                  <p className="card-header-title is-3"><Link to={`/cities/${recommendation.city._id}`}>{recommendation.city.name}</Link> - {recommendation.name}</p>
+                  <h1 className="card-header-title is-3 city"><Link to={`/cities/${recommendation.city._id}`}>{recommendation.city.name}</Link></h1>
+                  <h1 className="card-header-title is-3">{recommendation.name}</h1>
                   {recommendation.priceLevel && <h1 className="card-header-icon title is-6"> Price Level: {recommendation.priceLevel}</h1>}
                   <h1 className="card-header-icon title is-6"> Rating: {recommendation.rating}</h1>
                 </div>
                 <div className="card-content">
-                  <h1 className="title is-6">{recommendation.address}</h1>
+                  <h1 className="title is-6">Address: {recommendation.address}</h1>
                   <h1 className="title is-6">{recommendation.content}</h1>
-                  <a className="title is-6" onClick={this.showOpeningHours}>Click for opening hours</a>
+                  <a className="title is-6 opening-hours" onClick={this.showOpeningHours}>Click for opening hours</a>
                   {this.state.showOpeningHours && recommendation.openingHours && <ul>{recommendation.openingHours.map((hour, i) =>
                     <li key={i}>{hour}</li>
                   )}</ul>}
+                  {this.state.showOpeningHours && !recommendation.openingHours && <small>No opening hours available</small>}
                 </div>
                 <div className="card-footer">
                   {this.isCurrentUser() && <Link to={`/recommendations/${recommendation._id}/edit`} className="card-footer-item">Edit</Link>}

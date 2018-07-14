@@ -6,264 +6,113 @@ class HomeMap extends React.Component {
 
   componentDidMount() {
     this.map = new google.maps.Map(this.mapCanvas, {
-      center: {lat: 48.5260, lng: 14.2551},
-      zoom: 4,
+      center: {lat: 48.5260, lng: 7.2551},
+      zoom: 3.5,
       styles: [
         {
-          'featureType': 'administrative',
-          'elementType': 'labels.text.fill',
-          'stylers': [
+          "featureType": "all",
+          "elementType": "labels.text",
+          "stylers": [
             {
-              'color': '#6195a0'
+              "visibility": "off"
             }
           ]
         },
         {
-          'featureType': 'administrative.province',
-          'elementType': 'geometry.stroke',
-          'stylers': [
+          "featureType": "all",
+          "elementType": "labels.icon",
+          "stylers": [
             {
-              'visibility': 'off'
+              "visibility": "off"
             }
           ]
         },
         {
-          'featureType': 'landscape',
-          'elementType': 'geometry',
-          'stylers': [
+          "featureType": "landscape",
+          "elementType": "geometry.fill",
+          "stylers": [
             {
-              'lightness': '0'
+              "color": "#f1efe8"
+            }
+          ]
+        },
+        {
+          "featureType": "landscape.man_made",
+          "elementType": "geometry.fill",
+          "stylers": [
+            {
+              "visibility": "on"
             },
             {
-              'saturation': '0'
+              "gamma": "1.19"
+            }
+          ]
+        },
+        {
+          "featureType": "landscape.man_made",
+          "elementType": "geometry.stroke",
+          "stylers": [
+            {
+              "visibility": "on"
             },
             {
-              'color': '#f5f5f2'
+              "gamma": "0.00"
             },
             {
-              'gamma': '1'
+              "weight": "2.07"
             }
           ]
         },
         {
-          'featureType': 'landscape.man_made',
-          'elementType': 'all',
-          'stylers': [
+          "featureType": "road.highway",
+          "elementType": "geometry.fill",
+          "stylers": [
             {
-              'lightness': '-3'
-            },
-            {
-              'gamma': '1.00'
+              "color": "#b2ac83"
             }
           ]
         },
         {
-          'featureType': 'landscape.natural.terrain',
-          'elementType': 'all',
-          'stylers': [
+          "featureType": "road.highway",
+          "elementType": "geometry.stroke",
+          "stylers": [
             {
-              'visibility': 'off'
+              "color": "#b2ac83"
             }
           ]
         },
         {
-          'featureType': 'poi',
-          'elementType': 'all',
-          'stylers': [
+          "featureType": "water",
+          "elementType": "geometry.fill",
+          "stylers": [
             {
-              'visibility': 'off'
+              "color": "#8ac0c4"
             }
           ]
-        },
-        {
-          'featureType': 'poi.park',
-          'elementType': 'geometry.fill',
-          'stylers': [
-            {
-              'color': '#bae5ce'
-            },
-            {
-              'visibility': 'on'
-            }
-          ]
-        },
-        {
-          'featureType': 'road',
-          'elementType': 'all',
-          'stylers': [
-            {
-              'saturation': -100
-            },
-            {
-              'lightness': 45
-            },
-            {
-              'visibility': 'simplified'
-            }
-          ]
-        },
-        {
-          'featureType': 'road.highway',
-          'elementType': 'all',
-          'stylers': [
-            {
-              'visibility': 'simplified'
-            }
-          ]
-        },
-        {
-          'featureType': 'road.highway',
-          'elementType': 'geometry.fill',
-          'stylers': [
-            {
-              'color': '#fac9a9'
-            },
-            {
-              'visibility': 'simplified'
-            }
-          ]
-        },
-        {
-          'featureType': 'road.highway',
-          'elementType': 'labels.text',
-          'stylers': [
-            {
-              'color': '#4e4e4e'
-            }
-          ]
-        },
-        {
-          'featureType': 'road.arterial',
-          'elementType': 'labels.text.fill',
-          'stylers': [
-            {
-              'color': '#787878'
-            }
-          ]
-        },
-        {
-          'featureType': 'road.arterial',
-          'elementType': 'labels.icon',
-          'stylers': [
-            {
-              'visibility': 'off'
-            }
-          ]
-        },
-        {
-          'featureType': 'transit',
-          'elementType': 'all',
-          'stylers': [
-            {
-              'visibility': 'simplified'
-            }
-          ]
-        },
-        {
-          'featureType': 'transit.station.airport',
-          'elementType': 'labels.icon',
-          'stylers': [
-            {
-              'hue': '#0a00ff'
-            },
-            {
-              'saturation': '-77'
-            },
-            {
-              'gamma': '0.57'
-            },
-            {
-              'lightness': '0'
-            }
-          ]
-        },
-        {
-          'featureType': 'transit.station.rail',
-          'elementType': 'labels.text.fill',
-          'stylers': [
-            {
-              'color': '#43321e'
-            }
-          ]
-        },
-        {
-          'featureType': 'transit.station.rail',
-          'elementType': 'labels.icon',
-          'stylers': [
-            {
-              'hue': '#ff6c00'
-            },
-            {
-              'lightness': '4'
-            },
-            {
-              'gamma': '0.75'
-            },
-            {
-              'saturation': '-68'
-            }
-          ]
-        },
-        {
-          'featureType': 'water',
-          'elementType': 'all',
-          'stylers': [
-            {
-              'color': '#eaf6f8'
-            },
-            {
-              'visibility': 'on'
-            }
-          ]
-        },
-        {
-          'featureType': 'water',
-          'elementType': 'geometry.fill',
-          'stylers': [
-            {
-              'color': '#c7eced'
-            }
-          ]
-        },
-        {
-          'featureType': 'water',
-          'elementType': 'labels.text.fill',
-          'stylers': [
-            {
-              'lightness': '-49'
-            },
-            {
-              'saturation': '-53'
-            },
-            {
-              'gamma': '0.79'
-            }
-          ]
-        }
-      ]
-    });
+        }]
+      });
 
-    const selectCity = this.props.selection;
+      const selectCity = this.props.selection;
 
-    this.markers = this.props.cities.map(city => {
-      const marker = new google.maps.Marker({ map: this.map, position: city.location });
-      marker.addListener('click', () => selectCity(city));
+      this.markers = this.props.cities.map(city => {
+        const marker = new google.maps.Marker({ map: this.map, position: city.location });
+        marker.addListener('click', () => selectCity(city));
 
-      return marker;
-    });
+        return marker;
+      });
+    }
+
+    componentWillUnmount() {
+      this.markers.forEach(marker => marker.setMap(null));
+      this.markers = [];
+      this.map = null;
+    }
+
+    render() {
+      return (
+        <div className="home-map" ref={element => this.mapCanvas = element}/>
+      );
+    }
   }
 
-  componentWillUnmount() {
-    this.markers.forEach(marker => marker.setMap(null));
-    this.markers = [];
-    this.map = null;
-  }
-
-  render() {
-    return (
-      <div className="home-map" ref={element => this.mapCanvas = element}/>
-    );
-  }
-}
-
-export default HomeMap;
+  export default HomeMap;

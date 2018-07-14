@@ -30,8 +30,8 @@ class Home extends React.Component {
   render() {
     return (
       <main>
-        <h1>Find recommendations</h1>
-        <Autocomplete types={['(cities)']} onPlaceSelected={this.handleSelection} className="input" placeholder="Search a city..."/>
+        <h1 className="title home is-2 is-centered">Search or select a city to find the recommendations for you</h1>
+        <Autocomplete types={['(cities)']} onPlaceSelected={this.handleSelection} className="input home" placeholder="Search a city..."/>
         <p>{this.state.message}</p>
         {this.state.cities && <HomeMap selection={this.handleSelection} countries={this.state.cities} cities={this.state.cities} />}
       </main>

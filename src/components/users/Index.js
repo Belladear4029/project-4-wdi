@@ -45,7 +45,7 @@ class UsersIndex extends React.Component {
               <Link to={`/users/${user._id}`}>
                 <div className="card">
                   <div className="card-image">
-                    <img src={user.image} alt={user.firstName} />
+                    <img className="user-image" src={user.image} alt={user.firstName} />
                   </div>
                   <div className="card-content">
                     <h1 className="title is-5">{user.firstName} {user.lastName}</h1>
