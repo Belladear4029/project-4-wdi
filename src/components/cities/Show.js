@@ -20,25 +20,16 @@ class CitiesShow extends React.Component {
 
   componentDidMount() {
     axios.get(`/api/cities/${this.props.match.params.id}`)
-      .then(res => this.setState({ city: res.data }))
-      .then(() => {
-        axios({
-          url: '/api/forecast',
-          method: 'GET',
-          params: this.state.city.location
-        })
-          .then(res => this.setState({ forcast: res.data, currentUser: Auth.getCurrentUser() }));
-      });
+      .then(res => this.setState({ city: res.data, currentUser: Auth.getCurrentUser() }));
   }
 
-  filteredRecommendations() {
+  filteredRecommendations = () => {
     if(!this.state.currentUser) return [];
-    console.log(this.state);
-    const followingIds = this.state.currentUser.following.map(user => user._id);
     // if(this.state.filter = 'following') {
-    return this.state.city.recommendations.filter(recommendation => {
-      return followingIds.includes(recommendation.creator._id);
+    const filteredRecommendations = this.state.city.recommendations.filter(recommendation => {
+      return this.state.currentUser.following.includes(recommendation.creator._id);
     });
+    return filteredRecommendations;
     // }
   }
 
@@ -61,7 +52,6 @@ class CitiesShow extends React.Component {
       <div className="columns is-multiline">
         <div className="column is-half">
           <h1 className="title is-2">{this.state.city.name}, {this.state.city.country}</h1>
-          {this.state.forecast && <h4>{this.state.forecast.currently.summary}</h4>}
           <hr />
         </div>
         <div className="column is-full">
@@ -79,7 +69,7 @@ class CitiesShow extends React.Component {
           </div>
           <hr />
           {!this.filteredRecommendations().length && <p>You currently do not follow anyone who has a recommendation for this city</p>}
-          {this.state.city.recommendations.map(recommendation =>
+          {this.filteredRecommendations().map(recommendation =>
             <div key={recommendation._id}>
               <div className="card recommendation-card">
                 <div className="card-header">

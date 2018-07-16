@@ -6,22 +6,11 @@ import Auth from '../../lib/Auth';
 
 class UsersShow extends React.Component {
 
-  constructor() {
-    super();
-    this.state = {
-      follow: false,
-      showFollowers: false,
-      showFollowing: false,
-      showOpeningHours: false
-    };
-
-    this.toggleFollowing = this.toggleFollowing.bind(this);
-    this.toggleShowFollowers = this.toggleShowFollowers.bind(this);
-    this.toggleShowFollowing = this.toggleShowFollowing.bind(this);
-    this.isCurrentUser = this.isCurrentUser.bind(this);
-    this.showOpeningHours = this.showOpeningHours.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
-  }
+  state = {
+    showFollowers: false,
+    showFollowing: false,
+    showOpeningHours: false
+  };
 
   componentDidMount() {
     axios.get(`/api/users/${this.props.match.params.id}`)
@@ -29,34 +18,19 @@ class UsersShow extends React.Component {
       .catch(err => this.setState({ error: err.message }));
   }
 
-  checkIfFollowing() {
+  checkIfFollowing = () => {
     if(!this.state.currentUser) return false;
     const followers = this.state.user.followers.map(followee => followee._id);
     return followers.includes(this.state.currentUser._id);
   }
 
-  toggleFollowing() {
-    this.state.follow ? this.unfollow() : this.follow();
+  handleFollow = () => {
+    this.checkIfFollowing() ? this.unfollow() : this.follow();
   }
 
-  follow() {
+  follow = () => {
     axios({
       url: `/api/users/${this.props.match.params.id}/follow`,
-      method: 'PUT',
-      headers: { Authorization: `Bearer ${Auth.getToken()}` }
-    })
-      .then(res => {
-        const followers = this.state.user.followers.concat(Auth.getCurrentUser());
-        const following = this.state.currentUser.following.concat(this.state.user);
-        const user = { ...this.state.user, followers, following };
-        this.setState({ user });
-        Auth.setCurrentUser(res.data);
-      });
-  }
-
-  unfollow() {
-    axios({
-      url: `/api/users/${this.props.match.params.id}/unfollow`,
       method: 'PUT',
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
@@ -68,23 +42,37 @@ class UsersShow extends React.Component {
       });
   }
 
-  isCurrentUser() {
+  unfollow = () => {
+    axios({
+      url: `/api/users/${this.props.match.params.id}/unfollow`,
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${Auth.getToken()}` }
+    })
+      .then(res => {
+        const followers = this.state.user.followers.filter(user => user._id !== Auth.getCurrentUser()._id);
+        const user = { ...this.state.user, followers };
+        this.setState({ user });
+        Auth.setCurrentUser(res.data);
+      });
+  }
+
+  isCurrentUser = () => {
     if(this.state.currentUser) return this.state.user._id === this.state.currentUser._id;
   }
 
-  toggleShowFollowers() {
+  toggleShowFollowers = () => {
     this.setState({ showFollowers: !this.state.showFollowers });
   }
 
-  toggleShowFollowing() {
+  toggleShowFollowing = () => {
     this.setState({ showFollowing: !this.state.showFollowing });
   }
 
-  showOpeningHours() {
+  showOpeningHours = () => {
     this.setState({ showOpeningHours: !this.state.showOpeningHours});
   }
 
-  handleDelete(recommendation) {
+  handleDelete = (recommendation) => {
     axios({
       url: `/api/recommendations/${recommendation._id}`,
       method: 'DELETE',
@@ -101,7 +89,7 @@ class UsersShow extends React.Component {
         <div className="column is-half">
           <img className="user-image" src={this.state.user.image} />
           <h1 className="title is-2">{this.state.user.firstName} {this.state.user.lastName}</h1>
-          {!this.isCurrentUser() && Auth.isAuthenticated() && <a className="button" onClick={this.toggleFollowing}>{this.checkIfFollowing() ? 'Unfollow' : 'Follow'}</a>}
+          {!this.isCurrentUser() && Auth.isAuthenticated() && <a className="button" onClick={this.handleFollow}>{this.checkIfFollowing() ? 'Unfollow' : 'Follow'}</a>}
           {this.isCurrentUser() && <Link className="button" to={`/users/${this.state.currentUser._id}/edit`}>Edit Profile</Link>}
         </div>
         <div className="column is-half">

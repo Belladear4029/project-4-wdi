@@ -15,6 +15,7 @@ class RecommendationsNew extends React.Component {
   }
 
   handleSubmit = (e) => {
+    console.log('hello');
     e.preventDefault();
     axios({
       url: '/api/recommendations',
@@ -22,11 +23,12 @@ class RecommendationsNew extends React.Component {
       data: this.state,
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .then(() => this.props.history.push(`/users/${Auth.getPayload().sub}`))
-      .catch(err => this.setState({ errors: err.response.data.errors }));
+      .then(() => this.props.history.push(`/users/${Auth.getPayload().sub}`));
   }
 
   handleCitySelection = (city) => {
+    const country = city.address_components.find(component => component.types.includes('country')).long_name;
+    console.log(country);
     this.setState({
       city: {
         name: city.name,
@@ -37,7 +39,6 @@ class RecommendationsNew extends React.Component {
   }
 
   handlePlaceSelection = (place) => {
-    console.log(place);
     this.setState({
       name: place.name,
       address: place.formatted_address,
