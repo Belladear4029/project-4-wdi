@@ -8,7 +8,7 @@ const FlashMessages = () => {
   return (
     <div className="container">
       {messages && Object.keys(messages).map(type =>
-        <div key={type} className={`notification is-${type}`}>{messages[type]}</div>
+        <div key={type} className={`notification is-${type} is-active`}>{messages[type]}</div>
       )}
     </div>
   );
