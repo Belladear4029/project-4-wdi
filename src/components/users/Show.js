@@ -79,17 +79,20 @@ class UsersShow extends React.Component {
     this.setState({ user });
   }
 
-  handleDelete = (recommendation) => {
+  handleDelete = (selectedRecommendation) => {
     axios({
-      url: `/api/recommendations/${recommendation._id}`,
+      url: `/api/recommendations/${selectedRecommendation._id}`,
       method: 'DELETE',
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .then(() => this.props.history.replace(`/users/${this.state.currentUser._id}`));
+      .then(() => {
+        const recommendations = this.state.user.recommendations.filter(recommendation => recommendation._id !== selectedRecommendation._id);
+        const user = { ...this.state.user, recommendations };
+        this.setState({ user });
+      });
   }
 
   render() {
-    console.log('render');
     if(this.state.error) return <h2 className="title is-2">{this.state.error}</h2>;
     if(!this.state.user) return <h2 className="title is-2">Loading...</h2>;
     return (
