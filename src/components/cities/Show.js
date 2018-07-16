@@ -35,17 +35,22 @@ class CitiesShow extends React.Component {
     this.setState({ showOpeningHours: !this.state.showOpeningHours});
   }
 
-  handleFilter = (e) => {
-    this.setState({ filter: e.target.value });
+  handleFilter = () => {
+    this.setState({ filter: !this.state.filter });
   }
 
   render() {
     if(this.state.error) return <h2 className="title is-2">{this.state.error}</h2>;
     if(!this.state.city) return <h2 className="title is-2">Loading...</h2>;
+    console.log('state', this.state);
     return (
       <div className="columns is-multiline">
         <div className="column is-half">
           <h1 className="title is-2">{this.state.city.name}, {this.state.city.country}</h1>
+          <hr />
+        </div>
+        <div className="column is-half">
+          <h1 className="title is-2">{this.state.city.localHello}!</h1>
           <hr />
         </div>
         <div className="column is-full">
@@ -56,8 +61,8 @@ class CitiesShow extends React.Component {
           <div className="control">
             <div className="select">
               <select onChange={this.handleFilter}>
-                <option value={false}>All</option>
-                <option value={true}>Following</option>
+                <option>All</option>
+                <option>Following</option>
               </select>
             </div>
           </div>
