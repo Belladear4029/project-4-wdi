@@ -245,20 +245,21 @@ class CityMap extends React.Component {
 
     // const barMarker = 'https://imgur.com/4iptF70.png';
     //
-    // allocateMarker(type) {
+    // allocateMarker = (){
     //   this.props.markers.map(marker => {
     //     marker.types.includes(type)
     //
     //   })
     // }
 
-    this.markers = this.props.markers.map(marker => {
-      console.log(marker);
-      return new google.maps.Marker({
+    this.markers = this.props.places.map(place => {
+      console.log(place);
+      const marker = new google.maps.Marker({
         map: this.map,
-        position: marker.location,
+        position: place.location,
         animation: google.maps.Animation.DROP
       });
+      return marker;
     });
   }
 

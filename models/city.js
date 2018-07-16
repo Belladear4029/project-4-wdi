@@ -26,7 +26,7 @@ citySchema.set('toJSON', {
 citySchema.pre('save', function getHello(done) {
   if(this.isModified('name')) {
     return rp({
-      url: `https://restcountries.eu/rest/v2/name/${this.country.toLowerCase()}`,
+      url: `https://restcountries.eu/rest/v2/name/${this.country}`,
       method: 'GET'
     })
       .then(res => {
