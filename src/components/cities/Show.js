@@ -7,18 +7,12 @@ import CityMap from '../common/CityMap';
 
 class CitiesShow extends React.Component {
 
-  constructor() {
-    super();
-    this.state = {
-      showOpeningHours: false,
-      filter: false
-    };
+  state = {
+    showOpeningHours: false,
+    filter: false
+  };
 
-    this.isCurrentUser = this.isCurrentUser.bind(this);
-    this.showOpeningHours = this.showOpeningHours.bind(this);
-  }
-
-  componentDidMount() {
+  componentDidMount = () => {
     axios.get(`/api/cities/${this.props.match.params.id}`)
       .then(res => this.setState({ city: res.data, currentUser: Auth.getCurrentUser() }));
   }
@@ -33,11 +27,11 @@ class CitiesShow extends React.Component {
     } else return this.state.city.recommendations;
   }
 
-  isCurrentUser() {
+  isCurrentUser = () => {
     if(this.state.currentUser) return this.state.city.recommendations.map(recommendation => recommendation.creator._id === this.state.currentUser._id);
   }
 
-  showOpeningHours() {
+  showOpeningHours = () => {
     this.setState({ showOpeningHours: !this.state.showOpeningHours});
   }
 
@@ -62,8 +56,8 @@ class CitiesShow extends React.Component {
           <div className="control">
             <div className="select">
               <select onChange={this.handleFilter}>
-                <option value="true">All</option>
-                <option value="false">Following</option>
+                <option value={false}>All</option>
+                <option value={true}>Following</option>
               </select>
             </div>
           </div>
