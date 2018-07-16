@@ -82,6 +82,7 @@ class UsersShow extends React.Component {
   }
 
   render() {
+    console.log('render');
     if(this.state.error) return <h2 className="title is-2">{this.state.error}</h2>;
     if(!this.state.user) return <h2 className="title is-2">Loading...</h2>;
     return (
@@ -108,8 +109,8 @@ class UsersShow extends React.Component {
           <p className="title is-5">{this.state.user.recommendations.length} recommendations</p>
         </div>
         <div className="column is-full">
-          <p className="title is-5 is-centered">Recommendations</p>
-          {this.state.user.recommendations.length > 0 && <div>
+          <p className="title is-3 is-centered">Recommendations</p>
+          {!this.state.user.recommendations.length && <div className="is-centered">
             <p>You currently have no recommendations</p>
             <Link to="/recommendations/new">Add a new recommendation</Link>
           </div>}

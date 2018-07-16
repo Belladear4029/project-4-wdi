@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import Auth from '../../lib/Auth';
 
@@ -11,6 +11,13 @@ class Navbar extends React.Component {
 
   toggleNavbar = () => {
     this.setState({ navbarOpen: !this.state.navbarOpen });
+  }
+
+  componentDidUpdate(prevProps) {
+    console.log(prevProps);
+    if(prevProps.location.pathname !== this.props.location.pathname) {
+      this.setState({ navbarOpen: false });
+    }
   }
 
   render() {
@@ -43,4 +50,4 @@ class Navbar extends React.Component {
   }
 }
 
-export default Navbar;
+export default withRouter(Navbar);
