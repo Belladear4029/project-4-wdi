@@ -243,20 +243,15 @@ class CityMap extends React.Component {
       ]
     });
 
-    // const barMarker = 'https://imgur.com/4iptF70.png';
-    //
-    // allocateMarker = (){
-    //   this.props.markers.map(marker => {
-    //     marker.types.includes(type)
-    //
-    //   })
-    // }
-
     this.markers = this.props.places.map(place => {
       console.log(place);
       const marker = new google.maps.Marker({
         map: this.map,
         position: place.location,
+        icon: {
+          url: 'http://www.myiconfinder.com/uploads/iconsets/256-256-a5485b563efc4511e0cd8bd04ad0fe9e.png',
+          scaledSize: new google.maps.Size(35, 35)
+        },
         animation: google.maps.Animation.DROP
       });
       return marker;

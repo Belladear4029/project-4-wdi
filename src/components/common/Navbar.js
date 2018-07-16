@@ -14,7 +14,6 @@ class Navbar extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(prevProps);
     if(prevProps.location.pathname !== this.props.location.pathname) {
       this.setState({ navbarOpen: false });
     }
@@ -25,7 +24,7 @@ class Navbar extends React.Component {
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
           <Link className="navbar-item" to="/recommendations/new">
-            <h1>iRecommend</h1>
+            <h1>iRecommend.</h1>
           </Link>
 
           <a role="button" className={`navbar-burger${this.state.navbarOpen ? ' is-active' : ''}`} aria-label="menu" aria-expanded="false" onClick={this.toggleNavbar}>

@@ -52,8 +52,8 @@ class CitiesShow extends React.Component {
       <div className="columns is-multiline">
         <div className="column is-half">
           <h1 className="title is-2">{this.state.city.name}, {this.state.city.country}</h1>
-          <p>Currency: {this.state.city.currency}</p>
           <hr />
+          <p>Currency: {this.state.city.currency}</p>
         </div>
         <div className="column is-half">
           <h1 className="title is-2">{this.state.city.localHello}!</h1>
@@ -74,7 +74,7 @@ class CitiesShow extends React.Component {
             </div>
           </div>
           <hr />
-          {!this.filteredRecommendations().length && <p>You currently do not follow anyone who has a recommendation for this city</p>}
+          {!this.filteredRecommendations().length && <p>You currently do not follow anyone who has a recommendation for this city.</p>}
           {this.filteredRecommendations().map(recommendation =>
             <div key={recommendation._id}>
               <div className="card recommendation-card">

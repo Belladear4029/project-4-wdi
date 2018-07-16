@@ -14,7 +14,6 @@ import RecommendationsEdit from './components/recommendations/Edit';
 import UsersIndex from './components/users/Index';
 import UsersShow from './components/users/Show';
 import UsersEdit from './components/users/Edit';
-import UsersProfile from './components/users/Profile';
 
 import 'bulma';
 import './scss/style.scss';
@@ -37,7 +36,6 @@ class App extends React.Component {
                 <Route path="/users/:id/edit" component={UsersEdit}/>
                 <Route path="/users/:id" component={UsersShow}/>
                 <Route path="/users" component={UsersIndex}/>
-                <Route path="/profile" component={UsersProfile}/>
                 <Route path="/register" component={AuthRegister}/>
                 <Route path="/login" component={AuthLogin}/>
               </Switch>

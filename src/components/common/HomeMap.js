@@ -97,7 +97,11 @@ class HomeMap extends React.Component {
     this.markers = this.props.cities.map(city => {
       const marker = new google.maps.Marker({
         map: this.map,
-        position: city.location
+        position: city.location,
+        icon: {
+          url: 'http://pngimg.com/uploads/pin/pin_PNG44.png',
+          scaledSize: new google.maps.Size(35, 35)
+        }
       });
       marker.addListener('click', () => selectCity(city));
 

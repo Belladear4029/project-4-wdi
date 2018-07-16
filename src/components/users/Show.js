@@ -18,6 +18,14 @@ class UsersShow extends React.Component {
       .catch(err => this.setState({ error: err.message }));
   }
 
+  componentWillReceiveProps = (nextProps) => {
+    const currentId = this.state.user._id;
+    const nextId = nextProps.match.params.id;
+    if (currentId && currentId !== nextId) {
+      this.props.history.push(`/users/${nextId}`);
+    }
+  }
+
   checkIfFollowing = () => {
     if(!this.state.currentUser) return false;
     const followers = this.state.user.followers.map(followee => followee._id);
@@ -121,7 +129,7 @@ class UsersShow extends React.Component {
         <div className="column is-full">
           <p className="title is-3 is-centered">Recommendations</p>
           {!this.state.user.recommendations.length && <div className="is-centered">
-            <p>You currently have no recommendations</p>
+            <p>You currently have no recommendations.</p>
             <Link to="/recommendations/new">Add a new recommendation</Link>
           </div>}
           {this.state.user.recommendations.map(recommendation =>
