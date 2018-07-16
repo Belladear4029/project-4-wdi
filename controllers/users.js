@@ -17,7 +17,7 @@ function showRoute(req, res, next) {
   User
     .findById(req.params.id)
     .populate({
-      path: 'recommendations followers',
+      path: 'recommendations followers following',
       populate: {
         path: 'creator city'
       }

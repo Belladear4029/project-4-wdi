@@ -249,7 +249,7 @@ class CityMap extends React.Component {
         map: this.map,
         position: place.location,
         icon: {
-          url: 'http://www.myiconfinder.com/uploads/iconsets/256-256-a5485b563efc4511e0cd8bd04ad0fe9e.png',
+          url: 'https://www.artedellanima.ro/wp-content/uploads/2018/01/pin.png',
           scaledSize: new google.maps.Size(35, 35)
         },
         animation: google.maps.Animation.DROP

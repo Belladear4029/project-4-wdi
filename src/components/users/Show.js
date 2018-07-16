@@ -114,15 +114,19 @@ class UsersShow extends React.Component {
         <div className="column is-half">
           <p className="title is-5" onClick={this.toggleShowFollowers}>{this.state.user.followers.length} followers</p>
           {this.state.showFollowers && <ul>
+            <hr />
             {this.state.user.followers.map(user =>
               <li key={user._id}>{user.firstName} {user.lastName}</li>
             )}
+            <hr />
           </ul>}
           <p className="title is-5" onClick={this.toggleShowFollowing}>{this.state.user.following.length} following</p>
           {this.state.showFollowing && <ul>
+            <hr />
             {this.state.user.following.map(user =>
               <li key={user._id}>{user.firstName} {user.lastName}</li>
             )}
+            <hr />
           </ul>}
           <p className="title is-5">{this.state.user.recommendations.length} recommendations</p>
         </div>

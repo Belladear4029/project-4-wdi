@@ -99,8 +99,8 @@ class HomeMap extends React.Component {
         map: this.map,
         position: city.location,
         icon: {
-          url: 'http://pngimg.com/uploads/pin/pin_PNG44.png',
-          scaledSize: new google.maps.Size(35, 35)
+          url: 'https://www.artedellanima.ro/wp-content/uploads/2018/01/pin.png',
+          scaledSize: new google.maps.Size(30, 30)
         }
       });
       marker.addListener('click', () => selectCity(city));
