@@ -42,7 +42,6 @@ class CitiesShow extends React.Component {
   render() {
     if(this.state.error) return <h2 className="title is-2">{this.state.error}</h2>;
     if(!this.state.city) return <h2 className="title is-2">Loading...</h2>;
-    console.log('state', this.state);
     return (
       <div className="columns is-multiline">
         <div className="column is-half">
@@ -73,7 +72,7 @@ class CitiesShow extends React.Component {
               <div className="card recommendation-card">
                 <div className="card-header">
                   <p className="card-header-title is-3">{recommendation.name}</p>
-                  {recommendation.priceLevel && <h1 className="card-header-icon title is-6"> Price Level: {recommendation.priceLevel}</h1>}
+                  {recommendation.priceLevel && <h1 className="card-header-icon title is-6"> {this.state.city.currency.repeat(recommendation.priceLevel)}</h1>}
                   <h1 className="card-header-icon title is-6">Rating: {recommendation.rating}</h1>
                 </div>
                 <div className="card-content">

@@ -13,7 +13,7 @@ function showRoute(req, res, next) {
 function createRoute(req, res, next) {
   req.body.creator = req.currentUser;
 
-  City.findOne({ name: req.body.city })
+  City.findOne({ name: req.body.city.name })
     .then(city => {
       if(city) return city;
       return City.create(req.body.city);

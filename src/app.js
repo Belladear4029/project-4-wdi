@@ -32,7 +32,7 @@ class App extends React.Component {
             <div className="container">
               <Switch>
                 <Route path="/recommendations/:id/edit" component={RecommendationsEdit}/>
-                <ProtectedRoute path="/recommendations" component={RecommendationsNew}/>
+                <ProtectedRoute path="/recommendations/new" component={RecommendationsNew}/>
                 <Route path="/cities/:id" component={CitiesShow}/>
                 <Route path="/users/:id/edit" component={UsersEdit}/>
                 <Route path="/users/:id" component={UsersShow}/>

@@ -78,7 +78,7 @@ class UsersShow extends React.Component {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .then(() => this.props.history.replace(`/api/users/${this.state.currentUser._id}`));
+      .then(() => this.props.history.replace(`/users/${this.state.currentUser._id}`));
   }
 
   render() {
@@ -109,13 +109,17 @@ class UsersShow extends React.Component {
         </div>
         <div className="column is-full">
           <p className="title is-5 is-centered">Recommendations</p>
+          {this.state.user.recommendations.length > 0 && <div>
+            <p>You currently have no recommendations</p>
+            <Link to="/recommendations/new">Add a new recommendation</Link>
+          </div>}
           {this.state.user.recommendations.map(recommendation =>
             <div key={recommendation._id}>
               <div className="card recommendation-card">
                 <div className="card-header">
                   <h1 className="card-header-title is-3 city"><Link to={`/cities/${recommendation.city._id}`}>{recommendation.city.name}</Link></h1>
                   <h1 className="card-header-title is-3">{recommendation.name}</h1>
-                  {recommendation.priceLevel && <h1 className="card-header-icon title is-6"> Price Level: {recommendation.priceLevel}</h1>}
+                  {recommendation.priceLevel && <h1 className="card-header-icon title is-6">{recommendation.city.currency.repeat(recommendation.priceLevel)}</h1>}
                   <h1 className="card-header-icon title is-6"> Rating: {recommendation.rating}</h1>
                 </div>
                 <div className="card-content">

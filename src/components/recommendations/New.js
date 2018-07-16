@@ -23,7 +23,10 @@ class RecommendationsNew extends React.Component {
       data: this.state,
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .then(() => this.props.history.push(`/users/${Auth.getPayload().sub}`));
+      .then(() => {
+        this.props.history.push(`/users/${Auth.getPayload().sub}`);
+        console.log('hello2');
+      });
   }
 
   handleCitySelection = (city) => {
