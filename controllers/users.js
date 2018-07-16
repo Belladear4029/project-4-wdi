@@ -42,6 +42,12 @@ function followRoute(req, res, next) {
       user.following.push(req.params.id);
       return user.save();
     })
+    .then(user => User.populate(user, {
+      path: 'recommendations followers',
+      populate: {
+        path: 'creator city'
+      }
+    }))
     .then(user => res.json(user))
     .catch(next);
 }
@@ -53,6 +59,12 @@ function unfollowRoute(req, res, next) {
       user.following.splice(user.following.indexOf(req.params.id));
       return user.save();
     })
+    .then(user => User.populate(user, {
+      path: 'recommendations followers',
+      populate: {
+        path: 'creator city'
+      }
+    }))
     .then(user => res.json(user))
     .catch(next);
 }

@@ -6,7 +6,9 @@ import RecommendationsForm from './Form';
 
 class RecommendationsNew extends React.Component {
 
-  state = {}
+  state = {
+    errors: {}
+  }
 
   handleChange = ({ target: { name, value }}) => {
     this.setState({ [name]: value });
@@ -20,15 +22,11 @@ class RecommendationsNew extends React.Component {
       data: this.state,
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .then(() => {
-        const currentUser = Auth.getCurrentUser();
-        console.log(currentUser);
-        this.props.history.push(`/users/${Auth.getPayload().sub}`);
-      });
+      .then(() => this.props.history.push(`/users/${Auth.getPayload().sub}`))
+      .catch(err => this.setState({ errors: err.response.data.errors }));
   }
 
   handleCitySelection = (city) => {
-    console.log(city);
     this.setState({
       city: {
         name: city.name,

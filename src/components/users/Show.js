@@ -45,11 +45,12 @@ class UsersShow extends React.Component {
       method: 'PUT',
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .then(() => {
+      .then(res => {
         const followers = this.state.user.followers.concat(Auth.getCurrentUser());
         const following = this.state.currentUser.following.concat(this.state.user);
         const user = { ...this.state.user, followers, following };
         this.setState({ user });
+        Auth.setCurrentUser(res.data);
       });
   }
 
@@ -59,10 +60,11 @@ class UsersShow extends React.Component {
       method: 'PUT',
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .then(() => {
+      .then(res => {
         const followers = this.state.user.followers.concat(Auth.getCurrentUser());
         const user = { ...this.state.user, followers };
         this.setState({ user });
+        Auth.setCurrentUser(res.data);
       });
   }
 

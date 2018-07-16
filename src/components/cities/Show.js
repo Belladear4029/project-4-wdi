@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 import Auth from '../../lib/Auth';
-// import RecommendationsCard from '../recommendations/Card';
 import CityMap from '../common/CityMap';
 
 class CitiesShow extends React.Component {
@@ -11,7 +10,8 @@ class CitiesShow extends React.Component {
   constructor() {
     super();
     this.state = {
-      showOpeningHours: false
+      showOpeningHours: false,
+      filter: 'all'
     };
 
     this.isCurrentUser = this.isCurrentUser.bind(this);
@@ -35,9 +35,11 @@ class CitiesShow extends React.Component {
     if(!this.state.currentUser) return [];
     console.log(this.state);
     const followingIds = this.state.currentUser.following.map(user => user._id);
+    // if(this.state.filter = 'following') {
     return this.state.city.recommendations.filter(recommendation => {
       return followingIds.includes(recommendation.creator._id);
     });
+    // }
   }
 
   isCurrentUser() {
@@ -46,6 +48,10 @@ class CitiesShow extends React.Component {
 
   showOpeningHours() {
     this.setState({ showOpeningHours: !this.state.showOpeningHours});
+  }
+
+  handleFilter = (e) => {
+    this.setState({ filter: e.target.value });
   }
 
   render() {
@@ -58,16 +64,19 @@ class CitiesShow extends React.Component {
           {this.state.forecast && <h4>{this.state.forecast.currently.summary}</h4>}
           <hr />
         </div>
-        <div className="column is-half">
-          <h1 className="title is-2">Hello</h1>
-          <hr />
-        </div>
         <div className="column is-full">
-          <h1 className="title is-3">Map</h1>
-          <CityMap location={this.state.city.location} markers={this.filteredRecommendations()}/>
+          <CityMap location={this.state.city.location} markers={this.state.city.recommendations}/>
         </div>
         <div className="column is-full">
           <h1 className="title is-3">Recommendations</h1>
+          <div className="control">
+            <div className="select">
+              <select onChange={this.handleSort}>
+                <option value="all">All</option>
+                <option value="following">Following</option>
+              </select>
+            </div>
+          </div>
           <hr />
           {!this.filteredRecommendations().length && <p>You currently do not follow anyone who has a recommendation for this city</p>}
           {this.state.city.recommendations.map(recommendation =>

@@ -38,7 +38,7 @@ html {
   height: 70px;
   .navbar-brand {
     .navbar-item {
-      font-size: 20px;
+      font-size: 25px;
     }
     .navbar-burger {
       color: #464f51;
@@ -70,8 +70,7 @@ html {
 
 .title.home {
   margin-top: 20px;
-  font-weight: 300;
-  font-family: 'Roboto', sans-serif;
+  font-weight: 500 !important;
 }
 
 .input.home {
