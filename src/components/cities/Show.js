@@ -8,7 +8,7 @@ import CityMap from '../common/CityMap';
 class CitiesShow extends React.Component {
 
   state = {
-    filter: false
+    recommenderFilter: false
   };
 
   componentDidMount = () => {
@@ -16,18 +16,40 @@ class CitiesShow extends React.Component {
       .then(res => this.setState({ city: res.data, currentUser: Auth.getCurrentUser() }));
   }
 
-  filteredRecommendations = () => {
+  filtersByRecommenders = (recommendations) => {
     if(!this.state.currentUser) return [];
-    if(this.state.filter) {
-      const filteredRecommendations = this.state.city.recommendations.filter(recommendation => {
+    if(this.state.recommenderFilter) {
+      const filteredRecommendations = recommendations.filter(recommendation => {
         return this.state.currentUser.following.includes(recommendation.creator._id);
+      });
+      return filteredRecommendations;
+    } else return recommendations;
+  }
+
+  filtersByTypeOfPlace = (recommendations) => {
+    console.log('city', this.state.city);
+    console.log(this.state);
+    if(!this.state.city) return [];
+    if(recommendations && this.state.placeFilter) {
+      const filteredRecommendations = recommendations.filter(recommendation => {
+        return recommendation.types.includes(this.state.placeFilter);
       });
       return filteredRecommendations;
     } else return this.state.city.recommendations;
   }
 
-  isCurrentUser = () => {
-    if(this.state.currentUser) return this.state.city.recommendations.map(recommendation => recommendation.creator._id === this.state.currentUser._id);
+  filteredRecommendations = () => {
+    const filteredByPlace = this.filtersByTypeOfPlace(this.state.city.recommendations);
+    return this.filtersByRecommenders(filteredByPlace);
+  }
+
+  handlePlaceFilter = (e) => {
+    if(e.target.value) this.setState({ placeFilter: e.target.value });
+    else this.setState({ placeFilter: false });
+  }
+
+  handleRecommenderFilter = () => {
+    this.setState({ recommenderFilter: !this.state.recommenderFilter });
   }
 
   showOpeningHours = (selectedRecommendation) => {
@@ -41,11 +63,9 @@ class CitiesShow extends React.Component {
     this.setState({ city });
   }
 
-  handleFilter = () => {
-    this.setState({ filter: !this.state.filter });
-  }
 
   render() {
+    this.filtersByTypeOfPlace();
     if(this.state.error) return <h2 className="title is-2">{this.state.error}</h2>;
     if(!this.state.city) return <h2 className="title is-2">Loading...</h2>;
     return (
@@ -67,14 +87,23 @@ class CitiesShow extends React.Component {
           <p>Filter By:</p>
           <div className="control">
             Recommenders: <div className="select">
-              <select onChange={this.handleFilter}>
+              <select onChange={this.handleRecommenderFilter}>
                 <option>All</option>
                 <option>Following</option>
               </select>
             </div>
           </div>
+          <div className="control">
+            Type of place: <div className="select">
+              <select onChange={this.handlePlaceFilter}>
+                <option>All</option>
+                <option value="bar">Bars</option>
+                <option value="restaurant">Restaurants</option>
+              </select>
+            </div>
+          </div>
           <hr />
-          {!this.filteredRecommendations().length && <p>You currently do not follow anyone who has a recommendation for this city.</p>}
+          {/* {!this.filtersByTypeOfPlace().length && <p>You currently do not follow anyone who has a recommendation for this city.</p>} */}
           {this.filteredRecommendations().map(recommendation =>
             <div key={recommendation._id}>
               <div className="card recommendation-card">
@@ -93,7 +122,7 @@ class CitiesShow extends React.Component {
                   {recommendation.showOpeningHours && !recommendation.openingHours && <small>No opening hours available</small>}
                 </div>
                 <div className="card-footer">
-                  <h1 className="card-footer-item">Recommended by <Link className="name-link" to={`/users/${recommendation.creator._id}`}> {recommendation.creator.firstName} {recommendation.creator.lastName}</Link></h1>
+                  <h1 className="card-footer-item">Recommended by <Link className="name-link" to={`/users/${recommendation.creator._id}`}>{recommendation.creator.firstName} {recommendation.creator.lastName}</Link></h1>
                 </div>
               </div>
             </div>
