@@ -11,7 +11,7 @@ class CitiesShow extends React.Component {
     super();
     this.state = {
       showOpeningHours: false,
-      filter: 'all'
+      filter: false
     };
 
     this.isCurrentUser = this.isCurrentUser.bind(this);
@@ -25,12 +25,12 @@ class CitiesShow extends React.Component {
 
   filteredRecommendations = () => {
     if(!this.state.currentUser) return [];
-    // if(this.state.filter = 'following') {
-    const filteredRecommendations = this.state.city.recommendations.filter(recommendation => {
-      return this.state.currentUser.following.includes(recommendation.creator._id);
-    });
-    return filteredRecommendations;
-    // }
+    if(this.state.filter) {
+      const filteredRecommendations = this.state.city.recommendations.filter(recommendation => {
+        return this.state.currentUser.following.includes(recommendation.creator._id);
+      });
+      return filteredRecommendations;
+    } else return this.state.city.recommendations;
   }
 
   isCurrentUser() {
@@ -55,15 +55,15 @@ class CitiesShow extends React.Component {
           <hr />
         </div>
         <div className="column is-full">
-          <CityMap location={this.state.city.location} markers={this.state.city.recommendations}/>
+          <CityMap location={this.state.city.location} markers={this.filteredRecommendations()}/>
         </div>
         <div className="column is-full">
           <h1 className="title is-3">Recommendations</h1>
           <div className="control">
             <div className="select">
-              <select onChange={this.handleSort}>
-                <option value="all">All</option>
-                <option value="following">Following</option>
+              <select onChange={this.handleFilter}>
+                <option value="true">All</option>
+                <option value="false">Following</option>
               </select>
             </div>
           </div>
