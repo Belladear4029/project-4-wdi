@@ -3,11 +3,11 @@ const bcrypt = require('bcrypt');
 require('./recommendation');
 
 const userSchema = new mongoose.Schema({
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
+  firstName: { type: String, required: 'This field is required' },
+  lastName: { type: String, required: 'This field is required' },
   image: { type: String },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  email: { type: String, required: 'This field is required', unique: true },
+  password: { type: String, required: 'This field is required' },
   following: [{ type: mongoose.Schema.ObjectId, ref: 'User' }]
 }, {
   id: false
