@@ -63,10 +63,10 @@ class CitiesShow extends React.Component {
           <CityMap location={this.state.city.location} places={this.filteredRecommendations()}/>
         </div>
         <div className="column is-full">
-          <h1 className="title is-3">Recommendations</h1>
-          <p>Filter:</p>
+          <h1 className="title is-3 is-centered">Recommendations</h1>
+          <p>Filter By:</p>
           <div className="control">
-            <div className="select">
+            Recommenders: <div className="select">
               <select onChange={this.handleFilter}>
                 <option>All</option>
                 <option>Following</option>
@@ -79,7 +79,7 @@ class CitiesShow extends React.Component {
             <div key={recommendation._id}>
               <div className="card recommendation-card">
                 <div className="card-header">
-                  <p className="card-header-title is-3">{recommendation.name}</p>
+                  <p className="card-header-title is-3 name">{recommendation.name}</p>
                   {recommendation.priceLevel && <h1 className="card-header-icon title is-6"> {this.state.city.currency.repeat(recommendation.priceLevel)}</h1>}
                   <h1 className="card-header-icon title is-6">Rating: {recommendation.rating}</h1>
                 </div>
@@ -93,7 +93,7 @@ class CitiesShow extends React.Component {
                   {recommendation.showOpeningHours && !recommendation.openingHours && <small>No opening hours available</small>}
                 </div>
                 <div className="card-footer">
-                  <h1 className="card-footer-item">Recommended by <Link to={`/users/${recommendation.creator._id}`}> {recommendation.creator.firstName} {recommendation.creator.lastName}</Link></h1>
+                  <h1 className="card-footer-item">Recommended by <Link className="name-link" to={`/users/${recommendation.creator._id}`}> {recommendation.creator.firstName} {recommendation.creator.lastName}</Link></h1>
                 </div>
               </div>
             </div>
