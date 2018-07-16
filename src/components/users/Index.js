@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-// import _ from 'lodash';
 
 class UsersIndex extends React.Component {
 
@@ -35,7 +34,7 @@ class UsersIndex extends React.Component {
       <main>
         <h1 className="title is-2">Recommenders</h1>
 
-        <div className="filters">
+        <div className="search">
           <input className="input" placeholder="Search" onChange={this.handleSearch} />
         </div>
 

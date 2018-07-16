@@ -27,8 +27,6 @@ class CitiesShow extends React.Component {
   }
 
   filtersByTypeOfPlace = (recommendations) => {
-    console.log('city', this.state.city);
-    console.log(this.state);
     if(!this.state.city) return [];
     if(recommendations && this.state.placeFilter) {
       const filteredRecommendations = recommendations.filter(recommendation => {
@@ -63,7 +61,6 @@ class CitiesShow extends React.Component {
     this.setState({ city });
   }
 
-
   render() {
     this.filtersByTypeOfPlace();
     if(this.state.error) return <h2 className="title is-2">{this.state.error}</h2>;
@@ -84,26 +81,32 @@ class CitiesShow extends React.Component {
         </div>
         <div className="column is-full">
           <h1 className="title is-3 is-centered">Recommendations</h1>
-          <p>Filter By:</p>
-          <div className="control">
-            Recommenders: <div className="select">
-              <select onChange={this.handleRecommenderFilter}>
-                <option>All</option>
-                <option>Following</option>
-              </select>
+          <div className="filters">
+            <div className="control">
+              <h1>Recommenders:</h1>
+              <div className="select">
+                <select onChange={this.handleRecommenderFilter}>
+                  <option>All</option>
+                  <option>Following</option>
+                </select>
+              </div>
             </div>
-          </div>
-          <div className="control">
-            Type of place: <div className="select">
-              <select onChange={this.handlePlaceFilter}>
-                <option>All</option>
-                <option value="bar">Bars</option>
-                <option value="restaurant">Restaurants</option>
-              </select>
+            <div className="control">
+              <h1>Type of place:</h1>
+              <div className="select">
+                <select onChange={this.handlePlaceFilter}>
+                  <option>All</option>
+                  <option value="bar">Bars</option>
+                  <option value="restaurant">Restaurants</option>
+                  <option value="art_gallery">Art Galleries</option>
+                  <option value="museum">Museums</option>
+                  <option value="night_club">Night Clubs</option>
+                </select>
+              </div>
             </div>
           </div>
           <hr />
-          {/* {!this.filtersByTypeOfPlace().length && <p>You currently do not follow anyone who has a recommendation for this city.</p>} */}
+          {!this.filteredRecommendations().length && <p>No recommendations.</p>}
           {this.filteredRecommendations().map(recommendation =>
             <div key={recommendation._id}>
               <div className="card recommendation-card">
