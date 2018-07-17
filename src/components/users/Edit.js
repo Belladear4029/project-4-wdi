@@ -27,7 +27,8 @@ class UsersEdit extends React.Component {
   render() {
     return (
       <div>
-        <img className="user-image edit" src={this.state.image} alt={this.state.firstName} />
+        {!this.state.image && <img className="user-image edit" src="https://www.qualiscare.com/wp-content/uploads/2017/08/default-user.png" alt="default user image" />}
+        {this.state.image && <img className="user-image edit" src={this.state.image} alt={this.state.firstName} />}
         <form onSubmit={this.handleSubmit}>
           <div className="name-input">
             <div className="field">

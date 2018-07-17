@@ -105,7 +105,8 @@ class UsersShow extends React.Component {
     return (
       <div className="columns is-multiline">
         <div className="column is-half">
-          <img className="user-image" src={this.state.user.image} />
+          {!this.state.user.image && <img className="user-image" src="https://www.qualiscare.com/wp-content/uploads/2017/08/default-user.png" alt="default user image" />}
+          {this.state.user.image && <img className="user-image" src={this.state.user.image} />}
           <h1 className="title is-2">{this.state.user.firstName} {this.state.user.lastName}</h1>
           {!this.isCurrentUser() && Auth.isAuthenticated() && <a className="button" onClick={this.handleFollow}>{this.checkIfFollowing() ? 'Unfollow' : 'Follow'}</a>}
           {this.isCurrentUser() && <Link className="button" to={`/users/${this.state.currentUser._id}/edit`}>Edit Profile</Link>}
