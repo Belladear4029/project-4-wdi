@@ -107,7 +107,13 @@ class HomeMap extends React.Component {
 
       return marker;
     });
+
   }
+
+  // zoomMap = (location) => {
+  //   this.map.setZoom(8);
+  //   this.map.setCenter(location);
+  // }
 
   componentWillUnmount() {
     this.markers.forEach(marker => marker.setMap(null));

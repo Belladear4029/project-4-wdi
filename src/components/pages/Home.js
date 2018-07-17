@@ -6,34 +6,36 @@ import Autocomplete from 'react-google-autocomplete';
 
 class Home extends React.Component {
 
-  constructor() {
-    super();
-    this.state = {
-      message: ''
-    };
+  state = {
+    message: ''
+  };
 
-    this.handleSelection = this.handleSelection.bind(this);
-  }
-
-  componentDidMount() {
+  componentDidMount = () => {
     axios.get('/api/cities')
       .then(res => this.setState({ cities: res.data }));
   }
 
-  handleSelection(place) {
+  handleSelection = (place) => {
+    const zoom = this.props.zoom;
     this.state.cities.forEach(city => {
-      if(city.name === place.name) this.props.history.push(`cities/${city._id}`);
-      else(this.setState({ message: 'Sorry, no recommendations for this city currrently!' }));
+      if(place.name === city.country) zoom(city.countryLocation);
+      if(place.name === city.name) this.props.history.push(`cities/${city._id}`);
+      else(this.setState({ message: 'Sorry, no recommendations for this place currrently!' }));
     });
+  }
+
+  zoomMap = (map, location) => {
+    map.setZoom(8);
+    map.setCenter(location);
   }
 
   render() {
     return (
       <main>
         <h1 className="title home is-3 is-centered">Search or select a city to find the recommendations for you.</h1>
-        <Autocomplete types={['(cities)']} onPlaceSelected={this.handleSelection} className="input home" placeholder="Search a city..."/>
+        <Autocomplete types={['geocode']} onPlaceSelected={this.handleSelection} className="input home" placeholder="Search a city..."/>
         <p>{this.state.message}</p>
-        {this.state.cities && <HomeMap selection={this.handleSelection} countries={this.state.cities} cities={this.state.cities} />}
+        {this.state.cities && <HomeMap selection={this.handleSelection} zoom={this.zoomMap} countries={this.state.cities} cities={this.state.cities} />}
       </main>
     );
   }

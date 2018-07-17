@@ -11,6 +11,7 @@ const citySchema = new mongoose.Schema({
   languageCode: String,
   currency: String,
   currencyCode: String,
+  exchangeRate: Number,
   localHello: String
 });
 
@@ -52,6 +53,22 @@ citySchema.pre('save', function getHello(done) {
           .then(res => {
             const response = JSON.parse(res);
             this.localHello = response.text[0];
+            done();
+          });
+      })
+      .then(() => {
+        return rp({
+          url: 'https://web-services.oanda.com/rates/api/v2/rates/spot.json',
+          method: 'GET',
+          qs: {
+            api_key: 'UbOGAXjC920wBqFtLDrqxatG',
+            base: 'GBP',
+            quote: this.currencyCode
+          }
+        })
+          .then(res => {
+            const response = JSON.parse(res);
+            this.exchangeRate = response.quotes[0].midpoint;
             done();
           });
       });
