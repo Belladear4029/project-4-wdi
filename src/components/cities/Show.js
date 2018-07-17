@@ -70,7 +70,7 @@ class CitiesShow extends React.Component {
         <div className="column is-half">
           <h1 className="title is-2">{this.state.city.name}, {this.state.city.country}</h1>
           <hr />
-          <p>Currency: {this.state.city.currency}</p>
+          <h1 className="title is-5">Currency: {this.state.city.currency}</h1>
         </div>
         <div className="column is-half">
           <h1 className="title is-2">{this.state.city.localHello}!</h1>
