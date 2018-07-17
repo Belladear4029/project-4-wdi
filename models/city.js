@@ -4,8 +4,9 @@ require('./recommendation');
 
 const citySchema = new mongoose.Schema({
   name: String,
-  country: String,
   location: { lat: Number, lng: Number },
+  country: String,
+  countryLocation: { lat: Number, lng: Number },
   language: String,
   languageCode: String,
   currency: String,
@@ -35,6 +36,8 @@ citySchema.pre('save', function getHello(done) {
         this.languageCode = response[0].languages[0].iso639_1;
         this.currency = response[0].currencies[0].symbol;
         this.currencyCode = response[0].currencies[0].code;
+        this.countryLocation.lat = response[0].latlng[0];
+        this.countryLocation.lng = response[0].latlng[1];
       })
       .then(() => {
         return rp({

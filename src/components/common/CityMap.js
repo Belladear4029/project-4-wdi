@@ -244,7 +244,6 @@ class CityMap extends React.Component {
     });
 
     this.markers = this.props.places.map(place => {
-      console.log(place);
       const marker = new google.maps.Marker({
         map: this.map,
         position: place.location,

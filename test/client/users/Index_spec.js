@@ -12,6 +12,7 @@ import _ from 'lodash';
 import UsersIndex from '../../../src/components/users/Index';
 
 const data = [{
+  _id: 1,
   firstName: 'Bella',
   lastName: 'Dear',
   image: 'https://media.licdn.com/dms/image/C5603AQFDdL6vOSb3MQ/profile-displayphoto-shrink_200_200/0?e=1536796800&v=beta&t=GVJ-vx4KRpHOZEUqOYb9ID3VOV6lTCtFHJpdXu-oEGo',
@@ -19,6 +20,7 @@ const data = [{
   password: 'bella',
   passwordConfirmation: 'bella'
 }, {
+  _id: 2,
   firstName: 'Josh',
   lastName: 'Storm',
   image: 'https://ga-core.s3.amazonaws.com/production/uploads/instructor/image/1554/thumb_Gerry_2_240x240.jpg',
@@ -26,6 +28,7 @@ const data = [{
   password: 'josh',
   passwordConfirmation: 'josh'
 }, {
+  _id: 3,
   firstName: 'James',
   lastName: 'Newell',
   image: 'https://media.licdn.com/dms/image/C4D03AQHazaIQs2xaYQ/profile-displayphoto-shrink_200_200/0?e=1535587200&v=beta&t=D57hH_MeggXFnIW7n98oGzfrPcnRfUyKbdFCviN6F9o',
@@ -33,6 +36,7 @@ const data = [{
   password: 'james',
   passwordConfirmation: 'james'
 }, {
+  _id: 4,
   firstName: 'Bianca',
   lastName: 'Jemsten',
   image: 'https://media.licdn.com/dms/image/C5603AQGP8ydXXjyNfw/profile-displayphoto-shrink_200_200/0?e=1535587200&v=beta&t=LWRubHnaKF4b7smqh27er3vnUFtcf6UxgwiF7A8sS2A',
@@ -107,8 +111,5 @@ describe('UsersIndex test', () => {
     })
       .catch(done);
   });
-
-
-
 
 });

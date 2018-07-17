@@ -62,28 +62,28 @@ class CitiesShow extends React.Component {
   }
 
   render() {
-    this.filtersByTypeOfPlace();
+    console.log(this.state.city);
     if(this.state.error) return <h2 className="title is-2">{this.state.error}</h2>;
     if(!this.state.city) return <h2 className="title is-2">Loading...</h2>;
     return (
       <div className="columns is-multiline">
         <div className="column is-half">
-          <h1 className="title is-2">{this.state.city.name}, {this.state.city.country}</h1>
+          <h1 className="title is-2 city">{this.state.city.name}, {this.state.city.country}</h1>
           <hr />
-          <h1 className="title is-5">Currency: {this.state.city.currency}</h1>
+          <h5 className="title is-5">Currency: {this.state.city.currency}</h5>
         </div>
         <div className="column is-half">
-          <h1 className="title is-2">{this.state.city.localHello}!</h1>
+          <h2 className="title is-2">{this.state.city.localHello}!</h2>
           <hr />
         </div>
         <div className="column is-full">
           <CityMap location={this.state.city.location} places={this.filteredRecommendations()}/>
         </div>
         <div className="column is-full">
-          <h1 className="title is-3 is-centered">Recommendations</h1>
+          <h3 className="title is-3 is-centered">Recommendations</h3>
           <div className="filters">
             <div className="control">
-              <h1>Recommenders:</h1>
+              <h2>Recommenders:</h2>
               <div className="select">
                 <select onChange={this.handleRecommenderFilter}>
                   <option>All</option>
@@ -92,7 +92,7 @@ class CitiesShow extends React.Component {
               </div>
             </div>
             <div className="control">
-              <h1>Type of place:</h1>
+              <h2>Type of place:</h2>
               <div className="select">
                 <select onChange={this.handlePlaceFilter}>
                   <option value="">All</option>
@@ -112,12 +112,12 @@ class CitiesShow extends React.Component {
               <div className="card recommendation-card">
                 <div className="card-header">
                   <p className="card-header-title is-3 name">{recommendation.name}</p>
-                  {recommendation.priceLevel && <h1 className="card-header-icon title is-6"> {this.state.city.currency.repeat(recommendation.priceLevel)}</h1>}
-                  <h1 className="card-header-icon title is-6">Rating: {recommendation.rating}</h1>
+                  {recommendation.priceLevel && <h6 className="card-header-icon title is-6"> {this.state.city.currency.repeat(recommendation.priceLevel)}</h6>}
+                  <h6 className="card-header-icon title is-6">Rating: {recommendation.rating}</h6>
                 </div>
                 <div className="card-content">
-                  <h1 className="title is-6">Address: {recommendation.address}</h1>
-                  <h1 className="title is-6">{recommendation.content}</h1>
+                  <h6 className="title is-6">Address: {recommendation.address}</h6>
+                  <h6 className="title is-6">{recommendation.content}</h6>
                   <a className="title is-6 opening-hours" onClick={() => this.showOpeningHours(recommendation)}>Click for opening hours</a>
                   {recommendation.showOpeningHours && recommendation.openingHours && <ul>{recommendation.openingHours.map((hour, i) =>
                     <li key={i}>{hour}</li>
@@ -125,7 +125,7 @@ class CitiesShow extends React.Component {
                   {recommendation.showOpeningHours && !recommendation.openingHours && <small>No opening hours available</small>}
                 </div>
                 <div className="card-footer">
-                  <h1 className="card-footer-item">Recommended by <Link className="name-link" to={`/users/${recommendation.creator._id}`}>{recommendation.creator.firstName} {recommendation.creator.lastName}</Link></h1>
+                  <h2 className="card-footer-item">Recommended by <Link className="name-link" to={`/users/${recommendation.creator._id}`}>{recommendation.creator.firstName} {recommendation.creator.lastName}</Link></h2>
                 </div>
               </div>
             </div>
