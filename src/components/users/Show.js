@@ -147,7 +147,7 @@ class UsersShow extends React.Component {
                 </div>
                 <div className="card-content">
                   <h1 className="title is-6">Address: {recommendation.address}</h1>
-                  <h1 className="title is-6">{recommendation.content}</h1>
+                  <h1 className="title is-6 content">{recommendation.content}</h1>
                   <a className="title is-6 opening-hours" onClick={() => this.showOpeningHours(recommendation)}>Click for opening hours</a>
                   {recommendation.showOpeningHours && recommendation.openingHours && <ul>{recommendation.openingHours.map((hour, i) =>
                     <li key={i}>{hour}</li>

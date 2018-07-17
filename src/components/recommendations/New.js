@@ -29,11 +29,10 @@ class RecommendationsNew extends React.Component {
 
   handleCitySelection = (city) => {
     const country = city.address_components.find(component => component.types.includes('country')).long_name;
-    console.log(country);
     this.setState({
       city: {
         name: city.name,
-        country: city.address_components[city.address_components.length-1].long_name,
+        country: country,
         location: city.geometry.location
       }
     });

@@ -46,18 +46,19 @@ mongoose.connect(dbURI, { useNewUrlParser: true }, (err, db) => {
       return City.create([{
         name: 'Barcelona',
         country: 'Spain',
-        location: { lat: 41.3851, lng: 2.1734 },
-        language: 'Spanish'
+        location: { lat: 41.3851, lng: 2.1734 }
       }, {
         name: 'Prague',
         country: 'Czech Republic',
-        language: 'Czech',
         location: { lat: 50.0755, lng: 14.4378 }
       }, {
         name: 'Paris',
         country: 'France',
-        location: { lat: 48.8566, lng: 2.3522 },
-        language: 'French'
+        location: { lat: 48.8566, lng: 2.3522 }
+      }, {
+        name: 'Beunos Aires',
+        country: 'Argentina',
+        location: {lat: -34.60368440000001, lng: -58.381559100000004}
       }])
         .then(cities => {
           console.log(`${cities.length} cities created`);
@@ -67,6 +68,8 @@ mongoose.connect(dbURI, { useNewUrlParser: true }, (err, db) => {
             content: 'Really nice place',
             rating: 4.5,
             location: { lat: 41.389856, lng: 2.170753 },
+            priceLevel: 3,
+            types: ['bar'],
             city: cities[0],
             creator: users[0]
           }, {
@@ -75,6 +78,8 @@ mongoose.connect(dbURI, { useNewUrlParser: true }, (err, db) => {
             content: 'Fascinating museum',
             rating: 4.2,
             location: { lat: 41.388947, lng: 2.163636 },
+            priceLevel: 2,
+            types: ['museum'],
             city: cities[0],
             creator: users[1]
           }, {
@@ -91,6 +96,8 @@ mongoose.connect(dbURI, { useNewUrlParser: true }, (err, db) => {
             content: 'This place is so yummy and really nice cocktails!',
             rating: 4.5,
             location: { lat: 50.087516, lng: 14.432376 },
+            priceLevel: 2,
+            types: ['restaurant'],
             city: cities[1],
             creator: users[0]
           }, {
@@ -99,7 +106,19 @@ mongoose.connect(dbURI, { useNewUrlParser: true }, (err, db) => {
             content: 'This bar is really cool, couldn\'t recommend it more!',
             rating: 4.7,
             location: { lat: 48.871833, lng: 2.353629 },
+            priceLevel: 1,
+            types: ['bar'],
             city: cities[2],
+            creator: users[3]
+          }, {
+            name: 'Maman Fine Art',
+            address: 'Av. del Libertador 2475, 1425AAK CABA',
+            content: 'Great art gallery!',
+            rating: 4.7,
+            location: {lat: -34.5788103, lng: -58.406521999999995},
+            priceLevel: 1,
+            types: ['musuem'],
+            city: cities[3],
             creator: users[3]
           }]);
         });

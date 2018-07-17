@@ -129,12 +129,14 @@ html {
   border-radius: 100%;
   width: 200px;
 }
-
 .card.recommendation-card {
   margin-bottom: 20px;
   border-radius: 20px;
   .card-header-icon {
     margin: 0;
+  }
+  .title.content {
+    font-weight: 600 !important;
   }
 }
 
@@ -185,12 +187,7 @@ html {
   }
 
   .navbar {
-    height: 60px;
-    .navbar-brand {
-      .navbar-item {
-        font-size: 30px;
-      }
-    }
+    height: 55px;
     .navbar-item {
       &:hover {
         border-bottom: 0;
