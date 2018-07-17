@@ -81,6 +81,7 @@ class CitiesShow extends React.Component {
           <CityMap location={this.state.city.location} places={this.filteredRecommendations()}/>
         </div>
         <div className="column is-full">
+          <hr />
           <h3 className="title is-3 is-centered">Recommendations</h3>
           <div className="filters">
             <div className="control">
@@ -118,7 +119,7 @@ class CitiesShow extends React.Component {
                 </div>
                 <div className="card-content">
                   <h6 className="title is-6">Address: {recommendation.address}</h6>
-                  <h6 className="title is-6">{recommendation.content}</h6>
+                  <h6 className="title is-6 content">{recommendation.content}</h6>
                   <a className="title is-6 opening-hours" onClick={() => this.showOpeningHours(recommendation)}>Click for opening hours</a>
                   {recommendation.showOpeningHours && recommendation.openingHours && <ul>{recommendation.openingHours.map((hour, i) =>
                     <li key={i}>{hour}</li>

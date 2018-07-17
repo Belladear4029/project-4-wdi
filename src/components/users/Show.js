@@ -100,18 +100,16 @@ class UsersShow extends React.Component {
   }
 
   render() {
-    if(this.state.error) return <h2 className="title is-2">{this.state.error}</h2>;
-    if(!this.state.user) return <h2 className="title is-2">Loading...</h2>;
     return (
       <div className="columns is-multiline">
-        <div className="column is-half">
+        {this.state.user && <div className="column is-half user-info">
           {!this.state.user.image && <img className="user-image" src="https://www.qualiscare.com/wp-content/uploads/2017/08/default-user.png" alt="default user image" />}
           {this.state.user.image && <img className="user-image" src={this.state.user.image} />}
-          <h1 className="title is-2">{this.state.user.firstName} {this.state.user.lastName}</h1>
+          {<h1 className="title is-2 is-centered">{this.state.user.firstName} {this.state.user.lastName}</h1>}
           {!this.isCurrentUser() && Auth.isAuthenticated() && <a className="button" onClick={this.handleFollow}>{this.checkIfFollowing() ? 'Unfollow' : 'Follow'}</a>}
           {this.isCurrentUser() && <Link className="button" to={`/users/${this.state.currentUser._id}/edit`}>Edit Profile</Link>}
-        </div>
-        <div className="column is-half">
+        </div>}
+        {this.state.user && <div className="column is-half following-info">
           <p className="title is-5" onClick={this.toggleShowFollowers}>{this.state.user.followers.length} followers</p>
           {this.state.showFollowers && <ul>
             <hr />
@@ -129,14 +127,15 @@ class UsersShow extends React.Component {
             <hr />
           </ul>}
           <p className="title is-5">{this.state.user.recommendations.length} recommendations</p>
-        </div>
+        </div>}
         <div className="column is-full">
+          <hr />
           <p className="title is-3 is-centered">Recommendations</p>
-          {!this.state.user.recommendations.length && <div className="is-centered">
+          {this.state.user && !this.state.user.recommendations.length && <div className="is-centered">
             <p>You currently have no recommendations.</p>
             <Link to="/recommendations/new">Add a new recommendation</Link>
           </div>}
-          {this.state.user.recommendations.map(recommendation =>
+          {this.state.user && this.state.user.recommendations.map(recommendation =>
             <div key={recommendation._id}>
               <div className="card recommendation-card">
                 <div className="card-header">

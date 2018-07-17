@@ -110,10 +110,12 @@ class HomeMap extends React.Component {
 
   }
 
-  // zoomMap = (location) => {
-  //   this.map.setZoom(8);
-  //   this.map.setCenter(location);
-  // }
+  componentWillReceiveProps(props) {
+    if(props.location === this.props.location) {
+      this.map.setZoom(6);
+      this.map.setCenter(props.location);
+    }
+  }
 
   componentWillUnmount() {
     this.markers.forEach(marker => marker.setMap(null));
