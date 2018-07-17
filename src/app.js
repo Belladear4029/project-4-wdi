@@ -25,10 +25,10 @@ class App extends React.Component {
       <BrowserRouter>
         <main>
           <Navbar />
-          <FlashMessages />
           <Route exact path="/" component={Home} />
           <section className="section">
             <div className="container">
+              <FlashMessages />
               <Switch>
                 <Route path="/recommendations/:id/edit" component={RecommendationsEdit}/>
                 <ProtectedRoute path="/recommendations/new" component={RecommendationsNew}/>

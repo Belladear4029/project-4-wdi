@@ -24,7 +24,7 @@ const RecommendationsForm = ({ handleChange, handleSubmit, handleCitySelection, 
         <input className="input" name="rating" placeholder="On a scale of 1 to 5" onChange={handleChange} value={data.rating || ''}/>
         {data.errors.rating && <small>{data.errors.rating}</small>}
       </div>
-      <button className="button">Submit</button>
+      <button disabled={!data.city} className="button">Submit</button>
     </form>
   );
 };
