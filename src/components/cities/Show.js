@@ -95,7 +95,7 @@ class CitiesShow extends React.Component {
               <h1>Type of place:</h1>
               <div className="select">
                 <select onChange={this.handlePlaceFilter}>
-                  <option>All</option>
+                  <option value="">All</option>
                   <option value="bar">Bars</option>
                   <option value="restaurant">Restaurants</option>
                   <option value="art_gallery">Art Galleries</option>
