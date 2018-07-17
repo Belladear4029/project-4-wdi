@@ -11,8 +11,8 @@ const citySchema = new mongoose.Schema({
   languageCode: String,
   currency: String,
   currencyCode: String,
-  exchangeRate: Number,
-  localHello: String
+  localHello: String,
+  exchangeRate: Number
 });
 
 citySchema.virtual('recommendations', {
@@ -53,7 +53,6 @@ citySchema.pre('save', function getHello(done) {
           .then(res => {
             const response = JSON.parse(res);
             this.localHello = response.text[0];
-            done();
           });
       })
       .then(() => {

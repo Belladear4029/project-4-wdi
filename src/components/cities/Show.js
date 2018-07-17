@@ -71,6 +71,7 @@ class CitiesShow extends React.Component {
           <h1 className="title is-2 city">{this.state.city.name}, {this.state.city.country}</h1>
           <hr />
           <h5 className="title is-5">Currency: {this.state.city.currency}</h5>
+          <h5 className="title is-5">Rate: £1 = {this.state.city.exchangeRate} {this.state.city.currency}</h5>
         </div>
         <div className="column is-half">
           <h2 className="title is-2">{this.state.city.localHello}!</h2>
