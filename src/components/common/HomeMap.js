@@ -106,14 +106,15 @@ class HomeMap extends React.Component {
       marker.addListener('click', () => selectCity(city));
 
       return marker;
+
     });
 
   }
 
   componentWillReceiveProps(props) {
-    if(props.location === this.props.location) {
+    if(props.countryLocation) {
       this.map.setZoom(6);
-      this.map.setCenter(props.location);
+      this.map.setCenter(props.countryLocation);
     }
   }
 
