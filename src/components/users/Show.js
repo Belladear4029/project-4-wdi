@@ -18,13 +18,14 @@ class UsersShow extends React.Component {
       .catch(err => this.setState({ error: err.message }));
   }
 
-  componentWillReceiveProps = (nextProps) => {
-    const currentId = this.state.user._id;
-    const nextId = nextProps.match.params.id;
-    if (currentId && currentId !== nextId) {
-      this.props.history.push(`/users/${nextId}`);
-    }
-  }
+  // componentWillReceiveProps = (nextProps) => {
+  //   console.log(this.state.user._id);
+  //   const currentId = this.state.user._id;
+  //   const nextId = nextProps.match.params.id;
+  //   if (currentId && currentId !== nextId) {
+  //     this.props.history.push(`/users/${nextId}`);
+  //   }
+  // }
 
   checkIfFollowing = () => {
     if(!this.state.currentUser) return false;
