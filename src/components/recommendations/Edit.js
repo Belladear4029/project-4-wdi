@@ -20,8 +20,7 @@ class RecommendationsNew extends React.Component {
       url: `/api/recommendations/${this.props.match.params.id}`,
       method: 'GET'
     })
-      .then(res => this.setState(res.data))
-      .then(() => console.log(this.state.city.name));
+      .then(res => this.setState(res.data));
   }
 
   handleSubmit = (e) => {

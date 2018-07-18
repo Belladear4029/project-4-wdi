@@ -100,7 +100,6 @@ class UsersShow extends React.Component {
   }
 
   render() {
-    console.log(this.state.user);
     return (
       <div className="columns is-multiline">
         {this.state.user && <div className="column is-half user-info">

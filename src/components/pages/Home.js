@@ -16,7 +16,6 @@ class Home extends React.Component {
   }
 
   handleSelection = (place) => {
-    console.log(place.name);
     this.state.cities.forEach(city => {
       if(place.name === city.name) this.props.history.push(`cities/${city._id}`);
       else if(place.name === city.country) this.setState({ countryLocation: city.countryLocation, message: '' });

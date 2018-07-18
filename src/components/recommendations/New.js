@@ -15,7 +15,6 @@ class RecommendationsNew extends React.Component {
   }
 
   handleSubmit = (e) => {
-    console.log('hello');
     e.preventDefault();
     axios({
       url: '/api/recommendations',

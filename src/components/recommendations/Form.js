@@ -6,7 +6,7 @@ const RecommendationsForm = ({ handleChange, handleSubmit, handleCitySelection, 
     <form onSubmit={handleSubmit}>
       <div className="field">
         <label className="city">City</label>
-        <Autocomplete types={['(cities)']} className="input" onPlaceSelected={handleCitySelection} placeholder="Search a city" value={data.city.name || ''} />
+        <Autocomplete types={['(cities)']} className="input" onPlaceSelected={handleCitySelection} placeholder="Search a city" />
         {data.errors.city && <small>{data.errors.city}</small>}
       </div>
       <div className="field">

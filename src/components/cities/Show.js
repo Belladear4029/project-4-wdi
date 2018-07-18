@@ -62,7 +62,6 @@ class CitiesShow extends React.Component {
   }
 
   render() {
-    console.log(this.state.city);
     return (
       <div className="columns is-multiline">
         {this.state.city && <div className="column is-half">

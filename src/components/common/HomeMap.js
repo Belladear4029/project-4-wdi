@@ -112,7 +112,6 @@ class HomeMap extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    console.log(props.countryLocation);
     if(props.countryLocation) {
       this.map.setZoom(6);
       this.map.setCenter(props.countryLocation);
