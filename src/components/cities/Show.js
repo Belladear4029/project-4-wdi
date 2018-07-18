@@ -63,22 +63,20 @@ class CitiesShow extends React.Component {
 
   render() {
     console.log(this.state.city);
-    if(this.state.error) return <h2 className="title is-2">{this.state.error}</h2>;
-    if(!this.state.city) return <h2 className="title is-2">Loading...</h2>;
     return (
       <div className="columns is-multiline">
-        <div className="column is-half">
+        {this.state.city && <div className="column is-half">
           <h1 className="title is-2 city">{this.state.city.name}, {this.state.city.country}</h1>
           <hr />
           <h5 className="title is-5">Currency: {this.state.city.currency}</h5>
-          <h5 className="title is-5">Rate: £1 = {this.state.city.exchangeRate} {this.state.city.currency}</h5>
-        </div>
+          <h5 className="title is-5">Rate: £1 = {this.state.city.currency}{this.state.city.exchangeRate}</h5>
+        </div>}
         <div className="column is-half">
-          <h2 className="title is-2">{this.state.city.localHello}!</h2>
+          {this.state.city  && <h2 className="title is-2">{this.state.city.localHello}!</h2>}
           <hr />
         </div>
         <div className="column is-full">
-          <CityMap location={this.state.city.location} places={this.filteredRecommendations()}/>
+          {this.state.city && <CityMap location={this.state.city.location} places={this.filteredRecommendations()}/>}
         </div>
         <div className="column is-full">
           <hr />
@@ -108,8 +106,8 @@ class CitiesShow extends React.Component {
             </div>
           </div>
           <hr />
-          {!this.filteredRecommendations().length && <p>No recommendations.</p>}
-          {this.filteredRecommendations().map(recommendation =>
+          {this.state.city && !this.filteredRecommendations().length && <p>No recommendations.</p>}
+          {this.state.city && this.filteredRecommendations().map(recommendation =>
             <div key={recommendation._id}>
               <div className="card recommendation-card">
                 <div className="card-header">

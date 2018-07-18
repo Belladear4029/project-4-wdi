@@ -22,8 +22,6 @@ router.route('/users/:id')
 router.put('/users/:id/follow', secureRoute, users.follow);
 router.put('/users/:id/unfollow', secureRoute, users.unfollow);
 
-router.get('/profile', secureRoute, auth.profile);
-
 router.post('/register', auth.register);
 router.post('/login', auth.login);
 

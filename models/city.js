@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const rp = require('request-promise');
+const { yandexKey, oandaKey } = require('../config/environment');
 require('./recommendation');
 
 const citySchema = new mongoose.Schema({
@@ -47,7 +48,7 @@ citySchema.pre('save', function getHello(done) {
           qs: {
             text: 'Hello',
             lang: `en-${this.languageCode}`,
-            key: 'trnsl.1.1.20180716T095741Z.f982ee44e7d27963.471499f1b65d4a15b86c29c5c75bd2654d82a0c1'
+            key: yandexKey
           }
         })
           .then(res => {
@@ -60,7 +61,7 @@ citySchema.pre('save', function getHello(done) {
           url: 'https://web-services.oanda.com/rates/api/v2/rates/spot.json',
           method: 'GET',
           qs: {
-            api_key: 'UbOGAXjC920wBqFtLDrqxatG',
+            api_key: oandaKey,
             base: 'GBP',
             quote: this.currencyCode
           }

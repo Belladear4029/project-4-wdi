@@ -75,11 +75,11 @@ html {
 
 //homepage
 .home-map {
-  height: 120%;
-  width: 100%;
+  height: 130%;
+  width: 130%;
   position: absolute;
   top: -40px;
-  left: 0px;
+  left: -100px;
   z-index: -1;
 }
 
@@ -145,7 +145,6 @@ html {
 }
 .following-info {
   margin-top: 35px;
-  // margin: 35px auto 0 10px;
 }
 
 //user edit page

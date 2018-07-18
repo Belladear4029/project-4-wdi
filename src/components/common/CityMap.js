@@ -7,7 +7,7 @@ class CityMap extends React.Component {
   componentDidMount() {
     this.map = new google.maps.Map(this.mapCanvas, {
       center: this.props.location,
-      zoom: 13,
+      zoom: 12,
       styles: [
         {
           'featureType': 'administrative',

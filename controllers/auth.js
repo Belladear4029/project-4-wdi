@@ -28,15 +28,7 @@ function login(req, res, next) {
     .catch(next);
 }
 
-function profile(req, res, next) {
-  User
-    .populate(req.currentUser, { path: 'recommendations following', populate: { path: 'city users recommendations city creator followers', populate: { path: 'city creator'} } })
-    .then(user => res.json(user))
-    .catch(next);
-}
-
 module.exports = {
   register,
-  login,
-  profile
+  login
 };

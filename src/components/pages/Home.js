@@ -19,7 +19,7 @@ class Home extends React.Component {
     console.log(place.name);
     this.state.cities.forEach(city => {
       if(place.name === city.name) this.props.history.push(`cities/${city._id}`);
-      if(place.name === city.country) this.setState({ countryLocation: city.countryLocation, message: '' });
+      else if(place.name === city.country) this.setState({ countryLocation: city.countryLocation, message: '' });
       else (this.setState({ message: 'Sorry, no recommendations for this place currrently!' }));
     });
   }

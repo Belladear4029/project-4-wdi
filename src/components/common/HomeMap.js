@@ -6,7 +6,7 @@ class HomeMap extends React.Component {
 
   componentDidMount() {
     this.map = new google.maps.Map(this.mapCanvas, {
-      center: {lat: 52.5260, lng: 7.2551},
+      center: {lat: 47, lng: 35},
       zoom: 3,
       styles: [
         {
@@ -112,6 +112,7 @@ class HomeMap extends React.Component {
   }
 
   componentWillReceiveProps(props) {
+    console.log(props.countryLocation);
     if(props.countryLocation) {
       this.map.setZoom(6);
       this.map.setCenter(props.countryLocation);
