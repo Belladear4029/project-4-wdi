@@ -6,12 +6,12 @@ const RecommendationsForm = ({ handleChange, handleSubmit, handleCitySelection, 
     <form onSubmit={handleSubmit}>
       <div className="field">
         <label className="city">City</label>
-        <Autocomplete types={['(cities)']} className="input" onPlaceSelected={handleCitySelection} placeholder="Search a city" />
+        <Autocomplete types={['(cities)']} className="input" onPlaceSelected={handleCitySelection} placeholder="Search a city" value={data.city.name || ''} />
         {data.errors.city && <small>{data.errors.city}</small>}
       </div>
       <div className="field">
         <label className="place">Place</label>
-        <Autocomplete types={['establishment']} className="input" onPlaceSelected={handlePlaceSelection} placeholder="Search for your recommended place" />
+        <Autocomplete types={['establishment']} className="input" onPlaceSelected={handlePlaceSelection} placeholder="Search for your recommended place" value={data.name || ''} />
         {data.errors.name && <small>{data.errors.name}</small>}
       </div>
       <div className="field">
