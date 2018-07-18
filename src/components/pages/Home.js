@@ -18,8 +18,7 @@ class Home extends React.Component {
   handleSelection = (place) => {
     this.state.cities.forEach(city => {
       if(place.name === city.name) this.props.history.push(`cities/${city._id}`);
-      else if(place.name === city.country) this.setState({ countryLocation: city.countryLocation, message: '' });
-      else (this.setState({ message: 'Sorry, no recommendations for this place currrently!' }));
+      else (this.setState({ message: 'Sorry, no recommendations for this city currrently!' }));
     });
   }
 
@@ -27,7 +26,7 @@ class Home extends React.Component {
     return (
       <main>
         <h1 className="title home is-3 is-centered">Search or select a city to find the recommendations for you.</h1>
-        <Autocomplete types={['geocode']} onPlaceSelected={this.handleSelection} className="input home" placeholder="Search a city..."/>
+        <Autocomplete types={['(cities)']} onPlaceSelected={this.handleSelection} className="input home" placeholder="Search a city..."/>
         <h1 className="title is-4 is-centered">{this.state.message}</h1>
         {this.state.cities && <HomeMap selection={this.handleSelection} countries={this.state.cities} cities={this.state.cities} countryLocation={this.state.countryLocation}/>}
       </main>
