@@ -243,6 +243,15 @@ class CityMap extends React.Component {
       ]
     });
 
+    this.generateMarkers();
+  }
+
+  clearMarkers = () => {
+    this.markers.forEach(marker => marker.setMap(null));
+    this.markers = [];
+  }
+
+  generateMarkers = () => {
     this.markers = this.props.places.map(place => {
       const marker = new google.maps.Marker({
         map: this.map,
@@ -257,9 +266,13 @@ class CityMap extends React.Component {
     });
   }
 
+  componentDidUpdate() {
+    this.clearMarkers();
+    this.generateMarkers();
+  }
+
   componentWillUnmount() {
-    this.markers.forEach(marker => marker.setMap(null));
-    this.markers = [];
+    this.clearMarkers();
     this.map = null;
   }
 

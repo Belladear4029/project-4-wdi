@@ -112,24 +112,24 @@ class UsersShow extends React.Component {
         {this.state.user && <div className="column is-half following-info">
           <p className="title is-5" onClick={this.toggleShowFollowers}>{this.state.user.followers.length} followers</p>
           {this.state.showFollowers && <ul>
-            <hr />
+            <hr className="user-hr"/>
             {this.state.user.followers.map(user =>
               <li key={user._id}>{user.firstName} {user.lastName}</li>
             )}
-            <hr />
+            <hr className="user-hr"/>
           </ul>}
           <p className="title is-5" onClick={this.toggleShowFollowing}>{this.state.user.following.length} following</p>
           {this.state.showFollowing && <ul>
-            <hr />
+            <hr className="user-hr"/>
             {this.state.user.following.map(user =>
               <li key={user._id}>{user.firstName} {user.lastName}</li>
             )}
-            <hr />
+            <hr className="user-hr"/>
           </ul>}
           <p className="title is-5">{this.state.user.recommendations.length} recommendations</p>
         </div>}
         <div className="column is-full">
-          <hr />
+          <hr className="user-hr"/>
           <p className="title is-3 is-centered">Recommendations</p>
           {this.state.user && !this.state.user.recommendations.length && <div className="is-centered">
             <p>You currently have no recommendations.</p>
