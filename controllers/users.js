@@ -56,7 +56,7 @@ function unfollowRoute(req, res, next) {
   User
     .findById(req.currentUser._id)
     .then(user => {
-      user.following.splice(user.following.indexOf(req.params.id));
+      user.following.splice(user.following.indexOf(req.params.id), 1);
       return user.save();
     })
     .then(user => User.populate(user, {
