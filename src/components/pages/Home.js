@@ -24,7 +24,7 @@ class Home extends React.Component {
 
   render() {
     return (
-      <main>
+      <main className="main-homepage">
         <h1 className="title home is-3 is-centered">Search or select a city to find the recommendations for you.</h1>
         <Autocomplete types={['(cities)']} onPlaceSelected={this.handleSelection} className="input home" placeholder="Search a city..."/>
         <h1 className="title is-4 is-centered">{this.state.message}</h1>

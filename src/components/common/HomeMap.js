@@ -6,7 +6,7 @@ class HomeMap extends React.Component {
 
   componentDidMount() {
     this.map = new google.maps.Map(this.mapCanvas, {
-      center: {lat: 47, lng: 35},
+      center: {lat: 55, lng: 35},
       zoom: 3,
       styles: [
         {

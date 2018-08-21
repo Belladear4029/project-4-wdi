@@ -42,7 +42,7 @@ class RecommendationsNew extends React.Component {
       name: place.name,
       address: place.formatted_address,
       location: place.geometry.location,
-      openingHours: place.opening_hours.weekday_text,
+      openingHours: place.opening_hours.weekday_text || 0,
       priceLevel: place.price_level,
       types: place.types
     });
