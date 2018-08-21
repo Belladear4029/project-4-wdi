@@ -100,7 +100,7 @@ class HomeMap extends React.Component {
         position: city.location,
         icon: {
           url: 'https://www.artedellanima.ro/wp-content/uploads/2018/01/pin.png',
-          scaledSize: new google.maps.Size(30, 30)
+          scaledSize: new google.maps.Size(25, 25)
         }
       });
       marker.addListener('click', () => selectCity(city));
