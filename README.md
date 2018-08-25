@@ -1,11 +1,20 @@
 # ![image](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) WDI 34 Project 4
 ## iRecommend
 
-This app is a full MERN stack app. I created this app so people would be able to view recommendations written by people they trust for cities around the world. I created my own API as well as using some third party APIs including some Google APIs, [Rest Countries API](https://restcountries.eu/), [Oanda API](https://developer.oanda.com/), a currency exchange API and [Yandex API](https://translate.yandex.com/developers), a translation API.
+This app is a full MERN stack app. I created this app so people would be able to view recommendations written by people they trust, for cities around the world. I created my own API as well as using some third party APIs including some Google APIs, [Rest Countries API](https://restcountries.eu/), [Oanda API](https://developer.oanda.com/), a currency exchange API and [Yandex API](https://translate.yandex.com/developers), a translation API.
 
-**Technologies used:** HTML, SCSS, JavaScript, MongoDB, Express.js, React, Node.js and Webpack.
+#### Technologies Used
+HTML | SCSS | JavaScript (ES6) | MongoDB | Express.js | React | Node.js | Webpack | Mongoose | [Draw.io](https://www.draw.io) | [Trello](https://trello.com)
 
-This app is deployed on [Heroku](https://iRecommend.herokuapp.com/).
+#### APIs Used
+[Google Maps](https://developers.google.com/maps/documentation/javascript/tutorial) | [Google Place Autocomplete](https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete) | [Google Places](https://developers.google.com/places/web-service/intro) | [Rest Countries](https://restcountries.eu/) | [Oanda](https://developer.oanda.com/) | [Yandex](https://translate.yandex.com/developers)
+
+This app is deployed on [Heroku](https://i-recommend.herokuapp.com/).
+
+### The Planning Process
+I used [Draw.io](https://www.draw.io) to mock up my wireframes to help me envisage what my app would look like and to map out all the different pages. I also used [Trello](https://trello.com) to organise what I needed to do and
+##### Wireframes
+<p align="center"><img src="https://imgur.com/0z1Evex.png" width="700"></p>
 
 ### The App
 
@@ -22,7 +31,7 @@ For each city page I wanted to give the user some information about that city, i
 
 To implement these three features I used [Rest Countries API](https://restcountries.eu/) to first retrieve the currency symbol and code as well as the language code. Once I had these, I could then use [Oanda API](https://developer.oanda.com/) and [Yandex API](https://translate.yandex.com/developers) to get the exchange rate and 'hello' translation, respectively.
 
-I made these requests in my 'city model' with a 'pre save hook' (as shown below) so that when a city was created it would only have to make these requests once and then assign them to that city, instead of making multiple requests every time a city page is loaded.
+I made these requests in my 'city model' with a 'pre-save hook' (as shown below) so that when a city was created it would only have to make these requests once and then assign them to that city, instead of making multiple requests every time a city page is loaded.
 
 ```
 citySchema.pre('save', function getHello(done) {
@@ -87,7 +96,7 @@ Further down the page all the recommendations are listed for the chosen city. Us
 <p align="center"><img src="https://imgur.com/gAcK94I.png" width="700"></p>
 
 
-When it came to adding a recommendation, I wanted to keep it simple therefore only created four fields for the user to complete: the city, the place, a comment and a rating. The rest of the information I got from using Google Autocomplete and [Google Places API](https://developers.google.com/places/web-service/intro) simultaneously.
+When it came to adding a recommendation, I wanted to keep it simple therefore only created four fields for the user to complete: the city, the place, a comment and a rating. The rest of the information I got from using [Google Place Autocomplete](https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete) and [Google Places API](https://developers.google.com/places/web-service/intro) simultaneously.
 
 I designed the app so that when a new recommendation is added, it would first check to see whether its city is already in the database, before creating a new one. If the city already exists, this step is skipped and the new recommendation is added under the existing city (as shown in my 'create recommendation route' below).
 
@@ -116,11 +125,10 @@ The latitude and longitude of the city and the place were retrieved from [Rest C
 
 ### Challenges
 
-#### Retrieving the Latitudes and Longitudes
-A challenge I faced was retrieving the latitude and longitude for both the city and the place with one request. I was not able to get both with just using Google Places, it would return the city but I had to make 
-had to enter both city and place as unable to get city lat and lng with google places.
+##### Retrieving the Latitudes and Longitudes
+A challenge I faced was retrieving the latitude and longitude for both the city and the place with one request, in order to display their markers on both the world map and city map. I was not able to get both with just using Google Places, it would return the city but I would have had to make another request to the Rest Countries API in order to get the city's location. I therefore decided to create another input field for the user to enter the city of where their recommendation was. This creates a slightly lower quality user experience, and therefore, would like to find a way around this in the future.
 
 ### Further Additions
 
-#### Push Notifications
-Gives you notification when a followee adds a recommendation of interest
+##### Push Notifications
+Moving forward, I would like to add push notifications to signify users when one of their followees has added a new recommendation.
