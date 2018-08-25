@@ -3,10 +3,10 @@
 
 This app is a full MERN stack app. I created this app so people would be able to view recommendations, written by people they trust, for cities around the world. I created my own API as well as using third party APIs.
 
-##### Technologies Used
+#### Technologies Used
 HTML | SCSS | JavaScript (ES6) | MongoDB | Express.js | React | Node.js | Webpack | Mongoose | [Draw.io](https://www.draw.io) | [Trello](https://trello.com)
 
-##### APIs Used
+#### APIs Used
 [Google Maps](https://developers.google.com/maps/documentation/javascript/tutorial) | [Google Place Autocomplete](https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete) | [Google Places](https://developers.google.com/places/web-service/intro) | [Rest Countries](https://restcountries.eu/) | [Oanda](https://developer.oanda.com/) | [Yandex](https://translate.yandex.com/developers)
 
 This app is deployed on [Heroku](https://i-recommend.herokuapp.com/).
@@ -15,18 +15,18 @@ This app is deployed on [Heroku](https://i-recommend.herokuapp.com/).
 
 ### The Planning Process
 I used [Draw.io](https://www.draw.io) to mock up my wireframes to help me envisage what my app would look like and to map out all the different pages. I also used [Trello](https://trello.com) to organise what I needed to do and
-##### Wireframes
+#### Wireframes
 <p align="center"><img src="https://imgur.com/0z1Evex.png" width="500"></p>
 
 ### The App
 
 <p align="center"><img src="https://i.imgur.com/beV71rw.png" width="700"></p>
 
-##### Searching For a City
+#### Searching For a City
 
 The user is initially presented with the homepage of a world map. The markers represent all the cities currently with recommendations. When more recommendations are added to the database in different cities, markers are added accordingly. I wanted to make it so the user is either able to view the map, have a play around, and select a city by clicking on its marker or by simply searching a city in the search bar. Once the city is chosen, the user is taken to the specific page for that city where they can read the recommendations.
 
-##### Viewing a City
+#### Viewing a City
 <p align="center"><img src="https://imgur.com/88FwznZ.png" width="700"></p>
 
 For each city page I wanted to give the user some information about that city, including currency, exchange rate and a welcoming 'hello' translated into the local language.
@@ -88,13 +88,13 @@ citySchema.pre('save', function getHello(done) {
 ```
 
 
-##### Viewing the Recommendations
+#### Viewing the Recommendations
 <p align="center"><img src="https://imgur.com/86GBoLn.png" width="700"></p>
 
 
 Further down the page all the recommendations are listed for the chosen city. Using [Google Places API](https://developers.google.com/places/web-service/intro), I extracted the location, price level and opening hours for each recommendation, to give the viewer some more information. The idea was that I wanted this app to give recommendations from people that you know and trust, therefore created a feature that would filter down the recommendations for each city to just the ones written by people you 'follow'. Alongside that, I also created a second filter where the user is able to select the type of place, e.g. restaurant, bar, museum etc.
 
-##### Adding a Recommendation
+#### Adding a Recommendation
 <p align="center"><img src="https://imgur.com/gAcK94I.png" width="700"></p>
 
 
@@ -127,10 +127,10 @@ The latitude and longitude of the city and the place were retrieved from [Rest C
 
 ### Challenges
 
-##### Retrieving the Latitudes and Longitudes
+#### Retrieving the Latitudes and Longitudes
 A challenge I faced was retrieving the latitude and longitude for both the city and the place with one request, in order to display their markers on both the world map and city map. I was not able to get both with just using Google Places, it would return the city but I would have had to make another request to the Rest Countries API in order to get the city's location. I therefore decided to create another input field for the user to enter the city of where their recommendation was. This creates a slightly lower quality user experience, and therefore, would like to find a way around this in the future.
 
 ### Further Additions
 
-##### Push Notifications
+#### Push Notifications
 Moving forward, I would like to add push notifications to signify users when one of their followees has added a new recommendation.
