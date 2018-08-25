@@ -1,7 +1,7 @@
 # ![image](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) WDI 34 Project 4
 ## iRecommend
 
-This app is a full MERN stack app. I created this app so people would be able to view recommendations written by people they trust, for cities around the world. I created my own API as well as using some third party APIs including some Google APIs, [Rest Countries API](https://restcountries.eu/), [Oanda API](https://developer.oanda.com/), a currency exchange API and [Yandex API](https://translate.yandex.com/developers), a translation API.
+This app is a full MERN stack app. I created this app so people would be able to view recommendations, written by people they trust, for cities around the world. I created my own API as well as using third party APIs.
 
 #### Technologies Used
 HTML | SCSS | JavaScript (ES6) | MongoDB | Express.js | React | Node.js | Webpack | Mongoose | [Draw.io](https://www.draw.io) | [Trello](https://trello.com)
