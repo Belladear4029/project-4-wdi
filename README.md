@@ -11,6 +11,8 @@ HTML | SCSS | JavaScript (ES6) | MongoDB | Express.js | React | Node.js | Webpac
 
 This app is deployed on [Heroku](https://i-recommend.herokuapp.com/).
 
+***
+
 ### The Planning Process
 I used [Draw.io](https://www.draw.io) to mock up my wireframes to help me envisage what my app would look like and to map out all the different pages. I also used [Trello](https://trello.com) to organise what I needed to do and
 ##### Wireframes
