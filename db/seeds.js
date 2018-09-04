@@ -27,14 +27,14 @@ mongoose.connect(dbURI, { useNewUrlParser: true }, (err, db) => {
       }, {
         firstName: 'James',
         lastName: 'Newell',
-        image: 'https://media.licdn.com/dms/image/C4D03AQHazaIQs2xaYQ/profile-displayphoto-shrink_200_200/0?e=1535587200&v=beta&t=D57hH_MeggXFnIW7n98oGzfrPcnRfUyKbdFCviN6F9o',
+        image: 'https://imgur.com/jHu8V3j.png',
         email: 'james@james.com',
         password: 'james',
         passwordConfirmation: 'james'
       }, {
         firstName: 'Bianca',
         lastName: 'Jemsten',
-        image: 'https://media.licdn.com/dms/image/C5603AQGP8ydXXjyNfw/profile-displayphoto-shrink_200_200/0?e=1535587200&v=beta&t=LWRubHnaKF4b7smqh27er3vnUFtcf6UxgwiF7A8sS2A',
+        image: 'https://imgur.com/5pcLX9p.png',
         email: 'bianca@bianca.com',
         password: 'bianca',
         passwordConfirmation: 'bianca'
